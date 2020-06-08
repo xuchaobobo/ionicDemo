@@ -1,0 +1,23 @@
+<!--
+ * @Author: your name
+ * @Date: 2020-04-03 16:56:05
+ * @LastEditTime: 2020-04-08 13:19:00
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \app\src\app\module\tabtitle\tabtitle.component.html
+ -->
+<ion-toolbar color="primary">
+<ion-buttons slot="start" (click)="goBack()">
+    <!-- <ion-icon name="chevron-back-outline" size="large"></ion-icon> -->
+  <!-- <ion-back-button></ion-back-button> -->
+  <ion-back-button defaultHref="/"></ion-back-button>
+  </ion-buttons>
+  <ion-buttons slot="end">
+    <ion-menu-button autoHide="false" size="large" menuId='main' menuToggle>
+
+    </ion-menu-button>
+
+  </ion-buttons>
+  
+  <ion-title style="text-align:center">{{inpData}}</ion-title>
+</ion-toolbar>

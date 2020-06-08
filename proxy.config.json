@@ -1,0 +1,11 @@
+{
+    "/swns": {
+        "target": "http://10.6.13.208:8089/swns",
+        "secure": false,
+        "logLevel": "debug",
+        "changeOrigin": true,
+        "pathRewrite": {
+            "^/swns": ""
+        }
+    }
+}

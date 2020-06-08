@@ -1,0 +1,92 @@
+<!--
+ * @Author: your name
+ * @Date: 2020-04-03 16:56:05
+ * @LastEditTime: 2020-05-04 15:19:08
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \app\src\app\pages\interannual-variation\interannual-variation.page.html
+ -->
+<app-tabtitle [inpData]="titles"></app-tabtitle>
+
+<ion-content>
+  <ion-item lines='none'>
+    <ion-grid>
+      <ion-row>
+        <ion-col *ngFor='let select of seleceList'>
+          <ion-button expand="full" color="{{select.flag?'primary':'light'}}" (click)='changeSelect(select.id)'>
+            {{select.name}}</ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-item>
+  <ion-item (click)='selectSation()'>
+    <ion-input placeholder='站点选择' style='text-align: right;' [(ngModel)]="stationName"></ion-input>
+    <ion-label slot="end">
+      <ion-icon name="chevron-forward-outline"></ion-icon>
+    </ion-label>
+  </ion-item>
+  
+    <ion-grid>
+      <ion-row>
+        <ion-col size="6">
+           <ion-item lines="none">
+            <ion-label   style="width: 70px; min-width: 70px;">
+              开始时间
+            </ion-label>
+          <ion-datetime  value="2012" display-format="YYYY" cancel-text='取消' doneText='确定' picker-format="YYYY"
+            [(ngModel)]="startTime" placeholder='起始年份' (ionChange)="startTimeChange($event)"></ion-datetime>
+       
+         </ion-item>
+          </ion-col>
+        <ion-col size="6">
+         
+            <ion-item lines="none">
+              <ion-label   style="width: 70px; min-width: 70px;" >
+                截至时间
+              </ion-label>
+            <ion-datetime  value="2012" display-format="YYYY" cancel-text='取消' doneText='确定' picker-format="YYYY"
+              [(ngModel)]="endTime" placeholder='截止年份' (ionChange)="endTimeChange($event)"></ion-datetime>
+             
+         </ion-item>
+        </ion-col>
+
+      </ion-row>
+    </ion-grid>
+    <ion-grid>
+      <ion-row>
+        <ion-col size="6">
+           <ion-item lines="none">
+            <ion-label  style="width: 70px; min-width: 70px;">
+              平均时间
+            </ion-label>
+          <ion-datetime  value="2012" display-format="YYYY" cancel-text='取消' doneText='确定' picker-format="YYYY"
+            [(ngModel)]="startContraTime" placeholder='起始年份' (ionChange)="startContraTimeChange($event)"></ion-datetime>
+       
+         </ion-item>
+          </ion-col>
+        <ion-col size="6">
+         
+            <ion-item lines="none">
+              <ion-label   style="width: 70px; min-width: 70px;" >
+                平均截至
+              </ion-label>
+            <ion-datetime  value="2012" display-format="YYYY" cancel-text='取消' doneText='确定' picker-format="YYYY"
+              [(ngModel)]="endContraTime" placeholder='截止年份' (ionChange)="endContraTimeChange($event)"></ion-datetime>
+             
+         </ion-item>
+        </ion-col>
+
+      </ion-row>
+    </ion-grid>
+  
+  <ion-item lines='none'>
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <ion-button expand="full" color="primary" (click)='searchData()'>查询</ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-item>
+  <div id='interVarchart' class="interVarchart"></div>
+</ion-content>

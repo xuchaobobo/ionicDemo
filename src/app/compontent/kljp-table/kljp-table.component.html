@@ -1,0 +1,61 @@
+<!--
+ * @Author: your name
+ * @Date: 2020-05-15 16:17:06
+ * @LastEditTime: 2020-05-15 17:17:21
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \app\src\app\compontent\kljp-table\kljp-table.component.html
+ -->
+ <ion-toolbar color="primary">
+  <ion-buttons slot="start" >
+      <!-- <ion-icon name="chevron-back-outline" size="large"></ion-icon> -->
+      <ion-button color="warning" type="button" fill="outline" (click)='dissView()'> 关闭</ion-button>
+    </ion-buttons>
+    <!-- <ion-buttons slot="end">
+      <ion-button color="light" type="button" fill="outline" (click)='fileUpLoad()'>
+        开始上传
+      </ion-button>
+  
+    </ion-buttons> -->
+  </ion-toolbar>
+<ion-content>
+  <ion-item>
+  <ion-buttons slot="end">
+
+    <ion-button color="warning" type="button" fill="outline" (click)='dissView()'> 关闭</ion-button>
+
+
+  </ion-buttons>
+  </ion-item>
+  <ion-item>
+    <ion-text>
+      {{stnm}}
+    </ion-text>
+  </ion-item>
+  <ngx-datatable class="material  striped" [messages]='message' [headerHeight]="50" [footerHeight]="50" rowHeight="auto" [scrollbarH]="true"
+    [virtualization]="true" [rows]="rows">
+    <ngx-datatable-column name="时间" prop="dt">
+
+      <ng-template let-value="value" let-class='class' ngx-datatable-cell-template>
+
+        {{ value }}
+      </ng-template>
+    </ngx-datatable-column>
+    <ngx-datatable-column name="上限粒径(mm)" prop="ltpd">
+
+      <ng-template let-value="value" let-class='class' ngx-datatable-cell-template>
+
+        {{ value }}
+      </ng-template>
+    </ngx-datatable-column>
+    <ngx-datatable-column name="平均沙重百分比(%)" prop="avswpct" [width]='186'>
+
+      <ng-template let-value="value" ngx-datatable-cell-template>
+
+        {{ value }}
+      </ng-template>
+    </ngx-datatable-column>
+
+
+  </ngx-datatable>
+</ion-content>

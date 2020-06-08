@@ -1,0 +1,35 @@
+<ion-toolbar color="primary">
+  <ion-buttons slot="start" >
+      <!-- <ion-icon name="chevron-back-outline" size="large"></ion-icon> -->
+      <ion-button color="light" type="button" fill="outline" (click)='dissView()'> 关闭</ion-button>
+    </ion-buttons>
+    <!-- <ion-buttons slot="end">
+      <ion-button color="light" type="button" fill="outline" (click)='fileUpLoad()'>
+        开始上传
+      </ion-button>
+  
+    </ion-buttons> -->
+  </ion-toolbar>
+<ion-content>
+  <ion-slides style="touch-action: none;">
+    <ion-slide *ngFor='let item of slideList'>
+      <div  style="width: 100%;">
+        <div style="width: 100%;">
+          <ion-item-divider>
+            <ion-label>
+              {{item.title}}
+            </ion-label>
+          </ion-item-divider>
+        </div>
+        
+        <div id='{{item.id}}'  class="klchart"></div>
+        <div style="text-align: left;padding: 0 20px;">
+          <div>{{item.avpd}}</div>
+          <div>{{item.mxpd}}</div>
+          <div>{{item.mdpd}}</div>
+        </div>
+      </div>
+      
+    </ion-slide>
+  </ion-slides>
+</ion-content>

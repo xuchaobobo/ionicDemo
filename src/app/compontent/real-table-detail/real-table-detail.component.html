@@ -1,0 +1,74 @@
+<ion-toolbar color="primary">
+  
+    <ion-buttons slot="end">
+      <ion-button color="warning" type="button" fill="outline" (click)='dissView()'> 关闭</ion-button>
+  
+    </ion-buttons>
+    
+  </ion-toolbar>
+<ion-content>
+  
+  <ion-item>
+    <ion-text>
+      {{stnm}}
+    </ion-text>
+  </ion-item>
+  <ngx-datatable 
+  class="material  striped" *ngIf='tableObj.filedName=="mdpd"' style='height: 80%;' [scrollbarV]="true" [rowHeight]="50"  [messages]='message'  [headerHeight]="50" [footerHeight]="50" rowHeight="auto" [scrollbarH]="true"
+    [virtualization]="true" [rows]="rows">
+    <ngx-datatable-column name="时间" [frozenLeft]='true' prop="dt" [width]='200'>
+
+      <ng-template let-value="value" let-class='class' ngx-datatable-cell-template>
+
+        {{ value | timeFormat }}
+      </ng-template>
+    </ngx-datatable-column>
+    <ngx-datatable-column name="中数粒径(mm)" prop="mdpd" [width]='94'>
+
+      <ng-template let-value="value" let-class='class' ngx-datatable-cell-template>
+
+        {{ value }}
+      </ng-template>
+    </ngx-datatable-column>
+    <ngx-datatable-column name="平均粒径(mm)" prop="avpd" [width]='94'>
+
+      <ng-template let-value="value" ngx-datatable-cell-template>
+
+        {{ value }}
+      </ng-template>
+    </ngx-datatable-column>
+    <ngx-datatable-column name="最大粒径(mm)" prop="mxpd" [width]='94'>
+
+      <ng-template let-value="value" ngx-datatable-cell-template>
+
+        {{ value }}
+      </ng-template>
+    </ngx-datatable-column>
+    <!-- <ngx-datatable-column name="详情" prop="mxpd" [width]='80'>
+
+      <ng-template let-value="value" let-row='row' ngx-datatable-cell-template>
+
+        <ion-button size='small' （click)='showDdb(row.dt)'>查看</ion-button>
+      </ng-template>
+    </ngx-datatable-column> -->
+  </ngx-datatable>
+  <ngx-datatable class="material  striped" *ngIf='tableObj.filedName!="mdpd"' style='height: 80%;' [scrollbarV]="true" [rowHeight]="50" [messages]='message' [headerHeight]="50" [footerHeight]="50"  [scrollbarH]="true"
+   [rows]="rows">
+    <ngx-datatable-column name="时间" prop="dt" [width]='200'>
+
+      <ng-template let-value="value" let-class='class' ngx-datatable-cell-template>
+
+        {{ value | timeFormat}}
+      </ng-template>
+    </ngx-datatable-column>
+    <ngx-datatable-column name="{{tableObj.dataName}}" prop="{{tableObj.filedName}}">
+
+      <ng-template let-value="value" let-class='class' ngx-datatable-cell-template>
+
+        {{ value }}
+      </ng-template>
+    </ngx-datatable-column>
+
+
+  </ngx-datatable>
+</ion-content>

@@ -1,0 +1,68 @@
+<!--
+ * @Author: your name
+ * @Date: 2020-05-05 21:16:34
+ * @LastEditTime: 2020-05-05 21:48:12
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \app\src\app\compontent\section-select\section-select.component.html
+ -->
+ <ion-toolbar color="primary">
+  <ion-buttons slot="end" >
+      <!-- <ion-icon name="chevron-back-outline" size="large"></ion-icon> -->
+      <ion-button color="warning"  type="button" fill="outline" (click)='dissView()'  > 取消选择</ion-button>
+        <ion-button color="secondary"  expand="block" fill="outline" (click)='selestData()' type="button">确定</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+<ion-content>
+ 
+  <ion-grid>
+    <ion-row>
+      <ion-col size='5'>
+        <ion-list class="fenList" >
+          <ion-item-group *ngFor="let item of menulists" >
+         
+          <ion-item-divider  class="item_title" [ngClass]="{'active':item.active}" (click)='fenquSelect(item)'>
+              <ion-label   type="button" > {{item.title}}</ion-label>
+              <!-- <ion-checkbox slot="end" [(ngModel)]="item.isChecked"></ion-checkbox> -->
+          </ion-item-divider>
+            <ion-list *ngIf='item.children.length>0' style="padding-left: 20px;" >
+              <ion-item lines="none" *ngFor="let menu of item.children" [ngClass]="{'active':menu.active}" (click)='fenquSelect(menu)' class="item_contents">
+                <ion-label   type="button"> {{menu.title}}</ion-label>
+                <!-- <ion-checkbox slot="end" [(ngModel)]="item.isChecked"></ion-checkbox> -->
+              </ion-item>
+            </ion-list>
+            
+          
+          </ion-item-group>
+          </ion-list> 
+          <!-- <div style='width: 100%;height: 300px;'>
+            <ul id="myZtree" class="ztree"  style='width: 100%;
+            background: none;
+            border: none;'></ul>
+          </div> -->
+      </ion-col>
+      <ion-col size='7'>
+        <ion-list>
+          <ion-item-group *ngFor="let item of riverList" >
+         
+          <ion-item-divider  class="item_title" (click)='riverSelect(item)'>
+              <ion-label   type="button" > {{item.name}}</ion-label>
+              <ion-icon slot='end' name="caret-down-outline"></ion-icon>
+          </ion-item-divider>
+            <ion-list *ngIf='item.children.length>0' >
+              <ion-grid>
+                <ion-row>
+                  <ion-col size=4 *ngFor='let select of item.children'>
+                    <ion-button expand="full" color="{{select.flag?'primary':'light'}}" (click)='changeSelect(select)'>{{select.XSNM}}</ion-button>
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+            </ion-list>
+            
+          
+          </ion-item-group>
+          </ion-list> 
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

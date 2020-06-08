@@ -1,0 +1,91 @@
+<!--
+ * @Author: your name
+ * @Date: 2020-04-18 21:08:23
+ * @LastEditTime: 2020-05-15 17:50:40
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \app\src\app\pages\zb-table\zb-table.page.html
+ -->
+ <app-tabtitle [inpData]="titles"></app-tabtitle>
+
+
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col *ngFor='let select of seleceList'>
+        <ion-button expand="full" size='small' color="{{select.flag?'primary':'light'}}" (click)='changeSelect(select)'>{{select.name}}</ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-item (click)='selectRiver()'>
+    <ion-input  placeholder='站点选择' style='text-align: right;' [(ngModel)]="stationName"></ion-input>
+    <ion-label  slot="end" >
+      <ion-icon name="chevron-forward-outline" ></ion-icon>
+    </ion-label>
+
+  </ion-item>
+   
+  <ion-grid>
+    <ion-row>
+      <ion-col size="6">
+         <ion-item lines="none">
+        <ion-datetime slot="start" style='width: 61%;' value="2012-12-15" display-format='YYYY' picker-format="YYYY"  cancel-text='取消' doneText='确定'
+          [(ngModel)]="startTime" placeholder='起始时间' (ionChange)="startTimeChange($event)"></ion-datetime>
+      <ion-label  position="fixed" class='timeLable' >
+            <ion-icon name="chevron-forward-outline"></ion-icon>
+          </ion-label>
+       </ion-item>
+        </ion-col>
+      <ion-col size="6">
+       
+          <ion-item lines="none">
+
+          <ion-datetime slot="start" style='width: 61%;' value="2012-12-15" display-format='YYYY' cancel-text='取消' doneText='确定' picker-format="YYYY"
+            [(ngModel)]="endTime" placeholder='截止时间' (ionChange)="endTimeChange($event)"></ion-datetime>
+            <ion-label  position="fixed"  class='timeLable' >
+            <ion-icon name="chevron-forward-outline"></ion-icon>
+          </ion-label>
+       </ion-item>
+      </ion-col>
+
+    </ion-row>
+  </ion-grid>
+  <ion-item lines='none'>
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <ion-button expand="full" color="primary" (click)='getYearData()'>查询</ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-item>
+  <ngx-datatable
+  class="material  striped"
+  [messages]='message'
+  [headerHeight]="50"
+  [footerHeight]="50"
+  [scrollbarH]="true" 
+  [virtualization]="true"
+  [treeFromRelation]="'parentId'"
+  [treeToRelation]="'id'"
+  [rows]="rows"
+  (activate)="onActivate($event)"
+  (treeAction)="onTreeAction($event)"
+  style='height: 60%;' [scrollbarV]="true" [rowHeight]="50"
+>
+<ngx-datatable-column  name="时间/{{unit}}" [frozenLeft]='true' headerClass="marginLeft" [cellClass]="setMargin" prop="yr" [width]='186'  [isTreeColumn]="true">
+  
+    <ng-template let-value="value" let-class='class'  headerClass="marginLeft"  ngx-datatable-cell-template >
+  
+      {{ value }}
+  </ng-template>
+  
+</ngx-datatable-column>
+  <ngx-datatable-column *ngFor="let item of cols" [width]='100' name="{{item.stnm}}" prop="{{item.stcd}}">
+    <ng-template let-value="value" ngx-datatable-cell-template>
+      {{ value }}
+    </ng-template>
+  </ngx-datatable-column>
+  
+</ngx-datatable>
+</ion-content>

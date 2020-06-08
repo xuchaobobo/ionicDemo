@@ -1,0 +1,71 @@
+<!--
+ * @Author: your name
+ * @Date: 2020-04-03 16:56:05
+ * @LastEditTime: 2020-05-05 11:12:27
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \app\src\app\pages\ann-avg-line\ann-avg-line.page.html
+ -->
+<app-tabtitle [inpData]="titles"></app-tabtitle>
+
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col *ngFor='let select of seleceList'>
+        <ion-button expand="full" color="{{select.flag?'primary':'light'}}" (click)='changeSelect(select.id)'>
+          {{select.name}}</ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-item (click)='selectSation()'>
+    <ion-input placeholder='站点选择' style='text-align: right;' [(ngModel)]="stationName"></ion-input>
+    <ion-label slot="end">
+      <ion-icon name="chevron-forward-outline"></ion-icon>
+    </ion-label>
+  </ion-item>
+  <ion-item lines='none'>
+    <ion-label></ion-label>
+    <ion-select multiple="true" value="2018"  style="text-align: right;" [(ngModel)]="selectYear" interface="action-sheet" placeholder='选择时间'
+          okText="确定" cancelText="取消">
+          <ion-select-option value="{{year.value}}" *ngFor="let year of years">{{year.value}}年</ion-select-option>
+        </ion-select>
+  </ion-item>
+  <ion-grid>
+    <ion-row>
+      <ion-col size="6">
+         <ion-item lines="none">
+          <ion-label   style="width: 70px; min-width: 70px;">
+            开始时间
+          </ion-label>
+        <ion-datetime  value="2012" display-format="YYYY" cancel-text='取消' doneText='确定' picker-format="YYYY"
+          [(ngModel)]="startTime" placeholder='起始年份' (ionChange)="startTimeChange($event)"></ion-datetime>
+     
+       </ion-item>
+        </ion-col>
+      <ion-col size="6">
+       
+          <ion-item lines="none">
+            <ion-label   style="width: 70px; min-width: 70px;" >
+              截至时间
+            </ion-label>
+          <ion-datetime  value="2012" display-format="YYYY" cancel-text='取消' doneText='确定' picker-format="YYYY"
+            [(ngModel)]="endTime" placeholder='截止年份' (ionChange)="endTimeChange($event)"></ion-datetime>
+           
+       </ion-item>
+      </ion-col>
+
+    </ion-row>
+  </ion-grid>
+  
+  
+  <ion-item lines='none'>
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <ion-button expand="full" color="primary" (click)='searchData()'>查询</ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-item>
+  <div id='annAvgchart' class="annAvgchart"></div>
+</ion-content>>

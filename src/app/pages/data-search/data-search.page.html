@@ -1,0 +1,40 @@
+<!--
+ * @Author: your name
+ * @Date: 2020-04-16 17:32:16
+ * @LastEditTime: 2020-04-22 10:06:04
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \app\src\app\pages\data-search\data-search.page.html
+ -->
+<!-- <ion-toolbar color="primary">
+  
+    <ion-buttons slot="end">
+      <ion-menu-button autoHide="false" size="large" menuId='main' menuToggle>
+  
+      </ion-menu-button>
+  
+    </ion-buttons>
+    
+    <ion-title style="text-align:center">数据查询</ion-title>
+  </ion-toolbar> -->
+
+<ion-content>
+  <div *ngFor="let item of lists" >
+    <ion-item lines="none" color='primary' class="item_title">
+   
+      <ion-label>{{item.title}}</ion-label>
+    
+    </ion-item>
+    <ion-item lines="none" class="item_contents">
+    <ion-grid>
+       <ion-row>
+         <ion-col size="3" *ngFor="let menu of item.menus" [routerLink]="[menu.url]" >
+          <div><ion-icon  class='iconfont {{menu.icon}}'></ion-icon></div>
+             
+           <ion-text style="font-size: 12px">{{menu.title}}</ion-text>
+         </ion-col>
+       </ion-row>
+    </ion-grid>
+    </ion-item>
+     </div>
+</ion-content>

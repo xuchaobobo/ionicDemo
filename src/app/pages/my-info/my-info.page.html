@@ -1,0 +1,26 @@
+
+<ion-content>
+	<div style="width: 100%;text-align: center;padding: 30px 0;
+    margin-top: 20px;">
+		<ion-avatar style='position: relative;
+    left: 50%;
+    margin-left: -32px;margin-bottom: 20px'>
+		<ion-icon name="person" style="font-size: 60px"></ion-icon>
+		
+		</ion-avatar>
+		<label>{{useName}}</label>
+	</div>
+	
+	<ion-item button="" [routerLink]="[info.url]"  *ngFor="let info of infoList" >
+      <ion-nav-link style="width: 100%">
+	 <ion-icon  name="{{info.icon}}" style="color: #CE6296;" role="img" >
+		
+	 </ion-icon>
+      <ion-text >
+		        {{info.text}}
+      </ion-text>
+
+      <ion-badge *ngIf="info.badgeFlag" style='float: right'>{{info.badge}}</ion-badge>
+	</ion-nav-link>
+    </ion-item>
+</ion-content>

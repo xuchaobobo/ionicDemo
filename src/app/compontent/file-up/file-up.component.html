@@ -1,0 +1,127 @@
+<!--
+ * @Author: your name
+ * @Date: 2020-05-18 15:21:34
+ * @LastEditTime: 2020-05-18 16:58:04
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \app\src\app\compontent\file-up\file-up.component.html
+--> 
+<ion-toolbar color="primary">
+  <ion-buttons slot="start" (click)="closeFile()">
+      <!-- <ion-icon name="chevron-back-outline" size="large"></ion-icon> -->
+      <ion-button >
+         关闭
+      </ion-button>
+    </ion-buttons>
+    <!-- <ion-buttons slot="end">
+      <ion-button color="light" type="button" fill="outline" (click)='fileUpLoad()'>
+        开始上传
+      </ion-button>
+  
+    </ion-buttons> -->
+  </ion-toolbar>
+<ion-content>
+    <ion-card>
+      <ion-card-header>
+        文件上传操作
+      </ion-card-header>
+      <ion-card-content>
+        <input #fileUpload hidden=true type="file" ng2FileSelect [uploader]="uploader" (change)="selectedFileOnChanged($event)" multiple />
+        <ion-button color="light" size='small' (click)="fileSelect()" >选择文件</ion-button>
+        <ion-button color="light" size='small' (click)="fileAllUp()" >全部上传</ion-button>
+        <ion-button color="light" size='small' (click)="fileAllCancel()" >全部取消</ion-button>
+        <ion-button color="light" size='small' (click)="fileAllDelete()" >清除列表</ion-button>
+        <input type="hidden" name="currentDirectory"  id='currentDirectory' [(ngModel)]='currentDirectory'>
+      </ion-card-content>
+    </ion-card>
+    <ion-card>
+      <ion-card-header>
+        上传文件列表
+      </ion-card-header>
+      <ion-card-content>
+        <p>已选文件数量: {{ uploader?.queue?.length }}</p>
+        <ion-grid>
+          <ion-row>
+            <ion-col size='3'>名称</ion-col>
+            <!-- <ion-col col-2="">保存名</ion-col> -->
+            <ion-col size='2'>文件大小</ion-col>
+            <ion-col size='2'>进度</ion-col>
+            <ion-col size='2'>状态</ion-col>
+            <ion-col size='3'>操作</ion-col>
+          </ion-row>
+    
+          <ion-row *ngFor="let item of uploader.queue">
+            <ion-col  size='3'><strong>{{ item?.file?.name }}</strong></ion-col>
+            <!-- <ion-col col-2><input type="text" (change)="changeFileName($event, item)"></ion-col> -->
+            <ion-col  size='2'>
+              <span>{{ item?.file?.size/1024/1024 | number:'.2' }} MB</span>
+            </ion-col>
+    
+            <ion-col  size='2'>
+              <div class="progress" style="margin-bottom: 0; height: 70%; width: 90%">
+                <div class="progress-bar"  style="margin-bottom: 0; height: 100%; background-color: red" role="progressbar" [ngStyle]="{ 'width': item.progress + '%' }"></div>
+              </div>
+            </ion-col>
+            <ion-col  size='2'>
+              <span *ngIf="item.isSuccess">成功</span>
+              <span *ngIf="!item.isUploaded">未上传</span>
+              <span *ngIf="item.isCancel">取消</span>
+              <span *ngIf="item.isError">错误</span>
+            </ion-col>
+            <ion-col  size='3'>
+              <button (click)="item.upload()" [disabled]="item.isReady || item.isUploading || item.isSuccess">
+                上传
+              </button>
+              <button (click)="item.cancel()" [disabled]="!item.isUploading">
+                取消
+              </button>
+              <button (click)="item.remove()">
+                清除
+              </button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card-content>
+    </ion-card>
+  <!-- <ngx-datatable
+  class="material  striped"
+  [messages]='message'
+  [headerHeight]="50"
+  [footerHeight]="50"
+  rowHeight="auto"
+  [scrollbarH]="true" 
+  [virtualization]="true"
+  
+  [rows]="rows"
+>
+<ngx-datatable-column  name="文件名" prop="name" >
+  
+    <ng-template let-value="value" ngx-datatable-cell-template >
+  
+      {{ value }}
+  </ng-template>
+  
+</ngx-datatable-column>
+<ngx-datatable-column  name="大小" [width]='82' prop="size" >
+  
+  <ng-template let-value="value" ngx-datatable-cell-template >
+    {{ (value/1014).toFixed(1) }}M
+   
+</ng-template>
+</ngx-datatable-column>
+<ngx-datatable-column  name="状态"   [width]='82' prop="status" >
+  
+  <ng-template let-value="value" ngx-datatable-cell-template >
+
+    {{ value==0?'等待上传':'上传成功' }}
+</ng-template>
+</ngx-datatable-column>
+<ngx-datatable-column  name="操作" prop="status" >
+  
+  <ng-template let-value="value" let-row="row" ngx-datatable-cell-template >
+    <ion-button color='secondary' *ngIf='row.status==2' size='small' (click)='uploadfileReload(row)'>重传</ion-button>
+    <ion-button color='warning' size='small' (click)='deleteData(row)'>删除</ion-button>
+</ng-template>
+</ngx-datatable-column>
+</ngx-datatable> -->
+</ion-content>

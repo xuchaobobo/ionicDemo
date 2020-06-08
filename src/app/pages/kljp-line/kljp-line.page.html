@@ -1,0 +1,86 @@
+<!--
+ * @Author: your name
+ * @Date: 2020-04-03 16:56:05
+ * @LastEditTime: 2020-05-05 11:26:45
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \app\src\app\pages\kljp-line\kljp-line.page.html
+ -->
+<app-tabtitle [inpData]="titles"></app-tabtitle>
+
+<ion-content>
+  <ion-item (click)='selectSation()'>
+    <ion-input placeholder='站点选择' style='text-align: right;' [(ngModel)]="stationName"></ion-input>
+    <ion-label slot="end">
+      <ion-icon name="chevron-forward-outline"></ion-icon>
+    </ion-label>
+
+  </ion-item>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+
+        <ion-select multiple="true" value="2018" style="text-align: right;" [(ngModel)]="selectYear"
+          interface="action-sheet" placeholder='选择时间' okText="确定" cancelText="取消">
+          <ion-select-option value="{{year.value}}" *ngFor="let year of years">{{year.value}}年</ion-select-option>
+        </ion-select>
+
+      </ion-col>
+      <ion-col *ngIf="dateType=='month'">
+
+        <ion-select multiple="true" value="1" style="text-align: right;" [(ngModel)]="selectedMonth"
+          interface="action-sheet" placeholder='选择时间' okText="确定" cancelText="取消" (ionChange)='monthChange($event)'>
+          <ion-select-option value="{{item}}" *ngFor="let item of momths">{{item}}月</ion-select-option>
+        </ion-select>
+      </ion-col>
+
+    </ion-row>
+  </ion-grid>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col *ngFor='let select of seleceList'>
+        <ion-button expand="full" color="{{select.flag?'primary':'light'}}" (click)='changeSelect(select.name)'>
+          {{select.name}}</ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-item lines='none'>
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <ion-button expand="full" color="primary" (click)="searchData()">查询</ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-item>
+  <ion-radio-group [(ngModel)]="dateType">
+
+    <ion-grid>
+      <ion-row>
+        <ion-col offset='6'>
+
+          <ion-item lines="none">
+            <ion-radio value="year"></ion-radio>
+            <ion-label style="text-align: center;">年</ion-label>
+            <ion-radio value="month"></ion-radio>
+            <ion-label style="text-align: center;">月</ion-label>
+
+          </ion-item>
+        </ion-col>
+
+      </ion-row>
+    </ion-grid>
+  </ion-radio-group>
+  <div id='kljpchart' class="kljpchart"></div>
+  <ion-grid>
+    <ion-row *ngFor="let item of klInfo" style="border: 1px solid #ddd;">
+
+      <ion-col size="6">{{item.title}}</ion-col>
+      <ion-col size="6">{{item.mdpd}}</ion-col>
+      <ion-col size="6">{{item.avpd}}</ion-col>
+      <ion-col size="6">{{item.mxpd}}</ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

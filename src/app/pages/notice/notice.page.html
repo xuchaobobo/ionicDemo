@@ -1,0 +1,10 @@
+<app-tabtitle [inpData]="titles"></app-tabtitle>
+
+<ion-content>
+	<ion-list>
+		<ion-item *ngFor='let note of notes'>
+			<ion-label>{{note.label}}</ion-label>
+			<ion-note slot = 'end'>{{note.time}}</ion-note>
+		</ion-item>
+	</ion-list>
+</ion-content>

@@ -1,0 +1,38 @@
+<!--
+ * @Author: your name
+ * @Date: 2020-04-03 16:56:05
+ * @LastEditTime: 2020-05-05 16:55:09
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \app\src\app\pages\kurong\kurong.page.html
+ -->
+<app-tabtitle [inpData]="titles"></app-tabtitle>
+
+<ion-content>
+	<ion-item>
+		<ion-label>
+
+		</ion-label>
+		<ion-select value="朱沱" [(ngModel)]="selectedStation" interface="action-sheet" placeholder='选择站点' okText="确定" cancelText="取消">
+			<ion-select-option *ngFor="let item of stationList" value="{{item.stcd}}" >{{item.ndnm}}</ion-select-option>
+			
+		</ion-select>
+	</ion-item>
+	<ion-item>
+		<ion-label>
+
+		</ion-label>
+		<ion-datetime value="2012-12-15T13:47:20.789" [(ngModel)]="time" done-text="确定" cancel-text="取消" pickerFormat="YYYY MM DD" displayFormat='YYYY MM DD' >
+		</ion-datetime>
+	</ion-item>
+	<ion-item>
+		<ion-grid>
+			<ion-row>
+				<ion-col>
+					<ion-button expand="full" color="primary" (click)='searchData()'>查询</ion-button>
+				</ion-col>
+			</ion-row>
+		</ion-grid>
+	</ion-item>
+	<div id='kurongchart' class="kurongchart"></div>
+</ion-content>

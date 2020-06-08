@@ -1,0 +1,29 @@
+
+<ion-header  >
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start" >
+      <!-- <ion-icon name="chevron-back-outline" size="large"></ion-icon> -->
+      <ion-button (click)="goBack()">
+        <ion-back-button defaultHref="/"></ion-back-button>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>关于</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item>
+      App名称：{{appName}}
+    </ion-item>
+    <ion-item>
+      Package名称：{{packageName}}
+    </ion-item>
+    <ion-item>
+      VersionCode：{{versionCode}}
+    </ion-item>
+    <ion-item>
+      版本号：{{versionNumber}}
+    </ion-item>
+  </ion-list>
+</ion-content>

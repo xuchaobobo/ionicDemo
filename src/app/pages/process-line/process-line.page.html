@@ -1,0 +1,96 @@
+<!--
+ * @Author: your name
+ * @Date: 2020-04-03 16:56:05
+ * @LastEditTime: 2020-04-30 13:31:48
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \app\src\app\pages\process-line\process-line.page.html
+ -->
+<app-tabtitle [inpData]="titles"></app-tabtitle>
+
+<ion-content>
+  <ion-item lines='none'>
+    <ion-grid>
+      <ion-row>
+        <ion-col *ngFor='let select of seleceList'>
+          <ion-button expand="full" color="{{select.flag?'primary':'light'}}" (click)='changeSelect(select)'>{{select.name}}</ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-item>
+  <ion-item (click)='selectSation()'>
+    <ion-input  placeholder='站点选择' style='text-align: right;' [(ngModel)]="stationName"></ion-input>
+    <ion-label  slot="end" >
+      <ion-icon name="chevron-forward-outline" ></ion-icon>
+    </ion-label>
+
+  </ion-item>
+  
+  <ion-grid>
+    <ion-row>
+      <ion-col size="6">
+         <ion-item lines="none">
+        <ion-datetime slot="start" style='width: 61%;' value="2012-12-15" [displayFormat]="startDisTime" [pickerFormat]="startPicTime"  cancel-text='取消' doneText='确定'
+          [(ngModel)]="startDay" placeholder='起始时间' (ionChange)="startTimeChange($event)"></ion-datetime>
+      <ion-label  position="fixed" class='timeLable' >
+            <ion-icon name="chevron-forward-outline"></ion-icon>
+          </ion-label>
+       </ion-item>
+        </ion-col>
+      <ion-col size="6">
+       
+          <ion-item lines="none">
+
+          <ion-datetime slot="start" style='width: 61%;' value="2012-12-15" [displayFormat]="endDisTime" cancel-text='取消' doneText='确定' [pickerFormat]="endPicTime"
+            [(ngModel)]="endDay" placeholder='截止时间' (ionChange)="endTimeChange($event)"></ion-datetime>
+            <ion-label  position="fixed"  class='timeLable' >
+            <ion-icon name="chevron-forward-outline"></ion-icon>
+          </ion-label>
+       </ion-item>
+      </ion-col>
+
+    </ion-row>
+  </ion-grid>
+  
+  <ion-item lines='none'>
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <ion-button expand="full" color="primary" (click)='doProcessLine()'>查询</ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-item>
+  <ion-radio-group [(ngModel)]="dateType" (ionChange)='dateTypeChange($event)'>
+    
+    <ion-grid>
+        <ion-row>
+          <ion-col offset='6'>
+           
+            <ion-item lines="none">
+              <ion-radio value="year"></ion-radio>
+        <ion-label  style="text-align: center;">年</ion-label>
+        <ion-radio value="month"></ion-radio>
+        <ion-label style="text-align: center;">月</ion-label>
+        <ion-radio value="day"></ion-radio>
+        <ion-label style="text-align: center;">日</ion-label>
+        
+      </ion-item>
+          </ion-col>
+       
+        </ion-row>
+      </ion-grid> 
+    </ion-radio-group>
+  <div id='processLinechart' class="processLinechart"></div>
+  <ion-grid *ngIf="maxAndMinList.length>0">
+    <ion-row *ngFor="let item of maxAndMinList" style="border: 1px solid #ddd;">
+    
+      <ion-col size="6" >年：{{item.yr}}</ion-col>
+      <ion-col size="6" >站点：{{item.stnm}}</ion-col>
+      <ion-col size="6" >平均值：{{item.avz}}</ion-col>
+      <ion-col size="12" >最高值日期：{{item.htzdt}}</ion-col>
+      <ion-col size="6" >最大值：{{item.htz}}</ion-col>
+      <ion-col size="12" >最小值日期：{{item.mnzdt}}</ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

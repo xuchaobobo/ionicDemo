@@ -1,3 +1,37 @@
+<!--
+ * @Author: your name
+ * @Date: 2020-04-03 16:56:05
+ * @LastEditTime: 2020-04-08 13:16:05
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \app\src\app\app.component.html
+ -->
 <ion-app>
-  <ion-router-outlet></ion-router-outlet>
+<ion-menu contentId="main" side="end" type="overlay" menuId='main'  class="my-custom-menu" >
+    <ion-content >
+      <ion-list>
+      <div *ngFor="let item of menulists" >
+         <ion-item lines="none" class="item_title">
+
+         <h6>{{item.title}}</h6>
+         
+         </ion-item>
+         <ion-item lines="none" class="item_contents">
+         <ion-grid>
+            <ion-row>
+              <ion-col size="6" *ngFor="let menu of item.menus" [routerLink]="[menu.url]" style="text-align: center" >
+              <div><ion-icon  class='iconfont {{menu.icon}}'></ion-icon></div>
+                  
+                <ion-text style="font-size: 12px">{{menu.title}}</ion-text>
+              </ion-col>
+            </ion-row>
+         </ion-grid>
+         </ion-item>
+          </div>
+        
+      </ion-list>
+    </ion-content>
+  </ion-menu>
+ 
+  <ion-router-outlet id="main"></ion-router-outlet>
 </ion-app>

@@ -1,0 +1,75 @@
+<!--
+ * @Author: your name
+ * @Date: 2020-04-03 16:56:05
+ * @LastEditTime: 2020-04-20 09:16:43
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \app\src\app\pages\river-info\river-info.page.html
+ -->
+<app-tabtitle [inpData]="titles"></app-tabtitle>
+
+<ion-content>
+  <ion-item>
+    <ion-label></ion-label>
+    <ionic-selectable
+    [(ngModel)]="stationWater"
+    [items]="stationWaterList"
+    itemValueField="stcd"
+    itemTextField="stnm"
+    [canSearch]="true"
+    style='text-align: right;'
+    (onChange)="staionChange($event)">
+    <ng-template ionicSelectableCloseButtonTemplate>
+      <ion-icon name="close-circle" style="font-size: 24px;"></ion-icon>
+    </ng-template>
+  </ionic-selectable>
+    <!-- <ion-select name='stnm' value="60106980" (ionChange)="staionChange($event)" [(ngModel)]='stationWater'
+      interface="action-sheet" placeholder='选择站点' okText="确定" cancelText="取消">
+      <ion-select-option *ngFor='let item of stationWaterList' [value]="item.stcd">{{item.stnm}} </ion-select-option>
+
+    </ion-select> -->
+
+  </ion-item>
+  <ion-item lines='none'>
+    <ion-label>
+      起始时间
+    </ion-label>
+    <ion-datetime  value="2012-12-15"
+      display-format="YYYY/MM/DD HH:mm:ss" cancel-text='取消' doneText='确定' picker-format="YYYY MM DD H:mm:ss"
+      [(ngModel)]="startTime"  (ionChange)='startTimeChange($event)' ></ion-datetime>
+   
+  </ion-item>
+  <ion-item lines='none'>
+    <ion-label >
+      截止时间
+    </ion-label>
+    <ion-datetime  value="2012-12-15"
+      display-format="YYYY/MM/DD HH:mm:ss" cancel-text='取消' doneText='确定' picker-format="YYYY MM DD H:mm:ss"
+      [(ngModel)]="endTime"  (ionChange)='endTimeChange($event)'></ion-datetime>
+    
+  </ion-item>
+
+  <ion-item lines='none'>
+    <ion-segment (ionChange)="segmentChanged($event)" value='tab1'>
+      <ion-segment-button value="tab1" type="button">
+        <ion-label>入出库流量过程</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="tab2" type="button">
+        <ion-label>水位蓄水量对比</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="tab3" type="button">
+        <ion-label>实时报讯特征值</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+  </ion-item>
+  <ion-item lines='none'>
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <ion-button expand="full" color="primary" (click)="getTabData()">查询</ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-item>
+  <div id='riverInfochart' class="riverInfochart"></div>
+</ion-content>

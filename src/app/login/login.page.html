@@ -1,0 +1,56 @@
+<!--
+ * @Author: your name
+ * @Date: 2020-04-03 16:56:05
+ * @LastEditTime: 2020-04-13 11:59:35
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \app\src\app\login\login.page.html
+ -->
+<!-- <ion-header>
+  <ion-toolbar>
+    <ion-title>登录</ion-title>
+  </ion-toolbar>
+</ion-header> -->
+
+<ion-content>
+	<div style="height: 20%;background-color: rgb(37, 142, 218);">
+
+	</div>
+	<div style="height: 24%;text-align: center;    padding: 40px 0;">
+		<img src="assets/image/login.png">
+		<div style="font-size: 24px;
+		color: rgb(37, 142, 218);;
+		line-height: 60px;
+		font-weight: 900;"> 梯级水库水文泥沙信息管理分析系统</div>
+	</div>
+	<div style="height: 36%;padding: 30px 46px;">
+		<ion-item style='border: 1px solid rgb(37, 142, 218);'>
+			<ion-icon class="iconfont icon-config-account"></ion-icon>
+			<ion-label fixed></ion-label>
+			<ion-input type="text" style="height: 48px;line-height: 48px" [(ngModel)]='name' placeholder="手机账号" ></ion-input>
+		</ion-item>	
+		<ion-item  style='border: 1px solid rgb(37, 142, 218);;margin: 12px 0;'>
+			<ion-icon class="iconfont icon-mima"></ion-icon>
+			<ion-label fixed></ion-label>
+			<ion-input type="password" style="height: 48px;line-height: 48px" [(ngModel)]='password' placeholder="登录密码"></ion-input>
+		</ion-item>	
+		<!-- <ion-item lines="none" style="float: right">
+			<a  color="primary" style="text-decoration: none" href="#">忘记密码</a>
+			
+		</ion-item> -->
+	
+		<div style="text-align: center;">
+			<ion-button expand="block" style="height: 48px;
+		font-size: 18px;" color="primary" (click)='logIn()'>
+				登录
+			</ion-button>
+		</div>
+	</div>
+	<div style="height: 20%;background-color: rgb(37, 142, 218);">
+		<img src="assets/image/applog.gif" alt="">
+	</div>
+	<!-- <div style="text-align: center;margin-left: 30px;margin-right: 30px; margin-top: 70px;">
+		<a  color="primary" style="text-decoration: none" href="#">创建账号</a>
+	</div> -->
+
+</ion-content>
