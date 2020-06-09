@@ -589,10 +589,10 @@ var maxInqTm;
               trigger: 'axis'
         },
         grid:{
-          top : 50,
-          left : 20,
-          right : 30,
-          bottom : 10,
+          // top : 50,
+          // left : 20,
+          // right : 30,
+          // bottom : 10,
           containLabel: true
         },
           legend: {

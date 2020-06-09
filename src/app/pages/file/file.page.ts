@@ -186,8 +186,10 @@ export class FilePage implements OnInit {
   downLoadFile(){
     let dirpath=_.filter(this.dirList,{path:this.selectDir})
     const fileTransfer: FileTransferObject = this.transfer.create();
-    const url = 'swns/file/download.gaeaway?files='+JSON.stringify(dirpath)
-    let downHeaders = new Headers({'Authorization': AppConfig.token})
+    // const url = 'swns/file/download.gaeaway?files='+JSON.stringify(dirpath)
+    const url = 'http://10.6.13.210:8200/share/shine.js'
+    let downHeaders = new Headers({'accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8','Authorization': AppConfig.token,'accept-encoding': 'gzip,deflate,sdch',
+    'accept-language': 'zh-CN,zh;q=0.8,en;q=0.6'})
    let downOptions= new RequestOptions({headers:downHeaders})
     let targetDir=this.file.externalRootDirectory 
     alert(targetDir)
@@ -197,8 +199,8 @@ export class FilePage implements OnInit {
       'accept-language': 'zh-CN,zh;q=0.8,en;q=0.6'
     };
     // alert(targetDir)
-    //  const url = 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1590487530824&di=980961af5515a3723f31e3afdf4aa743&imgtype=0&src=http%3A%2F%2Fpic5.nipic.com%2F20100225%2F1399111_094253001130_2.jpg';
-  fileTransfer.download(url, targetDir+ 'hosts.txt').then((entry) => {
+      // const url = 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1590487530824&di=980961af5515a3723f31e3afdf4aa743&imgtype=0&src=http%3A%2F%2Fpic5.nipic.com%2F20100225%2F1399111_094253001130_2.jpg';
+  fileTransfer.download(url, targetDir+ 'shine.js',false,downOptions).then((entry) => {
     alert('download complete: ' + entry.toURL());
     alert(JSON.stringify(entry));
   }, (error) => {

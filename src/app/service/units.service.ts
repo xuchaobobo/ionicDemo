@@ -11,6 +11,17 @@ import * as _ from 'lodash';
 import * as moment from 'moment';
 import { TreeviewItem } from 'ngx-treeview'
 import { ProviderService } from './provider.service'
+
+// import { ConfigProvider } from '../config/config';
+import { AlertController,LoadingController,Platform,ToastController } from '@ionic/angular';
+import { AppVersion } from '@ionic-native/app-version/ngx';
+import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer/ngx';
+import { File } from '@ionic-native/file/ngx';
+import { FileOpener } from '@ionic-native/file-opener/ngx';
+import { AndroidPermissions } from '@ionic-native/android-permissions/ngx';
+import { FileChooser } from '@ionic-native/file-chooser/ngx';
+import { FilePath } from '@ionic-native/file-path/ngx'
+
 @Injectable({
 	providedIn: 'root'
 })
@@ -39,11 +50,274 @@ export class UnitsService {
 	}
 	constructor(
 		public httpService: ProviderService,
+		public alertCtrl:AlertController,
+		public loadingCtrl:LoadingController,
+		private transfer: FileTransfer,
+		private file: File,
+		private appVersion: AppVersion,
+		private fileOpener:FileOpener,
+		private androidPermissions: AndroidPermissions,
+		public toastCtrl: ToastController,
+		public platform: Platform
 	) {
 		// this.areaData=this.initAreaData()
 		// console.log(this.areaData)
 	}
+  //检查版本更新
+  new_version(callback){
+    var url = 'http://www.test.com/test';
+    return this.httpService.get(url).then(res=>{
+		callback(res);
+	})
+  }
 
+
+
+  /***** 自动更新APP版本  开始 ******************************/  
+  public now_version = '';//当前版本
+  public new_app = {//最新版本
+    new_version: '',//版本号
+    text : '',//更新简介
+    url : '',//下载地址
+  };
+
+  public has_new : boolean = false;
+  get_now_version(){
+    var _that = this;
+    this.appVersion.getVersionNumber().then(data=>{
+      _that.now_version = data;
+    });
+    return _that.now_version
+  }
+  check_version(){
+    var _that = this;
+
+    //服务器端获取最新版
+    this.new_version(data=>{
+      _that.new_app.new_version = data.data.version;
+      _that.new_app.text = data.data.text;
+      _that.new_app.url =  data.data.file_url;
+    });
+
+    console.log('_that.new_app');
+    console.log(_that.new_app);
+
+    this.appVersion.getVersionNumber().then(data=>{
+      _that.now_version = data;
+    });
+
+    console.log('_that.now_version = ' + _that.now_version);
+  
+    //当前版本
+    let nowVersionNum = parseInt(this.now_version.toString().replace(new RegExp(/(\.)/g), '0')); 
+    // alert('当前版本：'+nowVersionNum);
+    let newVersionNum = parseInt(this.new_app.new_version.toString().replace(new RegExp(/(\.)/g), '0'));
+    if(nowVersionNum < newVersionNum){
+      this.has_new = true;
+    }
+
+    console.log('nowVersionNum = ' + nowVersionNum);
+    console.log('newVersionNum = ' + newVersionNum);
+  }
+
+  async presentToast(message: string) {
+    let toast = await this.toastCtrl.create({message: message, duration: 2000});
+    await toast.present()
+  }
+
+  autoUpdateApp(){
+    setTimeout(() => {
+
+      this.appVersion.getVersionNumber().then(data=>{
+        this.now_version = data;
+      });
+      //服务器端获取最新版
+      this.new_version(data=>{
+        this.new_app.new_version = data.data.version;
+        this.new_app.text = data.data.text;
+        this.new_app.url =  data.data.file_url;
+        this.updateAPP()
+      });
+
+    }, 3000);
+  }
+
+  async updateAPP(){
+    this.check_version()
+    //当前版本
+    let nowVersionNum = parseInt(this.now_version.toString().replace(new RegExp(/(\.)/g), '0')); 
+    // alert('当前版本：'+nowVersionNum);
+    let newVersionNum = parseInt(this.new_app.new_version.toString().replace(new RegExp(/(\.)/g), '0')); 
+    // alert('最新版本：'+newVersionNum);
+    if(nowVersionNum < newVersionNum){
+          
+      let confirm = await this.alertCtrl.create({
+        header: '有新版本发布，是否下载更新？',
+        message: this.new_app.text,
+        buttons: [
+          {
+            text: '取消',
+            handler: () => {
+              console.log('Disagree clicked');
+              // return false;
+              this.check_version()
+            }
+          },
+          {
+            text: '确认',
+            handler: () => {
+              this.permissionsFun()
+              //this.download();
+            }
+          }
+        ]
+      });
+      await confirm.present();
+    }else{
+      this.presentToast('当前已是最新版本');
+    }
+    
+  }
+
+ async download(){
+    if (this.isAndroid()) {
+      var _that = this;
+      const fileTransfer: FileTransferObject = this.transfer.create();
+      
+      //目录创建文件夹 new Date().getTime()
+      this.file.createDir(this.file.externalRootDirectory, "martiantoken", false)
+      let externalRootDirectory = this.file.externalRootDirectory + 'martiantoken/martiantoken.apk';
+      console.log('this.new_app.url')
+      console.log(this.new_app.url)
+
+      console.log('externalRootDirectory')
+      console.log(externalRootDirectory)
+
+
+      let num :number = 1;
+      fileTransfer.onProgress((event: ProgressEvent) => {
+        num =Math.floor(event.loaded/event.total * 100);
+      });
+      
+      let loading = await _that.loadingCtrl.create({
+        message: '下载进度：'+ num + '%'
+      });
+     await loading.present(); 
+
+      fileTransfer.download(this.new_app.url, externalRootDirectory).then((entry) => {
+          // alert('下载成功: ' + entry.toURL());
+          _that.fileOpener.open(entry.toURL(),'application/vnd.android.package-archive');
+        }, async (error) => { 
+          
+          let confirm =await this.alertCtrl.create({
+            header: '请开启存储权限',
+            message: '权限被拒绝，请在手机设置里手动开启存储权限',
+            buttons: [
+              {
+                text: '取消',
+                handler: () => {
+                  console.log('Disagree clicked');
+                  // return false;
+                  //this.check_version()
+                  loading.dismiss();
+                }
+              },
+              {
+                text: '确认',
+                handler: () => {
+                  loading.dismiss();
+                  this.download();
+                }
+              }
+            ]
+          });
+          await confirm.present();
+          
+          return false;
+        }
+      );
+    
+
+      
+
+      let timer = setInterval(() => {
+          loading.append("下载进度：" + num + "%");
+          if (num >= 99) {
+              clearInterval(timer);
+              loading.dismiss();
+          }
+      }, 300);
+
+    }
+
+
+    // if (this.isIos()) {
+    //   this.openUrlByBrowser("这里边填写下载iOS地址");
+    // }
+
+
+  }
+
+
+   //检查权限
+   permissionsFun(){
+    this.androidPermissions.checkPermission(this.androidPermissions.PERMISSION.READ_EXTERNAL_STORAGE).then(
+      result => {
+        if (!result.hasPermission){
+          this.androidPermissions.requestPermissions([this.androidPermissions.PERMISSION.READ_EXTERNAL_STORAGE])
+            .then(result => {//弹出弹框是否允许
+              if(result.hasPermission){//点击允许
+                this.download();
+                // alert("允许使用LOCATION权限");
+              }else{//点击拒绝
+                // alert("拒绝使用LOCATION权限");
+                //this.platform.exitApp();//退出APP
+              }
+          });
+        }else{
+          this.download();
+          // alert("已允许位置权限" + result.hasPermission);
+        }
+  
+      },
+      err => {
+        this.androidPermissions.requestPermission(this.androidPermissions.PERMISSION.ACCESS_COARSE_LOCATION)
+      }
+  
+    );
+  }
+
+
+  /**
+   * 通过浏览器打开url
+   */
+  openUrlByBrowser(url: string): void {
+    //this.inAppBrowser.create(url, '_system');
+  }
+
+  /**
+   * 是否真机环境
+   * @return {boolean}
+   */
+  isMobile(): boolean {
+    return this.platform.is('mobile') && !this.platform.is('mobileweb');
+  }
+
+  /**
+   * 是否android真机环境
+   * @return {boolean}
+   */
+  isAndroid(): boolean {
+    return this.isMobile() && this.platform.is('android');
+  }
+
+  /**
+   * 是否ios真机环境
+   * @return {boolean}
+   */
+  isIos(): boolean {
+    return this.isMobile() && (this.platform.is('ios') || this.platform.is('ipad') || this.platform.is('iphone'));
+  }
 	chartLine(data, divName, xType, xName, yName, titleText, typet, ctype?) {
 		if (!ctype) {
 			ctype = 'count'
