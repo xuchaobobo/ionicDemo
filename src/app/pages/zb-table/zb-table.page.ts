@@ -74,19 +74,19 @@ export class ZbTablePage implements OnInit {
       'flag':false
     },
     
-]
-startTime: any;
-endTime: any;
-riverMod='[{"startdist":2656492,"endist":1861000},{"startdist":2656492,"endist":2504802},{"startdist":2504802,"endist":2386081},{"startdist":2386081,"endist":2187648},{"startdist":2187648,"endist":2066259},{"startdist":2066259,"endist":1899600}]'
-selectedList='z'
-unit
-typeObj={
-  'z':'avz',
-  'q':'avq',
-  'cs':'avcs',
-  'qs':'avqs',
-  'tz':'avpd',
-}
+  ]
+  zbstartTime: any;
+  zbendTime: any;
+  riverMod='[{"startdist":2656492,"endist":1861000},{"startdist":2656492,"endist":2504802},{"startdist":2504802,"endist":2386081},{"startdist":2386081,"endist":2187648},{"startdist":2187648,"endist":2066259},{"startdist":2066259,"endist":1899600}]'
+  selectedList='z'
+  unit
+  typeObj={
+    'z':'avz',
+    'q':'avq',
+    'cs':'avcs',
+    'qs':'avqs',
+    'tz':'avpd',
+  }
   constructor(
     private cd: ChangeDetectorRef,
     public modalController: ModalController,
@@ -112,9 +112,9 @@ typeObj={
 			obitmcd: null
 		}]
 		this.stationName = "朱沱(三),寸滩"
-    this.startTime = moment(new Date(Date.now() - 24 * 365*7 * 60 * 60 * 1000)).format('YYYY');
+    this.zbstartTime = moment(new Date(Date.now() - 24 * 365 * 7 * 60 * 60 * 1000)).format('YYYY');
 
-    this.endTime = moment(new Date(Date.now() - 24 * 365*2 * 60 * 60 * 1000)).format('YYYY');
+    this.zbendTime = moment(new Date(Date.now() - 24 * 365 * 2 * 60 * 60 * 1000)).format('YYYY');
    }
 
   ngOnInit() {
@@ -132,10 +132,10 @@ typeObj={
     })
   }
   startTimeChange(e){
-    this.startTime=moment(this.startTime).format('YYYY');
+    this.zbstartTime=moment(new Date(this.zbstartTime)).format('YYYY');
   }
   endTimeChange(e){
-    this.endTime=moment(this.endTime).format('YYYY');
+    this.zbendTime=moment(new Date(this.zbendTime)).format('YYYY');
   }
 	async selectRiver() {
 
@@ -156,9 +156,7 @@ typeObj={
 		
   }
   onTreeAction(e){
-    
-    console.log(e)
-    console.log(e.row)
+  
     let year=e.row.yr
     let id=e.row.id
     let row=e.row
@@ -335,29 +333,30 @@ typeObj={
     }
   }
   setMargin({ row, column, value }){
-    if(row.type=='month'){
-      return {
-        'margin-left':'15px!important'
-      }
-    }else if(row.type=='day'){
-      return {
-        'margin-left':'30px!important'
-      }
-    }else{
-      return {
-        'margin-left':'0px'
-      }
-    }
+    // if(row.type=='month'){
+    //   return {
+    //     'margin-left':'15px!important'
+    //   }
+    // }else if(row.type=='day'){
+    //   return {
+    //     'margin-left':'30px!important'
+    //   }
+    // }else{
+    //   return {
+    //     'margin-left':'0px'
+    //   }
+    // }
     
   }
   getYearData(){
     let stcds=_.toString(_.map(this.station,'stcd'))
     var param = {
 			"type": 'year',
-			"startTime": this.startTime,
-      "endTime": this.endTime,
+			"startTime": this.zbstartTime,
+      "endTime": this.zbendTime,
       'stcds':stcds
-		};
+    };
+    
 		// var rval =this.river;
     let typeList=this.selectedList
 	
@@ -366,8 +365,8 @@ typeObj={
       this.unit=JSON.parse(res).unit
       let data=JSON.parse(res).rows
       let arr=[]
-      let len=(this.endTime - this.startTime)+1
-      let num=Number(this.startTime)
+      let len=(this.zbendTime - this.zbstartTime)+1
+      let num=Number(this.zbstartTime)
       let stationList = stcds.split(',')
       
       for(let i=0;i<len;i++){

@@ -27,21 +27,34 @@ export class AutheticationService extends Baseui  {
    }
    login(json){
     super.show(this.loadingCtrl);
-    
-    this.httpService.login(json).then(res=>{
-      console.log(res)
-      if(res=='success'){
+    this.storage.get(TOKEN_KEY).then(res=>{
+       
+      //  this.authenticationState.next(true)
+      if(res&&res.name==json.name){
         super.hide(this.loadingCtrl)
-        return this.storage.set(TOKEN_KEY,json).then(
-          res=>{
-            this.authenticationState.next(true)
-            this.navCtrl.navigateForward('tabs')
+        this.authenticationState.next(true)
+        this.navCtrl.navigateForward('tabs')
+      }else{
+        this.httpService.login(json).then(res=>{
+          console.log(res)
+          if(res=='success'){
+            super.hide(this.loadingCtrl)
+            return this.storage.set(TOKEN_KEY,json).then(
+              res=>{
+                this.authenticationState.next(true)
+                this.navCtrl.navigateForward('tabs')
+              }
+            )
+              
           }
-        )
-        	
+         
+        })
       }
+       
+     }).catch(err=>{
      
-    })
+     })
+   
    }
    isAuthentication(){
      return this.authenticationState.value;

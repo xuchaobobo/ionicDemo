@@ -29,7 +29,6 @@ import { NgxDatatableModule } from '@swimlane/ngx-datatable';
     NgxDatatableModule,
     TabtitleModule,
     AreaSelectModule,
-    
     ZbTablePageRoutingModule
   ],
   declarations: [ZbTablePage]

@@ -58,9 +58,11 @@
   </ion-row>
   </ion-grid>
   <ion-item>
-    <ion-range min="{{minY}}" max="{{maxY}}" pin='true' snaps='true'  value="{{water}}" (ionChange)='waterChange($event)' step="1">
-      <ion-icon  slot="start" name="remove-circle-outline"></ion-icon>
-      <ion-icon slot="end" name="add-circle-outline"></ion-icon>
+    <ion-range min="{{minY}}" max="{{maxY}}" pin='true' snaps='true'  value="{{water}}" (ionChange)='waterChange($event)' step="0.1">
+	  <ion-label slot="start">水位:{{water.toFixed(2)}}</ion-label>
+	  
+	  <!-- <ion-icon slot="end" name="add-circle-outline"></ion-icon> -->
+	 
     </ion-range>
   </ion-item>
   <ion-item lines='none'>

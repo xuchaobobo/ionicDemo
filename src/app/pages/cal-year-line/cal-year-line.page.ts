@@ -210,6 +210,7 @@ endTimeChange(e){
                   var obj={
                     name :val.name,
                     data : val.data,
+                    symbol:'none',
                     type : val.type
                   }
                   
@@ -257,6 +258,7 @@ endTimeChange(e){
                     name :val.name,
                     data : val.data,
                     type : val.type,
+                    symbol:'none',
                     yAxisIndex:0,
                   
                   }
@@ -290,6 +292,7 @@ endTimeChange(e){
                     name : val.name,
                     data : val.data,
                     type : val.type,
+                    symbol:'none',
                     yAxisIndex:1,
                   
                   }

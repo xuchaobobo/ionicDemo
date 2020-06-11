@@ -88,6 +88,10 @@ const routes: Routes = [
     path: 'about',
     loadChildren: () => import('./pages/about/about.module').then( m => m.AboutPageModule)
   },
+  {
+    path: 'app-help',
+    loadChildren: () => import('./pages/app-help/app-help.module').then( m => m.AppHelpPageModule)
+  },
   // {
   //   path: 'file',
   //   loadChildren: () => import('./pages/file/file.module').then( m => m.FilePageModule)

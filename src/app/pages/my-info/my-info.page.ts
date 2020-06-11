@@ -7,6 +7,7 @@
  * @FilePath: \app\src\app\pages\my-info\my-info.page.ts
  */
 import { Component, OnInit } from '@angular/core';
+import {NavController} from '@ionic/angular'
 import {Storage} from '@ionic/storage'
 const TOKEN_KEY = 'auth-token'
 @Component({
@@ -17,7 +18,7 @@ const TOKEN_KEY = 'auth-token'
 export class MyInfoPage implements OnInit {
 	infoList: Object[];
 	useName=''
-  constructor(private storage:Storage) {
+  constructor(private storage:Storage,public navCtrl:NavController) {
 	  console.log(this.storage.get(TOKEN_KEY))
 	this.storage.get(TOKEN_KEY).then(res=>{
 		  let json =res
@@ -62,7 +63,7 @@ export class MyInfoPage implements OnInit {
   	 	{
   	 		'icon':'help-circle-outline',
   	 		'text':'系统帮助',
-  	 		'url':'',
+  	 		'url':'/tabs/tab5/app-help',
   	 		'badgeFlag':false,
   	 		'badge':0
   	 	},
@@ -92,5 +93,11 @@ export class MyInfoPage implements OnInit {
  
   ngOnInit() {
   }
-
+  navToUrl(url){
+	  if(url.indexOf('login')!=-1){
+		  
+		this.storage.set(TOKEN_KEY,'')
+	  }
+	this.navCtrl.navigateForward(url)
+  }
 }

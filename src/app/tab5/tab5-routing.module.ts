@@ -29,6 +29,11 @@ const routes: Routes = [
 	      loadChildren: () => import('../pages/about/about.module').then( m => m.AboutPageModule)
       },
       {
+	      path: 'app-help',
+        
+	      loadChildren: () => import('../pages/app-help/app-help.module').then( m => m.AppHelpPageModule)
+      },
+      {
         path: '',
         redirectTo: '/tabs/tab5/myInfo',
         component: Tab5Page,

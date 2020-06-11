@@ -167,10 +167,10 @@ dataType='1'
             data:[]
           },
           grid: {
-            top : 60,
-            left : 10,
-            right : 80,
-            bottom : 20,
+            // top : 60,
+            // left : 10,
+            // right : 80,
+            // bottom : 20,
             containLabel : true,
           },
           xAxis: {
@@ -178,6 +178,10 @@ dataType='1'
             scale:true,
             type: 'value',
             minInterval: 0.01,
+            nameLocation:'middle',
+          nameTextStyle:{
+            lineHeight:60
+          },
             axisLine: {onZero: false}
           },
           yAxis: {

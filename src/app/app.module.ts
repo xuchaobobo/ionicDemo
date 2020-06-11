@@ -19,7 +19,6 @@ import { LoginGuardGuard } from './guard/login-guard.guard'
 import { AppComponent } from './app.component';
 
 // import { HTTP } from '@ionic-native/http/ngx';
-import { IonicStorageModule } from '@ionic/storage'
 import {HttpModule} from '@angular/http'
 import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer/ngx';
 import { File } from '@ionic-native/file/ngx';
@@ -27,7 +26,7 @@ import { FileOpener } from '@ionic-native/file-opener/ngx';
 import { AndroidPermissions } from '@ionic-native/android-permissions/ngx';
 import { AppVersion } from '@ionic-native/app-version/ngx';
 import {ProviderService} from './service/provider.service';
-
+import { IonicStorageModule } from '@ionic/storage';
 // import { TimeFormatPipe } from './pipes/time-format/time-format.pipe'
 // import {StationSelectComponent} from './compontent/station-select/station-select.component'
 
@@ -35,7 +34,14 @@ import {ProviderService} from './service/provider.service';
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
-  imports: [BrowserModule,HttpModule,IonicModule.forRoot(), AppRoutingModule,IonicStorageModule.forRoot()],
+  imports: [
+    BrowserModule,
+    HttpModule,
+    IonicModule.forRoot(),
+     AppRoutingModule,
+     IonicStorageModule.forRoot({name: '__mydb',
+     driverOrder: ['indexeddb', 'sqlite', 'websql']})
+    ],
   providers: [
     StatusBar,
     SplashScreen,

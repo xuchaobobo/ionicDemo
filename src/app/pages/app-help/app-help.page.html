@@ -1,0 +1,29 @@
+<ion-header  >
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start" >
+      <!-- <ion-icon name="chevron-back-outline" size="large"></ion-icon> -->
+      <ion-button (click)="goBack()">
+        <ion-back-button defaultHref="/"></ion-back-button>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>系统帮助</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <!-- <bn-ng-pdf-viewer [showAll]="true" [PDF]="'../../assets/pdf/1.pdf'" [pageNo]="1" [styleClass]="my-viewer-class"></bn-ng-pdf-viewer> -->
+  <pdf-viewer [src]="'./../../assets/pdf/1.pdf'" 
+  [show-all]="true"
+    [original-size]="false"
+    [zoom]=1
+    [render-text]="false"
+    [autoresize]="true"
+
+  style="display: block;"
+></pdf-viewer>
+
+
+    <!-- <ul *ngFor="let info of pdfViewer.getDocumentInformation()">
+        <li>{{info.key}}: {{info.value}}</li>
+    </ul> -->
+</ion-content>

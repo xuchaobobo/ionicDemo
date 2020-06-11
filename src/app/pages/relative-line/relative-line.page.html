@@ -39,7 +39,7 @@
     <ion-grid>
       <ion-row>
         <ion-col *ngFor='let select of seleceList'>
-          <ion-button expand="full" color="{{select.flag?'primary':'light'}}" (click)='changeSelect(select.id)'>
+          <ion-button expand="full" size="small" color="{{select.flag?'primary':'light'}}" (click)='changeSelect(select.id)'>
             {{select.name}}</ion-button>
         </ion-col>
       </ion-row>

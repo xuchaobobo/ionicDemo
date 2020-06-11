@@ -150,7 +150,7 @@ export class ProcessLinePage implements OnInit {
 				orient: "horizontal",
 				// x : 150,
 				x: 'center',
-				y: 40,
+				y: 20,
 				data: []
 			},
 			toolbox: {
@@ -396,7 +396,7 @@ export class ProcessLinePage implements OnInit {
 				orient: "horizontal",
 				// x : 150,
 				x: 'center',
-				y: 40,
+				y:20,
 				data: []
 			},
 			grid: {
@@ -869,7 +869,7 @@ export class ProcessLinePage implements OnInit {
 				orient: "horizontal",
 				// x : 150,
 				x: 'center',
-				y: 40,
+				y: 20,
 				data: []
 			},
 			grid: {
@@ -1019,7 +1019,7 @@ export class ProcessLinePage implements OnInit {
 				orient: "horizontal",
 				// x : 150,
 				x: 'center',
-				y: 40,
+				y: 20,
 				data: []
 			},
 			grid: {
@@ -1364,6 +1364,7 @@ export class ProcessLinePage implements OnInit {
 				this.httpService.getLineData(url1,this.stcds,this.startDay,this.endDay,stationNames,type).then(res1=>{
 					let msg=JSON.parse(res1)
 					var option;
+				
 			if(type!="day"){
 			  if(this.types[0].toLowerCase()=='cs'){
 
@@ -1377,12 +1378,12 @@ export class ProcessLinePage implements OnInit {
 		
 			  if(this.types[1].toLowerCase()[1]=='cs'){
 			    option.yAxis[1]={
-			      name:obj.data[0].name,
+			      name:this.typeObj[this.types[0]],
 			      type:'log'
 			      }
 			  }else{
 			    option.yAxis[1]={
-			      name:obj.data[0].name,
+			      name:this.typeObj[this.types[0]],
 			      type:'value',
 			      // smooth: true,
 			      symbol: 'circle',
@@ -1474,9 +1475,14 @@ export class ProcessLinePage implements OnInit {
 			if(obj.series.length>0){
 			  obj.series[0].yAxisIndex=1
 			  option.series.push(obj.series[0])
+			  option.series[0].name=this.typeObj[this.types[0]]
+			  option.series[1].name=this.typeObj[this.types[1]]
 			}
-
-			option.legend[0].data[1]=obj.data[0]
+			// console.log(this.typeObj[this.types[0]])
+			
+			option.legend[0].data[0]=this.typeObj[this.types[0]]
+			option.legend[0].data[1]=this.typeObj[this.types[1]]
+			console.log(option)
 					this.chart.setOption(option)
 				})
 			})

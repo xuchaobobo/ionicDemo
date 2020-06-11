@@ -11,9 +11,9 @@
 		<label>{{useName}}</label>
 	</div>
 	
-	<ion-item button="" [routerLink]="[info.url]"  *ngFor="let info of infoList" >
+	<ion-item  (click)='navToUrl(info.url)'  *ngFor="let info of infoList" >
       <ion-nav-link style="width: 100%">
-	 <ion-icon  name="{{info.icon}}" style="color: #CE6296;" role="img" >
+	 <ion-icon  name="{{info.icon}}" style="color: rgb(37, 142, 218)" role="img" >
 		
 	 </ion-icon>
       <ion-text >

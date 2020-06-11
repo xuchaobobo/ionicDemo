@@ -215,7 +215,7 @@ export class AnnAvgLinePage implements OnInit {
             
             data : val,
             type : type,
-            
+            symbol:'none',
           }
           lends.push(i)
           serise.push(obj)

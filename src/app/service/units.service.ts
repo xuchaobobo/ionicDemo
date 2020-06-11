@@ -448,6 +448,7 @@ export class UnitsService {
 				// max: 300,
 				minInterval: 0,
 				axisLine: {
+					onZero:false,
 					lineStyle: {
 						color: 'black',
 						width: 2
@@ -549,16 +550,20 @@ export class UnitsService {
 						}
 					},
 					areaStyle: {
-						normal: {
-							color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
-								offset: 0,
-								color: 'rgba(1, 132, 213, 0.4)'
-							}, {
-								offset: 0.8,
-								color: 'rgba(1, 132, 213, 0.1)'
-							}], false),
-							shadowColor: 'rgba(0, 0, 0, 0.1)',
-						}
+						color:{
+							type: 'linear',
+							   x: 0,
+							   y: 0,
+							   x2: 0,
+							   y2: 1,
+							   colorStops: [{
+								   offset: 0, color: 'rgba(1, 132, 213, 0.4)' // 0% 处的颜色
+							   }, {
+								   offset: 1, color: 'rgba(1, 132, 213, 0.1)' // 100% 处的颜色
+							   }],
+							   global: false // 缺省为 false
+					   },
+					   origin:'start',
 					},
 					itemStyle: {
 						normal: {
@@ -691,16 +696,20 @@ export class UnitsService {
 								symbolSize: 5,
 								showSymbol: false,
 								areaStyle: {
-									normal: {
-										color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
-											offset: 0,
-											color: 'rgba(0, 216, 135, 0.4)'
-										}, {
-											offset: 0.8,
-											color: 'rgba(0, 216, 135, 0.1)'
-										}], false),
-										shadowColor: 'rgba(0, 0, 0, 0.1)',
-									}
+									color:{
+										type: 'linear',
+										   x: 0,
+										   y: 0,
+										   x2: 0,
+										   y2: 1,
+										   colorStops: [{
+											   offset: 0, color: 'rgba(1, 132, 213, 0.4)' // 0% 处的颜色
+										   }, {
+											   offset: 1, color: 'rgba(1, 132, 213, 0.1)' // 100% 处的颜色
+										   }],
+										   global: false // 缺省为 false
+								   },
+								   origin:'start',
 								},
 								z: 1
 							}

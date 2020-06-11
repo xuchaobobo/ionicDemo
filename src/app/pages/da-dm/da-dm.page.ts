@@ -50,6 +50,12 @@ export class DaDmPage implements OnInit {
     })
 
   }
+  sectionChange(event: {
+    component: IonicSelectableComponent,
+    value: any
+  }) {
+    this.setMsno()
+  }
   setMsno(){
     let stcd=this.section.stcd
     this.httpService.getDaXscdByMsno(stcd).then(msg=>{

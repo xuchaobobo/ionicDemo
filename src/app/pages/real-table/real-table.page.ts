@@ -131,10 +131,10 @@ typeObj={
     })
   }
   startTimeChange(e){
-    this.startTime=moment(this.startTime).format('YYYY');
+    this.startTime=moment(new Date(this.startTime)).format('YYYY');
   }
   endTimeChange(e){
-    this.endTime=moment(this.endTime).format('YYYY');
+    this.endTime=moment(new Date(this.endTime)).format('YYYY');
   }
 	async selectRiver() {
 
@@ -217,8 +217,6 @@ typeObj={
   }
   onTreeAction(e){
     
-    console.log(e)
-    console.log(e.row)
     let year=e.row.yr
     let id=e.row.id
     let row=e.row
@@ -427,7 +425,6 @@ typeObj={
           obj.type='year'
           for(let j=0;j<stationList.length;j++){
             let val
-            console.log(_.find(data,{yr:num,stcd:stationList[j]}))
             if(_.find(data,{yr:_.toString(num),stcd:stationList[j]})!=undefined){
               val=_.find(data,{yr:_.toString(num),stcd:stationList[j]})[this.typeObj[typeList]]
             }else{

@@ -18,7 +18,7 @@
 		 <ion-label>
       
     </ion-label>
-		    <ion-select multiple="true" value="brown" [(ngModel)]="selectedMsno" interface="action-sheet" placeholder='选择测次'  okText="确定" cancelText="取消">
+		    <ion-select multiple="true" value="brown" [(ngModel)]="selectedMsno" interface="action-sheet" placeholder='选择测次'   okText="确定" cancelText="取消">
 		    <ion-select-option value="{{item.OBDT}}" *ngFor="let item of msnos">{{item.OBDT}}</ion-select-option>
 		      
 		    </ion-select>
@@ -34,9 +34,8 @@
   </ion-row>
   </ion-grid>
   <ion-item>
-    <ion-range min="{{minY}}" max="{{maxY}}" pin='true' snaps='true'  value="{{water}}" (ionChange)='waterChange($event)' step="1">
-      <ion-icon  slot="start" name="remove-circle-outline"></ion-icon>
-      <ion-icon slot="end" name="add-circle-outline"></ion-icon>
+    <ion-range min="{{minY}}" max="{{maxY}}" pin='true' snaps='true'  value="{{water}}" (ionChange)='waterChange($event)' step="0.1">
+      <ion-label slot="start">水位:{{water.toFixed(2)}}</ion-label>
     </ion-range>
   </ion-item>
 	<div id='daDmchart'  class="daDmchart"></div>

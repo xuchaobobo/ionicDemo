@@ -13,7 +13,9 @@ import {NavController} from '@ionic/angular'
 import { ProviderService } from '../service/provider.service'
 import { AutheticationService } from './../service/authetication.service';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
-
+import {Storage} from '@ionic/storage'
+import { BehaviorSubject } from 'rxjs'
+const TOKEN_KEY = 'auth-token'
 
 @Component({
   selector: 'app-login',
@@ -23,7 +25,9 @@ import { Geolocation } from '@ionic-native/geolocation/ngx';
 export class LoginPage  implements OnInit {
   name='王伟'
   password:any='123456';
+  authenticationState = new BehaviorSubject(false)
   constructor(
+    public storage:Storage,
     public navCtrl:NavController,
     public httpService:AutheticationService,
      private geolocation: Geolocation) {
@@ -38,8 +42,9 @@ export class LoginPage  implements OnInit {
         name:this.name,
         password:this.password
      }
-    this.httpService.login(json)
-  
+     this.httpService.login(json)
+     
+    
   }
   ngOnInit() {
   //  this.getGps()
