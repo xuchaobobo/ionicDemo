@@ -29,9 +29,7 @@
 	  </ion-radio-group> -->
 	<ion-item (click)='selectSection()'>
 		<ion-input placeholder='断面选择' style='text-align: right;' [(ngModel)]="sectionName"></ion-input>
-		<ion-label slot="end">
-		  <ion-icon name="chevron-forward-outline"></ion-icon>
-		</ion-label>
+		<ion-icon position="fixed" name="chevron-forward-outline"></ion-icon>
 	
 	</ion-item>
 	<ion-item>
@@ -45,15 +43,15 @@
 	</ion-item>
 	
 	<ion-grid>
-	 <ion-row>
+	 <ion-row style="padding:0 8px">
     <ion-col>
-     <ion-button expand="full" color="light" disabled={{btnFlag}} (click)="preDm()">上断面</ion-button>
+     <ion-button expand="full" size='small' color="light" disabled={{btnFlag}} (click)="preDm()">上断面</ion-button>
     </ion-col>
     <ion-col>
-      <ion-button  expand="full" color="primary" (click)='searchData()'>查询</ion-button>
+      <ion-button  expand="full" size='small' color="primary" (click)='searchData()'>查询</ion-button>
     </ion-col>
     <ion-col>
-      <ion-button expand="full" color="light" disabled={{btnFlag}} (click)='nextDm()'>下断面</ion-button>
+      <ion-button expand="full" size='small' color="light" disabled={{btnFlag}} (click)='nextDm()'>下断面</ion-button>
     </ion-col>
   </ion-row>
   </ion-grid>
@@ -71,7 +69,7 @@
   </ion-item>
 	<div id='chart'  class="demo-chart"></div>
 	<ion-grid *ngIf="sixData.length>0">
-		<ion-row *ngFor="let item of sixData" style="border: 1px solid #ddd;">
+		<ion-row *ngFor="let item of sixData" style="border: 1px solid #ddd;margin: 4px 16px">
 		
 		  <ion-col size="6" >测次：{{item.msno}}</ion-col>
 		  <ion-col size="6" >平均水深(m)：{{item.depth}}</ion-col>

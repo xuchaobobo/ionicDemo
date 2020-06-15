@@ -89,7 +89,7 @@ export class DataSearchPage implements OnInit {
 		  menus:[
 			{
 			  icon:'icon-biaozhunhengduanmian',
-			  title:'断面分析',
+			  title:'固断分析',
 			  url:'/tabs/tab3/guding-dm'
 			},
 			{

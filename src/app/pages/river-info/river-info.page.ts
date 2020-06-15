@@ -257,6 +257,8 @@ var maxInqTm;
         },
         grid:{
           top : 80,
+          left:20,
+          right:20,
           // left : 20,
           // right : 30,
           // bottom : 10,
@@ -489,7 +491,8 @@ var maxInqTm;
 		        trigger: 'axis'
 			},
 			grid:{
-			
+        left:20,
+        right:20,
 				containLabel: true
 			},
 		    legend: {
@@ -593,6 +596,8 @@ var maxInqTm;
           // left : 20,
           // right : 30,
           // bottom : 10,
+          left:20,
+          right:20,
           containLabel: true
         },
           legend: {

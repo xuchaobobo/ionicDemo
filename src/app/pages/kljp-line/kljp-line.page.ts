@@ -177,6 +177,8 @@ export class KljpLinePage implements OnInit {
 			},
 			grid : {
 				top : 60,
+				left:40,
+				right:20,
 				// left : 80,
 				// right : 80,
 				// bottom : 20,

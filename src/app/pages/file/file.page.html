@@ -25,13 +25,13 @@
     <ion-title style="text-align:center">{{inpData}}</ion-title>
   </ion-toolbar>
 <ion-content>
-  <div style="padding: 8px;">
+  <ion-item lines='none' style="height: 50px;padding: 0 8px">
     <ion-segment (ionChange)="segmentChanged($event)" [(ngModel)]="selectTree">
       <ion-segment-button *ngFor="let item of parentTree" value="{{item.id}}" type="button">
         <ion-label>{{item.title}}</ion-label>
       </ion-segment-button>
     </ion-segment>
-  </div>
+  </ion-item>
   <!-- <ion-item>
 
   </ion-item> -->
@@ -39,18 +39,20 @@
   <ion-item lines='none'>
     <ion-searchbar placeholder="搜索"></ion-searchbar>
   </ion-item>
-  <ion-radio-group [(ngModel)]="selectDir">
-    <ion-item  button=""  *ngFor="let dir of dirList" (click)='dirClick(dir)'>
+  <ion-radio-group [(ngModel)]="selectDir" style="padding: 0 8px">
+    <ion-item  lines='full' class="dirlist" button=""  *ngFor="let dir of dirList" (click)='dirClick(dir)'>
       
-        <ion-radio *ngIf='titleToolbar.btnFlag' slot="start" value="{{dir.path}}"></ion-radio>
-        <ion-icon *ngIf="dir.isDirectory===1" name="folder-outline"  role="img"></ion-icon>
-        <ion-icon *ngIf="dir.isDirectory!==1" name="document-outline"  role="img"></ion-icon>
         
-        <ion-label class="dirName">
+      <ion-radio *ngIf='titleToolbar.btnFlag' slot="start" value="{{dir.path}}"></ion-radio>
+        
+        <ion-label style="padding-left: 8px;" class="dirName" >
+          <ion-icon *ngIf="dir.isDirectory===1" name="folder-outline"  role="img"></ion-icon>
+        <ion-icon *ngIf="dir.isDirectory!==1" name="document-outline"  role="img"></ion-icon>
           {{dir.name}}
+         
         </ion-label>
-  
-        <ion-icon *ngIf="dir.isDirectory===1" name="chevron-forward-outline" style="float: right;"  role="img"></ion-icon>
+        <ion-icon position="fixed" *ngIf="dir.isDirectory===1" name="chevron-forward-outline" style="margin-right: 8px;"  role="img"></ion-icon>
+        
       
     </ion-item>
   </ion-radio-group>

@@ -164,7 +164,7 @@ export class InterannualVariationPage implements OnInit {
         bottom: 10,
         top: 90,
         left: 20,
-        right: 50,
+        right: 20,
         containLabel: true
       },
       legend: {

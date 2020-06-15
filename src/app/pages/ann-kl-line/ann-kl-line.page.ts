@@ -160,8 +160,8 @@ station
 			grid:{
 				// bottom:20,
 				// top:50,
-				// left:20,
-				// right:70,
+				left:20,
+				right:20,
 				containLabel: true
 			},
 			legend:{

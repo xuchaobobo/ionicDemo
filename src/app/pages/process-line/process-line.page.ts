@@ -143,7 +143,8 @@ export class ProcessLinePage implements OnInit {
 			},
 			grid: {
 				bottom: 10,
-				
+				left:20,
+				right:20,
 				containLabel: true
 			},
 			legend: {
@@ -401,7 +402,8 @@ export class ProcessLinePage implements OnInit {
 			},
 			grid: {
 				bottom: 10,
-				
+				left:20,
+				right:20,
 				containLabel: true
 			},
 			toolbox: {
@@ -874,7 +876,8 @@ export class ProcessLinePage implements OnInit {
 			},
 			grid: {
 				bottom: 10,
-				
+				left:20,
+				right:20,
 				containLabel: true
 			},
 			xAxis: {
@@ -1024,7 +1027,8 @@ export class ProcessLinePage implements OnInit {
 			},
 			grid: {
 				bottom: 10,
-				
+				left:20,
+				right:20,
 				containLabel: true
 			},
 			xAxis: {

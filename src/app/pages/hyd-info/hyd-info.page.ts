@@ -346,8 +346,8 @@ export class HydInfoPage extends Baseui implements OnInit {
           grid:{
             // bottom:10,
             top:80,
-            left:0,
-            right:8,
+            left:20,
+            right:20,
            
             containLabel: true
           },
@@ -499,8 +499,8 @@ export class HydInfoPage extends Baseui implements OnInit {
           grid:{
             // bottom:10,
             top:60,
-            left:0,
-            right:8,
+            left:20,
+            right:20,
             containLabel: true
           },
             dataZoom: [
@@ -627,23 +627,23 @@ export class HydInfoPage extends Baseui implements OnInit {
 		xAxisIndex.push(i);
 		if(stationsarr.length==1){
 			grid.push({
-		        left: 0,
-		        right: 10,
+          left:20,
+          right:20,
             height: '100%',
             containLabel: true
 		    });
 		}else if(stationsarr.length==2){
 			if(i==0){
 				grid.push({
-          left: 0,
-          right: 10,
+          left:20,
+            right:20,
           height: '32%',
           containLabel: true
 			    });
 			}else{
 				grid.push({
-          left: 0,
-          right: 10,
+          left:20,
+            right:20,
           top: '62%',
           height: '35%',
           containLabel: true
@@ -652,15 +652,15 @@ export class HydInfoPage extends Baseui implements OnInit {
 		}else{
 			if(i==0){
 				grid.push({
-          left: 0,
-          right: 10,
+          left:20,
+            right:20,
           height: 100,
           containLabel: true
 			    });
 			}else{
 				grid.push({
-          left: 0,
-          right: 10,
+          left:20,
+            right:20,
           top: i*100+(i+1)*50,
           height: 100,
           containLabel: true
@@ -785,8 +785,8 @@ export class HydInfoPage extends Baseui implements OnInit {
 			grid:{
 				// bottom:10,
 				top:60,
-				left:0,
-				right:8,
+				left:20,
+            right:20,
 				containLabel: true
 			},
 		    dataZoom: [

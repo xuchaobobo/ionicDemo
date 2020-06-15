@@ -160,7 +160,8 @@ export class AnnAvgLinePage implements OnInit {
 			grid:{
 			
 				top:90,
-			
+        left:20,
+        right:20,
 				containLabel: true
 			},
 			legend:{

@@ -20,9 +20,9 @@
   </ion-item>
   <ion-item (click)='selectSation()'>
     <ion-input  placeholder='站点选择' style='text-align: right;' [(ngModel)]="stationName"></ion-input>
-    <ion-label  slot="end" >
-      <ion-icon name="chevron-forward-outline" ></ion-icon>
-    </ion-label>
+    
+      <ion-icon position="fixed" style="margin-right: 8px;" name="chevron-forward-outline" ></ion-icon>
+    
 
   </ion-item>
   
@@ -32,9 +32,9 @@
          <ion-item lines="none">
         <ion-datetime slot="start" style='width: 61%;' value="2012-12-15" [displayFormat]="startDisTime" [pickerFormat]="startPicTime"  cancel-text='取消' doneText='确定'
           [(ngModel)]="startDay" placeholder='起始时间' (ionChange)="startTimeChange($event)"></ion-datetime>
-      <ion-label  position="fixed" class='timeLable' >
-            <ion-icon name="chevron-forward-outline"></ion-icon>
-          </ion-label>
+      
+            <ion-icon  position="fixed"name="chevron-forward-outline"></ion-icon>
+          
        </ion-item>
         </ion-col>
       <ion-col size="6">
@@ -43,9 +43,7 @@
 
           <ion-datetime slot="start" style='width: 61%;' value="2012-12-15" [displayFormat]="endDisTime" cancel-text='取消' doneText='确定' [pickerFormat]="endPicTime"
             [(ngModel)]="endDay" placeholder='截止时间' (ionChange)="endTimeChange($event)"></ion-datetime>
-            <ion-label  position="fixed"  class='timeLable' >
-            <ion-icon name="chevron-forward-outline"></ion-icon>
-          </ion-label>
+            <ion-icon  position="fixed"name="chevron-forward-outline"></ion-icon>
        </ion-item>
       </ion-col>
 
@@ -83,7 +81,7 @@
     </ion-radio-group>
   <div id='processLinechart' class="processLinechart"></div>
   <ion-grid *ngIf="maxAndMinList.length>0">
-    <ion-row *ngFor="let item of maxAndMinList" style="border: 1px solid #ddd;">
+    <ion-row *ngFor="let item of maxAndMinList" style="border: 1px solid #ddd; margin: 4px 20px">
     
       <ion-col size="6" >年：{{item.yr}}</ion-col>
       <ion-col size="6" >站点：{{item.stnm}}</ion-col>

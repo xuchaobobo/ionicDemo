@@ -11,7 +11,7 @@
 
 <ion-content>
   <ion-grid>
-    <ion-row>
+    <ion-row style="padding:0 16px">
       <ion-col *ngFor='let select of seleceList'>
         <ion-button expand="full" size='small' color="{{select.flag?'primary':'light'}}" (click)='changeSelect(select)'>{{select.name}}</ion-button>
       </ion-col>
@@ -19,9 +19,8 @@
   </ion-grid>
   <ion-item (click)='selectRiver()'>
     <ion-input  placeholder='站点选择' style='text-align: right;' [(ngModel)]="stationName"></ion-input>
-    <ion-label  slot="end" >
-      <ion-icon name="chevron-forward-outline" ></ion-icon>
-    </ion-label>
+   
+      <ion-icon position="fixed"name="chevron-forward-outline"  style="margin-right: 8px;"></ion-icon>
 
   </ion-item>
    
@@ -31,9 +30,8 @@
          <ion-item lines="none">
         <ion-datetime slot="start" style='width: 61%;' value="" display-format='YYYY' picker-format="YYYY"  cancel-text='取消' doneText='确定'
           [(ngModel)]="zbstartTime" placeholder='起始时间' (ionChange)="startTimeChange($event)"></ion-datetime>
-      <ion-label  position="fixed" class='timeLable' >
-            <ion-icon name="chevron-forward-outline"></ion-icon>
-          </ion-label>
+   
+            <ion-icon position="fixed" name="chevron-forward-outline"></ion-icon>
        </ion-item>
         </ion-col>
       <ion-col size="6">
@@ -42,9 +40,8 @@
 
           <ion-datetime slot="start" style='width: 61%;' value="" display-format='YYYY' cancel-text='取消' doneText='确定' picker-format="YYYY"
             [(ngModel)]="zbendTime" placeholder='截止时间' (ionChange)="endTimeChange($event)"></ion-datetime>
-            <ion-label  position="fixed"  class='timeLable' >
-            <ion-icon name="chevron-forward-outline"></ion-icon>
-          </ion-label>
+            
+            <ion-icon position="fixed"  name="chevron-forward-outline"></ion-icon>
        </ion-item>
       </ion-col>
 
@@ -71,7 +68,7 @@
   [rows]="rows"
   (activate)="onActivate($event)"
   (treeAction)="onTreeAction($event)"
-  style='height: 60%;' [scrollbarV]="true" [rowHeight]="50"
+  style='height: 60%;padding: 0 16px;' [scrollbarV]="true" [rowHeight]="50"
 >
 <ngx-datatable-column  name="时间/{{unit}}" [frozenLeft]='true' headerClass="marginLeft" [cellClass]="setMargin" prop="yr" [width]='186'  [isTreeColumn]="true">
   

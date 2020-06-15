@@ -8,7 +8,7 @@
     itemValueField="stcd"
     itemTextField="stnm"
     [canSearch]="true"
-    style='text-align: right;'
+    style='text-align: right;padding: 0 16px;'
     (onChange)="sectionChange($event)">
     <ng-template ionicSelectableCloseButtonTemplate>
       <ion-icon name="close-circle" style="font-size: 24px;"></ion-icon>
@@ -28,7 +28,7 @@
 	 <ion-row>
     
     <ion-col>
-      <ion-button  expand="full" color="primary" (click)='dmxChart()'>查询</ion-button>
+      <ion-button  expand="full" size='small' color="primary" (click)='dmxChart()'>查询</ion-button>
     </ion-col>
     
   </ion-row>
@@ -40,7 +40,7 @@
   </ion-item>
 	<div id='daDmchart'  class="daDmchart"></div>
 	<ion-grid *ngIf="sixData.length>0">
-		<ion-row *ngFor="let item of sixData" style="border: 1px solid #ddd;">
+		<ion-row *ngFor="let item of sixData" style="border: 1px solid #ddd;margin: 4px 16px">
 		
 		  <ion-col size="6" >测次：{{item.msno}}</ion-col>
 		  <ion-col size="6" >平均水深(m)：{{item.depth}}</ion-col>

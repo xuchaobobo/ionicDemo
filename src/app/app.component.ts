@@ -94,7 +94,7 @@ export class AppComponent {
         menus:[
           {
             icon:'icon-biaozhunhengduanmian',
-            title:'断面分析',
+            title:'固段分析',
             url:'/tabs/tab3/guding-dm'
           },
           {

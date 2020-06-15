@@ -349,7 +349,8 @@ export class UnitsService {
 			},
 			grid: {
 				// bottom: 10,
-
+				left:20,
+				right:20,
 				containLabel: true
 			},
 			toolbox: {

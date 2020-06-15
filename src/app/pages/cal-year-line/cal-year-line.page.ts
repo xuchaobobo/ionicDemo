@@ -155,6 +155,8 @@ endTimeChange(e){
           },
           grid:{
             top : 80,
+            left:20,
+            right:20,
             // left : 20,
             // right : 80,
             // bottom : 10,
