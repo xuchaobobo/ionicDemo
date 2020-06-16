@@ -183,94 +183,38 @@ export class FilePage implements OnInit {
   
     
   }
+ 
   downLoadFile(){
+    
     let dirpath=_.filter(this.dirList,{path:this.selectDir})
-    const fileTransfer: FileTransferObject = this.transfer.create();
+   
     const url = 'https://10.6.13.208/swns/file/download.gaeaway?files='+JSON.stringify(dirpath)
     let fileName=dirpath[0].name
-    // const url = 'http://10.6.13.210:8200/share/shine.js'
-    let downHeaders = new Headers({'accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8','Authorization': AppConfig.token,'accept-encoding': 'gzip,deflate,sdch',
-    'accept-language': 'zh-CN,zh;q=0.8,en;q=0.6'})
-   let downOptions= new RequestOptions({headers:downHeaders})
+ 
     let targetDir=this.file.externalRootDirectory 
     
-    let headers = {
-      'accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
-      'accept-encoding': 'gzip,deflate,sdch',
-      'accept-language': 'zh-CN,zh;q=0.8,en;q=0.6'
-    };
-    alert(targetDir)
-      //  const url = 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1590487530824&di=980961af5515a3723f31e3afdf4aa743&imgtype=0&src=http%3A%2F%2Fpic5.nipic.com%2F20100225%2F1399111_094253001130_2.jpg';
-  fileTransfer.download(url, targetDir+ fileName).then((entry) => {
-    alert('download complete: ' + entry.toURL());
-    alert(JSON.stringify(entry));
-  }, (error) => {
-    alert(JSON.stringify(error));
-    // handle error
-  });
-    
-
-    
-    let param={
+ 
+    var param={
       files:JSON.stringify(dirpath)
     }
-//     var fileTransfer = new FileTransfer();
-// var uri = encodeURI("http://some.server.com/download.php");
-
-// fileTransfer.download(
-//     uri,
-//     fileURL,
-//     function(entry) {
-//         console.log("download complete: " + entry.toURL());
-//     },
-//     function(error) {
-//         console.log("download error source " + error.source);
-//         console.log("download error target " + error.target);
-//         console.log("download error code" + error.code);
-//     },
-//     false,
-//     {
-//         headers: {
-//             "Authorization": "Basic dGVzdHVzZXJuYW1lOnRlc3RwYXNzd29yZA=="
-//         }
-//     }
-// );
-    // $("#files").val(JSON.stringify(dirpath));
-		// $("#file-download-form").submit();
-    // this.httpService.getDownFile(param).then(res=>{
-    //   // var reader = new FileReader();
-    //   console.log(JSON.stringify(res))
-    //   let result = res
-    //   // reader.readAsText(res);
-    //   let blob = new Blob([res], {type: 'application/zip'});
-    //   let objectUrl = URL.createObjectURL(blob);
-    //   // reader.onloadend=function(e){
-    //   // alert(JSON.stringify(e))
-    //   // }
-    //   this.zip.unzip(res, this.file.dataDirectory
-    //       )
-    //   .then((result) => {
-    //     alert(JSON.stringify(result))
-    //     // if(result === 0) console.log('SUCCESS');
-    //     // if(result === -1) console.log('FAILED');
-    //   });
-    //   // alert(JSON.stringify(objectUrl))
+  
+    this.httpService.getDownFile(param).then(res=>{
       
-    //   // fileTransfer.download(objectUrl, this.file.dataDirectory+'hosts.txt',true).then((entry) => {
-    //   //   alert('download complete: ' + entry.toURL());
-    //   // }, (error) => {
-    //   //   alert(JSON.stringify(error))
-          
-    //   //   // handle error
-    //   // });
+      this.file.writeFile(targetDir,fileName,res,{replace:true}).then(async data=>{
+        const toast = await this.toastController.create({
+                message: '下载成功',
+                duration: 2000,
+                position: 'middle',
+              });
+              toast.present();
+        
+      })
+ 
 
-    // }).catch(err=>{
-    //   alert(JSON.stringify(err))
-    // })
-    // let options
-    // let options: FileDownloadOptions = {
-    //   headers: headers,
-    // }
+    }).catch(err=>{
+      console.log(JSON.stringify(err))
+    })
+  
     
   }
   gitDir(){

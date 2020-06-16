@@ -7,7 +7,7 @@
  * @FilePath: \app\src\app\service\provider.service.ts
  */
 import { Injectable } from '@angular/core';
-import {Http, Response, Headers, RequestOptions} from '@angular/http';
+import {Http, Response, Headers, RequestOptions,ResponseContentType} from '@angular/http';
 import * as $ from 'jquery'
 import { AppConfig } from '../api.config';
 import 'rxjs'
@@ -26,12 +26,12 @@ export class ProviderService {
  static defaultHeaders = new Headers({'Content-Type': 'application/json', 'Accept': 'application/json','Authorization': AppConfig.token,});
  static formHeaders = new Headers({'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8', 'Accept': 'application/json','Authorization': AppConfig.token});
  static uploadHeasers = new Headers({'Content-Type': 'multipart/form-data; boundary=----WebKitFormBoundaryZpsWTsOiRHI0TBW7','Authorization': AppConfig.token});
- static downHeaders = new Headers({'responseType': 'blob','observe': 'response','Authorization': AppConfig.token})
+ static downHeaders = new Headers({'Content-Type': 'application/x-www-form-urlencoded;','Authorization': AppConfig.token})
  //
  static defaultOptions = new RequestOptions({headers: ProviderService.defaultHeaders});
  static formOptions = new RequestOptions({headers: ProviderService.formHeaders});
  static uploadOptions = new RequestOptions({headers: ProviderService.uploadHeasers});
- static downOptions = new RequestOptions({headers:ProviderService.downHeaders})
+ static downOptions = new RequestOptions({withCredentials: true,headers:ProviderService.downHeaders,responseType: ResponseContentType.Blob})
 public get(url: string, paramObj?: any) {
   let headers = new Headers(
     {
@@ -53,8 +53,22 @@ public get(url: string, paramObj?: any) {
       );
      return this.http.get(url + this.toQueryString(paramObj),options)
       .toPromise()
-      .then(res => this.handleSuccess(res))
+      .then(res => this.downhandleSuccess(res))
       .catch(error => this.handleError(error));
+    }
+    private downhandleSuccess(res) {//请求成功的回调
+      // console.log('Http-Response=='+JSON.stringify(res.json()))
+    
+      let cookie = res.headers['Cookie'];
+      let result=res.json()
+     
+    if (result && result.resultCode != "0000") {
+     let params = {
+          title: "错误！",
+          subTitle: result.message,
+     }
+    }
+    return result;
     }
 public post(url: string, paramObj: any,options: RequestOptions = ProviderService.formOptions) {
 //x-www-form-urlencoded
@@ -95,9 +109,9 @@ public downpost(url: string, paramObj: any,options: RequestOptions = ProviderSer
    .toPromise()
    .then(res => {
     // console.log('Http-Response=='+JSON.stringify(res.json()))
-    // res.json()
+    res.json()
     //  this.handleSuccess(res)
-    return res
+    // return res
     })
    .catch(error => error);
   }
@@ -420,7 +434,7 @@ return key + '=' + encodeURIComponent(value === null ? '' : String(value));
   }
   getDownFile(parmobj){
     
-    return this.get('swns/file/download.gaeaway', parmobj)
+    return this.downget('swns/file/download.gaeaway', parmobj)
   }
   getRealDetailTable(url,parmObj){
     return this.get(url, parmObj)
