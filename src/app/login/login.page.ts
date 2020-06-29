@@ -23,13 +23,16 @@ const TOKEN_KEY = 'auth-token'
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage  implements OnInit {
-  name='王伟'
-  password:any='123456';
+  name='原松'
+  password:any='Q_2345_Q';
+  dem='长江委水文局'
+  depList=[]
   authenticationState = new BehaviorSubject(false)
   constructor(
     public storage:Storage,
     public navCtrl:NavController,
     public httpService:AutheticationService,
+    public http:ProviderService,
      private geolocation: Geolocation) {
       
      }
@@ -38,7 +41,7 @@ export class LoginPage  implements OnInit {
   
     //  window.localStorage.setItem('token',userInfo)
      var json={
-        dep:'长江委水文局',
+        dep:this.dem,
         name:this.name,
         password:this.password
      }
@@ -47,7 +50,14 @@ export class LoginPage  implements OnInit {
     
   }
   ngOnInit() {
+    this.getDep()
   //  this.getGps()
+  }
+  getDep(){
+    this.http.depData().then(res=>{
+      this.depList=JSON.parse(res)
+      this.dem=this.depList[1]
+    })
   }
   getGps(){
     this.geolocation.getCurrentPosition().then((resp) => {

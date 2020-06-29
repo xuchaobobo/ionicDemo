@@ -16,20 +16,26 @@
 	<div style="height: 20%;background-color: rgb(37, 142, 218);">
 
 	</div>
-	<div style="height: 24%;text-align: center;    padding: 40px 0;">
+	<div style="height: 24%;text-align: center;    padding: 30px 0;">
 		<img src="assets/image/login.png">
 		<div style="font-size: 24px;
 		color: rgb(37, 142, 218);;
 		line-height: 60px;
 		font-weight: 900;"> 梯级水库水文泥沙信息管理分析系统</div>
 	</div>
-	<div style="height: 36%;box-sizing: border-box;padding: 30px 46px;">
+	<div style="height: 36%;box-sizing: border-box;padding: 10px 46px;">
+		<ion-item style='border: 1px solid rgb(37, 142, 218);margin:0 0 8px 0;'>
+			<ion-icon name="people-outline" style="font-size: 32px;"></ion-icon>
+			<ion-select [(ngModel)]='dem' value='{{dem}}' placeholder="部门" style="width: 100%;max-width: 100%;padding-left: 10px;" okText='确定' cancelText='取消'>
+				<ion-select-option *ngFor='let item of depList' value="{{item}}">{{item}}</ion-select-option>
+			  </ion-select>
+		</ion-item>	
 		<ion-item style='border: 1px solid rgb(37, 142, 218);'>
 			<ion-icon class="iconfont icon-config-account"></ion-icon>
 			<ion-label fixed></ion-label>
 			<ion-input type="text" style="height: 48px;line-height: 48px" [(ngModel)]='name' placeholder="手机账号" ></ion-input>
 		</ion-item>	
-		<ion-item  style='border: 1px solid rgb(37, 142, 218);;margin: 12px 0;'>
+		<ion-item  style='border: 1px solid rgb(37, 142, 218);margin: 8px 0;'>
 			<ion-icon class="iconfont icon-mima"></ion-icon>
 			<ion-label fixed></ion-label>
 			<ion-input type="password" style="height: 48px;line-height: 48px" [(ngModel)]='password' placeholder="登录密码"></ion-input>

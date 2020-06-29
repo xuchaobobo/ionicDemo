@@ -5,14 +5,13 @@ import { ProviderService } from './../../service/provider.service'
 import { UnitsService } from '../../service/units.service'
 import * as _ from 'lodash';
 import * as moment from 'moment';
-import sd from 'silly-datetime'
+
 @Component({
   selector: 'app-along-line',
   templateUrl: './along-line.page.html',
   styleUrls: ['./along-line.page.scss'],
 })
 export class AlongLinePage implements OnInit {
-
   titles: any = '沿程线';
   nowYear: any;
 
@@ -82,13 +81,13 @@ export class AlongLinePage implements OnInit {
       this.stationName=_.map(data,'stnm')[0]+'~'+_.map(data,'stnm')[len]
     })
   }
-  timeChange(){
+  timeChange(e){
 
   }
-  datetimeChange() {
+  datetimeChange(e) {
 
   }
-  dateTypeChange(){
+  dateTypeChange(e){
     this.times=''
     
     if (this.dateType == 'year') {

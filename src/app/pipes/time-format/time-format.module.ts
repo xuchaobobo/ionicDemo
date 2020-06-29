@@ -8,6 +8,6 @@ import { TimeFormatPipe} from './time-format.pipe'
   imports: [
     CommonModule
   ],
-  entryComponents:[TimeFormatPipe]
+  exports: [TimeFormatPipe]
 })
 export class TimeFormatModule { }

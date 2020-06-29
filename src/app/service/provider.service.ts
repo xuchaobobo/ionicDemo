@@ -180,6 +180,9 @@ return key + '=' + encodeURIComponent(value === null ? '' : String(value));
   login(json){
     return this.get('swns/base/user/dologin.gaeaway',json)
   }
+  depData(){
+    return this.get("swns/base/user/selectDep.gaeaway")
+  }
   getAllAreas(){
     return this.get('/swns/base/basin/area.gaeaway','')
   }
