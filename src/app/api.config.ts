@@ -11,3 +11,4 @@ export class AppConfig{
     public static baseUrl:string='http://10.6.13.208:8088/swns'
     public static currentDirectory:string=''
   }
+  

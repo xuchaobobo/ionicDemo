@@ -1,6 +1,6 @@
 {
     "/swns": {
-        "target": "http://10.6.204.4:8200/swns",
+        "target": "http://10.6.204.6:8200/swns",
         "secure": false,
         "logLevel": "debug",
         "changeOrigin": true,

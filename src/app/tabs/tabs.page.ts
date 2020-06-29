@@ -9,11 +9,11 @@ export class TabsPage {
 	tabRoots: Object[];
   constructor() {
    this.tabRoots = [
-      // {
-      //   root: 'tab1',
-      //   tabTitle: '首页',
-      //   tabIcon: 'home'
-      // },
+      {
+        root: 'tab1',
+        tabTitle: '首页',
+        tabIcon: 'home'
+      },
       {
         root: 'tab2',
         tabTitle: '数据查询',
