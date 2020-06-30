@@ -15,6 +15,7 @@ import {toLonLat,Projection} from 'ol/proj';
 import OSM from 'ol/source/OSM';
 import ImageLayer from 'ol/layer/Image';
 import { createStringXY } from 'ol/coordinate'
+import {defaults as defaultControls, ScaleLine} from 'ol/control';
 import ImageWMS from 'ol/source/ImageWMS';
 import { importExpr } from '@angular/compiler/src/output/output_ast';
 
@@ -63,11 +64,100 @@ export class Tab1Page {
   }
   ionViewDidEnter(){
 	  this.initmap()
+	  this.loadLayersControl(this.map, "layerTree");
 	//   setInterval("getLocation()", 5000);
   }
   ionViewDidLeave(){
   	$('#map').html('')
   }
+  loadLayersControl(map, id) {
+	//图层目录容器
+	var treeContent = document.getElementById(id);
+	var LayerMngName=new Array(6);
+	LayerMngName[0]="行政区划";
+	LayerMngName[1]="水系";
+	LayerMngName[2]="测站";
+	LayerMngName[3]="实时测站";
+	LayerMngName[4]="在测断面";
+	LayerMngName[5]="弃测断面";
+	//获取地图中所有图层
+	for (var i = 0; i < LayerMngName.length; i++) {
+		//新增li元素，用来承载图层项
+		var elementLi = document.createElement('li');
+		// 添加子节点
+		
+		treeContent.appendChild(elementLi);
+		//创建复选框元素
+		var elementInput = document.createElement('input');	
+		elementInput.type = "checkbox";
+		elementInput.name = "layers";
+		elementInput.style.width='14px';
+		elementInput.style.height='14px';
+		elementLi.appendChild(elementInput);
+		//创建label元素
+		var elementLable = document.createElement('label');
+		elementLable.className = "layer";
+		//设置图层名称
+		this.setInnerText(elementLable, LayerMngName[i]);
+		elementLi.appendChild(elementLable);
+
+		//设置图层默认显示状态
+		if (i==2 || i==5) {//测站和弃测断面默认不显示
+			elementInput.checked = false;
+		}else{
+			elementInput.checked = true;
+		}
+		//为checkbox添加变更事件
+		this.addChangeEvent(elementInput, LayerMngName[i]);
+	}
+}
+setInnerText(element, text) {
+    if (typeof element.textContent == "string") {
+        element.textContent = text;
+    } else {
+        element.innerText = text;
+    }
+}
+
+SetBLayerSwitchAccLayerMng(element, layermngname){
+	switch(layermngname)
+	{
+		case "行政区划":
+			this.BLayerSwitch[4]=element.checked//.setVisible(element.checked);
+			this.BLayerSwitch[5]=element.checked//.setVisible(element.checked);
+			this.BLayerSwitch[6]=element.checked//.setVisible(element.checked);
+			this.BLayerSwitch[7]=element.checked//.setVisible(element.checked);
+			this.BLayerSwitch[8]=element.checked//.setVisible(element.checked);
+			this.BLayerSwitch[9]=element.checked//.setVisible(element.checked);
+			this.BLayerSwitch[17]=element.checked//.setVisible(element.checked);
+			this.BLayerSwitch[18]=element.checked//.setVisible(element.checked);
+			this.BLayerSwitch[19]=element.checked//.setVisible(element.checked);
+			this.BLayerSwitch[20]=element.checked//.setVisible(element.checked);
+			break;
+		case "水系":
+			this.BLayerSwitch[0]=element.checked//.setVisible(element.checked);
+			this.BLayerSwitch[1]=element.checked//.setVisible(element.checked);
+			this.BLayerSwitch[15]=element.checked//.setVisible(element.checked);
+			this.BLayerSwitch[16]=element.checked//.setVisible(element.checked);
+			break;
+		case "测站":
+			this.BLayerSwitch[12]=element.checked//.setVisible(element.checked);
+			this.BLayerSwitch[13]=element.checked//.setVisible(element.checked);
+			this.BLayerSwitch[14]=element.checked//.setVisible(element.checked);
+			break;
+		case "实时测站":
+			this.BLayerSwitch[10]=element.checked//.setVisible(element.checked);
+			this.BLayerSwitch[11]=element.checked//.setVisible(element.checked);
+			break;
+		case "在测断面":
+			this.BLayerSwitch[2]=element.checked//.setVisible(element.checked);
+			break;
+		case "弃测断面":
+			this.BLayerSwitch[3]=element.checked//.setVisible(element.checked);
+			break;
+		default:alert("图层错误");
+	}
+}
   SetLayerVisable(){
 	var mapZoom=this.map.getView().getZoom();
 	for(var i=0;i<21;i++){
@@ -77,6 +167,16 @@ export class Tab1Page {
 			this.LayAll[i].setVisible(false);
 		}
 	}      
+}
+addChangeEvent(element, LayerMngName) {
+	var that=this
+	element.onclick = function () {
+		//g管理图层开关，是否显示还要看ZOOM
+	//alert(element.checked+"|"+LayerMngName+"|"+BLayerSwitch);
+	that.SetBLayerSwitchAccLayerMng(element, LayerMngName);
+	//alert(element.checked+"|"+LayerMngName+"|"+BLayerSwitch);
+	that.SetLayerVisable();
+	};
 }
 //定位功能
 //  getLocation()
@@ -475,7 +575,13 @@ for(var i=0;i<21;i++){
 		this.BLayerSwitch[i] =true;
 	}
 }
+var control = new ScaleLine({
+	units: 'metric'
+	});
   		this.map = new Map({
+			controls: defaultControls().extend([
+				control
+			  ]),
 		  target: 'map',
 		  layers: [
 		    LayerVectorLocation,
@@ -508,21 +614,25 @@ for(var i=0;i<21;i++){
 		  })
 		});
 		
-		this.map.getView().on('change:resolution', function(evt) {
-			var resolution = evt.target.get('resolution');
-			// var units = this.map.getView().getProjection().getUnits();
-			// var dpi = 25.4 / 0.28;
-			// var mpu = Projection.METERS_PER_UNIT[units];
-			// let scale = resolution * mpu * 39.37 * dpi;
-			// if (scale >= 9500 && scale <= 950000) {
-			// //   scale = Math.round(scale / 1000) + "K";
-			// } else if (scale >= 950000) {
-			// //   scale = Math.round(scale / 1000000) + "M";
-			// } else {
-			//   scale = Math.round(scale);
-			// }
-			//document.getElementById('scale').innerHTML = "Scale = 1 : " + scale;
-		  });
+		this.map.addControl(control)
+		let that=this
+		// this.map.getView().on('change:resolution', function(evt) {
+		// 	debugger
+		// 	var resolution = evt.target.get('resolution');
+			
+			
+		// 	var dpi = 25.4 / 0.28;
+		// 	var mpu = Projection.METERS_PER_UNIT[units];
+		// 	let scale = resolution * mpu * 39.37 * dpi;
+		// 	if (scale >= 9500 && scale <= 950000) {
+		// 	//   scale = Math.round(scale / 1000) + "K";
+		// 	} else if (scale >= 950000) {
+		// 	//   scale = Math.round(scale / 1000000) + "M";
+		// 	} else {
+		// 	  scale = Math.round(scale);
+		// 	}
+		// 	// document.getElementById('scale').innerHTML = "Scale = 1 : " + scale;
+		//   });
 		  this.map.getView().fit(bounds, this.map.getSize());
 		  this.map.on('singleclick', function(evt) {
 			
@@ -531,28 +641,12 @@ for(var i=0;i<21;i++){
 	
 	//设定各层显示范围//////////////////////////////
 	
-	var that=this
+	
 	//var LayerZoom =[[minZoom,maxZoom],[minZoom,8],[12,maxZoom],[12,maxZoom],[minZoom,6],[6,10],[8,11],[9,maxZoom],[11,maxZoom],[13,maxZoom],[6,10],[11,maxZoom],[6,8],[9,maxZoom],[11,maxZoom],[10,maxZoom],[minZoom,maxZoom],[minZoom,maxZoom],[minZoom,7],[8,9],[10,maxZoom]];
 	this.map.on('moveend', function (evt) {
 		that.SetLayerVisable();
 	});
 		 $('.ol-attribution').hide()
-
-		function wrapLon(value) {
-		  var worlds = Math.floor((value + 180) / 360);
-		  return value - (worlds * 360);
-		}
-
-		function onMoveEnd(evt) {
-			
-		  var map = evt.map;
-		  var extent = map.getView().calculateExtent(map.getSize());
-		  var bottomLeft = toLonLat(getBottomLeft(extent));
-		  var topRight = toLonLat(getTopRight(extent));
-		  
-		}
-
-		this.map.on('moveend', onMoveEnd);
   }
 
 }

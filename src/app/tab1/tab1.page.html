@@ -18,7 +18,13 @@
 </ion-toolbar>
 
 <ion-content [fullscreen]="true">
-   
+   <div id="mapCon">
+      <div id="mouse-position"></div>
+      <div id="layerControl" class="layerControl">
+          <div class="title"><label>图层列表</label></div>
+          <ul id="layerTree" class="layerTree"></ul>
+      </div>
+  </div>
 <div id="map" style="width: 100%;height: 100%"></div> 
   <!-- <app-explore-container name="Tab 1 page"></app-explore-container> -->
 </ion-content>
