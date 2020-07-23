@@ -19,6 +19,7 @@ const TOKEN_KEY = 'auth-token'
 })
 export class AutheticationService extends Baseui  {
   authenticationState = new BehaviorSubject(false)
+  tokenFlag:boolean=true
   constructor(
     private storage:Storage,
     private plt:Platform,
@@ -42,14 +43,17 @@ export class AutheticationService extends Baseui  {
         super.showToast(this.toastController,'账号或密码错误')
       }else if(res&&res.name==json.name&&res.dep==json.dep&&res.password==json.password){
         super.hide(this.loadingCtrl)
+        json.time=new Date().getTime()
+        this.storage.set(TOKEN_KEY,json)
+        this.tokenFlag=true
         this.authenticationState.next(true)
         this.navCtrl.navigateForward('tabs')
       }else{
         this.httpService.login(json).then(res=>{
-          console.log(res)
+          
           super.hide(this.loadingCtrl)
           if(res=='success'){
-            
+            json.time=new Date().getTime()
             return this.storage.set(TOKEN_KEY,json).then(
               res=>{
                 this.authenticationState.next(true)
@@ -77,7 +81,11 @@ export class AutheticationService extends Baseui  {
    
    }
    isAuthentication(){
-     return this.authenticationState.value;
+     if(this.checkToken()&&this.authenticationState.value){
+      return true
+     }else{
+       return false
+     }
    }
    loginOut(){
     return this.storage.remove(TOKEN_KEY).then(()=>{
@@ -85,6 +93,21 @@ export class AutheticationService extends Baseui  {
     })
    }
    checkToken(){
-    return this.storage.get(TOKEN_KEY)
+    let timeNow=new Date().getTime()
+    let that=this
+    if(this.storage.get(TOKEN_KEY)){
+      this.storage.get(TOKEN_KEY).then(res=>{
+        let oldTime=res.time
+        console.log(oldTime,timeNow)
+        if((timeNow-oldTime)>1000*60*60*24){
+          that.tokenFlag=false
+        }else{
+          that.tokenFlag=true
+        }
+      })
+    }else{
+      this.tokenFlag=false
+    }
+    return this.tokenFlag
    }
 }

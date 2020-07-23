@@ -24,7 +24,7 @@ const TOKEN_KEY = 'auth-token'
 })
 export class LoginPage  implements OnInit {
   name='王伟'
-  password:any='123456';
+  password:any='';
   dep='长江委水文局'
   depList=[]
   authenticationState = new BehaviorSubject(false)
