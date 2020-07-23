@@ -45,7 +45,7 @@ export class StationSelectComponent implements OnInit {
         this.stations.push(selectStation)
         
       }else{
-        this.stations=_.filter(function(iten){
+        this.stations=_.filter(this.stations,function(iten){
           return iten.stnm!=selectStation.stnm
         })
       }
@@ -64,7 +64,7 @@ export class StationSelectComponent implements OnInit {
             this.stations.push(selectStation)
             
           }else{
-            this.stations=_.filter(function(iten){
+            this.stations=_.filter(this.stations,function(iten){
               return iten.stnm!=selectStation.stnm
             })
           }
@@ -114,7 +114,7 @@ export class StationSelectComponent implements OnInit {
     
   }
   riverSelect(river){
-    let typeStr=_.toString(this.types)
+    let typeStr=_.toString(this.types).toLocaleUpperCase()
     let param = Object()
     if (river.name == '长江' ||river.name == '金沙江') {
       param.riverMod = this.fenqu
@@ -163,7 +163,6 @@ export class StationSelectComponent implements OnInit {
   }
   initdata(){
     this.httpService.getAllAreas().then(res=>{
-      console.log(res)
       res = JSON.parse(res)
       var areaArr=[];
 				$.each(res,function(i,val){

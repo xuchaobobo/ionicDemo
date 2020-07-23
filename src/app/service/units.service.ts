@@ -65,7 +65,7 @@ export class UnitsService {
 	}
   //检查版本更新
   new_version(callback){
-    var url = 'http://www.test.com/test';
+    var url = '';
     return this.httpService.get(url).then(res=>{
 		callback(res);
 	})
@@ -143,7 +143,7 @@ export class UnitsService {
   }
 
   async updateAPP(){
-    this.check_version()
+    // this.check_version()
     //当前版本
     let nowVersionNum = parseInt(this.now_version.toString().replace(new RegExp(/(\.)/g), '0')); 
     // alert('当前版本：'+nowVersionNum);
@@ -336,6 +336,11 @@ export class UnitsService {
 		let option = {
 			title: {
 				text: titleText,
+				textStyle:{
+					color:'#000',
+					fontSize:'16px',
+					fontWeight:'300'
+				},
 				x: 'center',
 				align: 'right'
 			},
@@ -878,8 +883,10 @@ export class UnitsService {
 			},
 			legend: {
 				orient: "horizontal",
-				x: 150,
+				// x: 150,
 				y: 40,
+				type:'scroll',
+				width:'80%',
 				data: []
 			},
 			toolbox: {
@@ -889,7 +896,7 @@ export class UnitsService {
 
 					borderColor: '#1E9FFF'
 				},
-				show: true,
+				show: false,
 				feature: {
 					dataZoom: { show: true },
 					magicType: { show: true, type: ['line', 'bar'] },

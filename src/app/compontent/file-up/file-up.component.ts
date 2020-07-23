@@ -16,6 +16,7 @@ import { FilePath } from '@ionic-native/file-path/ngx'
 import { FileUploader,FileItem,ParsedResponseHeaders } from 'ng2-file-upload';
 import {ModalController} from "@ionic/angular"
 import {AppConfig} from './../../api.config'
+import { environment } from './../../../environments/environment'
 
 import 'rxjs'
 import * as _ from 'lodash';
@@ -26,6 +27,8 @@ import * as _ from 'lodash';
 })
 export class FileUpComponent implements OnInit {
   @Input() currentDirectory:any
+  @Input() dep:any
+  @Input() userName:any
 //   @ViewChild('firstInput', {read: MdInputDirective })
 // firstInput: MdInputDirective;
 @ViewChild('fileUpload',null)
@@ -59,6 +62,8 @@ buildItemForm(fileItem: FileItem, form: any): any{
   // console.log(currentDirectory.value)
   // document.getElementById('currentDirectory').v()
   form.append("currentDirectory",  AppConfig.currentDirectory);
+  form.append("dep",  AppConfig.dep);
+  form.append("userName",  AppConfig.userName);
   if(!!fileItem["realFileName"]){
     form.append("file",fileItem["realFileName"]);;
   }
@@ -113,8 +118,17 @@ successItem(item: FileItem, response: string, status: number, headers: ParsedRes
 
   ngOnInit() {
     AppConfig.currentDirectory=this.currentDirectory
+    AppConfig.userName=this.userName
+    AppConfig.dep=this.dep
+    let httpurl;
+    let url="swns/file/upFiles.gaeaway"
+    if(environment.production){
+      httpurl=environment.baseUrl+'/'+url
+    }else{
+      httpurl=url
+    }
     this.uploader = new FileUploader({    
-      url: "swns/file/upFiles.gaeaway",  
+      url: httpurl,  
       method: "POST",    
       // itemAlias: "files",
       headers:[
@@ -245,6 +259,7 @@ successItem(item: FileItem, response: string, status: number, headers: ParsedRes
       let formData=new FormData();
       formData.append("file",item.blob,item.name)
       formData.append("currentDirectory", currentDirectory);
+
       alert(JSON.stringify(formData))
       let observable=this.httpServer.upLoadFile(formData)
       observables.push(observable)

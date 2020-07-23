@@ -52,3 +52,25 @@ ion-content ion-toolbar {
   /*在地图容器中的层，要设置z-index的值让其显示在地图上层*/
   z-index: 2000;
 }
+#Box_points_switch{
+  position: absolute;
+    left: 0;
+    bottom: 100px;
+}
+ion-toggle{
+  margin: 0;
+  padding: 4px;
+}
+ion-toggle::before {
+  position: absolute;
+
+  top: 16px;
+  left: 10px;
+
+  content: "";
+
+  color: white;
+  font-size: 6px;
+
+  z-index: 1;
+}

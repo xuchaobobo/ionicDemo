@@ -1,0 +1,32 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/"></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{titleName}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-select  (ionChange)="areaChange($event)"  selectedText='{{area}}'  [compareWith]="compareByArea" [(ngModel)]="area" interface="action-sheet"
+          placeholder='选择分区' okText="确定" cancelText="取消">
+          <ion-select-option value="{{item}}" *ngFor="let item of areas"  >{{item}}</ion-select-option>
+        </ion-select>
+      </ion-col>
+      <ion-col>
+        <ion-select  (ionChange)="yearChange($event)" [(ngModel)]="year"  selectedText='{{year}}' interface="action-sheet"
+        placeholder='选择年份' okText="确定" cancelText="取消">
+        <ion-select-option value="{{item.yr}}" *ngFor="let item of years"   >{{item.yr}}</ion-select-option>
+      </ion-select>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-button expand="full" color="primary" (click)="searchData()">查询</ion-button>
+  <ion-list>
+    <div id='{{item.xscd}}' *ngFor="let item of chartDiV" class="dSectionTypechart"></div>
+  </ion-list>
+  
+</ion-content>

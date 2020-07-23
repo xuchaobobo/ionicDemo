@@ -1,0 +1,78 @@
+<!--
+ * @Author: your name
+ * @Date: 2020-04-03 16:56:05
+ * @LastEditTime: 2020-04-28 23:01:11
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \app\src\app\pages\along-line\along-line.page.html
+ -->
+<app-tabtitle [inpData]="titles"></app-tabtitle>
+
+<ion-content>
+  <ion-item lines='none'>
+    <ion-label></ion-label>
+    <ion-select   value="z"  (ionChange)="typeChange($event)"  [(ngModel)]="types" interface="action-sheet" placeholder='选择类型'   okText="确定" cancelText="取消">
+     <ion-select-option value="z" style='text-align: center'>水位</ion-select-option>
+       <ion-select-option value="q" style='text-align: center'>流量</ion-select-option>
+       <ion-select-option value="tz">颗粒级配</ion-select-option>
+       <ion-select-option value="qs">输沙率</ion-select-option>
+       <ion-select-option value="cs">含沙量</ion-select-option>
+   </ion-select>
+</ion-item>
+  <ion-item (click)='selectSation()'>
+    <ion-input  placeholder='站点选择' style='text-align: right;' [(ngModel)]="stationName"></ion-input>
+    <ion-label  slot="end" >
+      <ion-icon name="chevron-forward-outline" ></ion-icon>
+    </ion-label>
+
+  </ion-item>
+  <ion-item lines='none'>
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <ion-datetime  value="2012-12-15" [displayFormat]="dayTimeDisTime" cancel-text='取消' doneText='确定' [pickerFormat]="dayTimePicTime"
+            [(ngModel)]="dayTime" placeholder='时间选择' (ionChange)="timeChange($event)"></ion-datetime>
+           
+        </ion-col>
+        <ion-col>
+          <ion-button expand="full" color="primary" (click)="addTime()">添加到</ion-button>
+        </ion-col>
+        <ion-col>
+          <ion-input  placeholder='时间选择' style='text-align: right;' [(ngModel)]="times"></ion-input>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-item>
+  
+    
+  <ion-item lines='none'>
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <ion-button expand="full" color="primary" (click)="searchData()">查询</ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-item>
+  <ion-radio-group [(ngModel)]="dateType" (ionChange)='dateTypeChange($event)'>
+    
+    <ion-grid>
+        <ion-row>
+          <ion-col offset='6'>
+           
+            <ion-item lines="none">
+              <ion-radio value="year"></ion-radio>
+        <ion-label  style="text-align: center;">年</ion-label>
+        <ion-radio value="month"></ion-radio>
+        <ion-label style="text-align: center;">月</ion-label>
+        <ion-radio value="day"></ion-radio>
+        <ion-label style="text-align: center;">日</ion-label>
+        
+      </ion-item>
+          </ion-col>
+       
+        </ion-row>
+      </ion-grid> 
+    </ion-radio-group>
+  <div id='alongLinechart' class="alongLinechart"></div>
+</ion-content>

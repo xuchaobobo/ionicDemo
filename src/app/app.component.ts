@@ -5,8 +5,9 @@ import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { UnitsService } from './service/units.service'
+import { Device } from '@ionic-native/device/ngx';
 import  {LoginPage} from "./login/login.page";
-
+import { AppConfig } from './api.config';
 
 @Component({
   selector: 'app-root',
@@ -19,7 +20,8 @@ export class AppComponent {
     private platform: Platform,
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
-   private unitsService:UnitsService
+   private unitsService:UnitsService,
+   public device:Device
   ) {
     this.initializeApp();
     this.menulists=[
@@ -122,7 +124,10 @@ export class AppComponent {
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
-      
+      AppConfig.platform=this.device.platform
+      AppConfig.uuid=this.device.uuid
+      console.log(this.device.platform)
+      // alert(this.device.uuid)
     });
   }
 }

@@ -15,19 +15,30 @@ const routes: Routes = [
   {
     path: '',
     component: Tab3Page,
-    //  redirectTo: '/tabs/tab3/guding-dm',
      children: [
-	     {
-	      path: 'guding-dm',
-	      loadChildren: () => import('../pages/guding-dm/guding-dm.module').then( m => m.GudingDmPageModule)
+	    {
+	      path: 'observation-data',
+	      loadChildren: () => import('../pages/specialView/observation-data/observation-data.module').then( m => m.ObservationDataPageModule)
       },
       {
-	      path: 'da-dm',
-	      loadChildren: () => import('../pages/da-dm/da-dm.module').then( m => m.DaDmPageModule)
+	      path: 'prototype-chart',
+	      loadChildren: () => import('../pages/specialView/prototype-chart/prototype-chart.module').then( m => m.PrototypeChartPageModule)
+      },
+      {
+	      path: 'd-section',
+	      loadChildren: () => import('../pages/specialView/d-section/d-section.module').then( m => m.DSectionPageModule)
+      },
+      {
+        path: 'water-and-sed-change',
+        loadChildren: () => import('../pages/specialView/water-and-sed-change/water-and-sed-change.module').then( m => m.WaterAndSedChangePageModule)
+      },
+      {
+        path: 'sand-weight',
+        loadChildren: () => import('../pages/specialView/sand-weight/sand-weight.module').then( m => m.SandWeightPageModule)
       },
        {
         path: '',
-        redirectTo: '/tabs/tab3/guding-dm',
+        redirectTo: '/tabs/tab3/observation-data',
         component: Tab3Page,
 	      //  loadChildren: () => import('../pages/my-info/my-info.module').then( m => m.MyInfoPageModule)
 	    },

@@ -27,6 +27,7 @@ import { AndroidPermissions } from '@ionic-native/android-permissions/ngx';
 import { AppVersion } from '@ionic-native/app-version/ngx';
 import {ProviderService} from './service/provider.service';
 import { IonicStorageModule } from '@ionic/storage';
+import { Device } from '@ionic-native/device/ngx';
 // import { TimeFormatPipe } from './pipes/time-format/time-format.pipe'
 // import {StationSelectComponent} from './compontent/station-select/station-select.component'
 
@@ -51,7 +52,7 @@ import { IonicStorageModule } from '@ionic/storage';
     AndroidPermissions,
     AppVersion,
     ProviderService,
-    
+    Device,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     LoginGuardGuard
   ],

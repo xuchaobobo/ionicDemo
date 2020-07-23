@@ -8,7 +8,11 @@
  */
 export class AppConfig{
     public static token:string = '';
-    public static baseUrl:string='http://10.6.13.208:8088/swns'
+    public static baseUrl:string='http://219.140.196.73:5010/swns'
     public static currentDirectory:string=''
+    public static dep:string=''
+    public static userName:string=''
+    public static platform:string=''
+    public static uuid:string=''
   }
   

@@ -11,7 +11,7 @@ const routes: Routes = [
      children: [
 	     {
 	      path: 'kurong',
-	      loadChildren: () => import('../pages/kurong/kurong.module').then( m => m.KurongPageModule)
+	      loadChildren: () => import('../pages/dataSearchView/kurong/kurong.module').then( m => m.KurongPageModule)
 	    },
     ]
   }

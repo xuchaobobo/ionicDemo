@@ -6,7 +6,7 @@
  * @Description: In User Settings Edit
  * @FilePath: \app\src\app\service\authetication.service.ts
  */
-import {Platform,NavController,LoadingController} from '@ionic/angular'
+import {Platform,NavController,LoadingController,ToastController} from '@ionic/angular'
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs'
 import {Storage} from '@ionic/storage'
@@ -19,7 +19,14 @@ const TOKEN_KEY = 'auth-token'
 })
 export class AutheticationService extends Baseui  {
   authenticationState = new BehaviorSubject(false)
-  constructor(private storage:Storage,private plt:Platform,public navCtrl:NavController,public loadingCtrl:LoadingController,public httpService:ProviderService) {
+  constructor(
+    private storage:Storage,
+    private plt:Platform,
+    public navCtrl:NavController,
+    public loadingCtrl:LoadingController,
+    public httpService:ProviderService,
+    public toastController: ToastController
+    ) {
     super()
     this.plt.ready().then(()=>{
       this.checkToken()
@@ -30,15 +37,19 @@ export class AutheticationService extends Baseui  {
     this.storage.get(TOKEN_KEY).then(res=>{
        
       //  this.authenticationState.next(true)
-      if(res&&res.name==json.name){
+      if(res&&res.name==json.name&&res.password!==json.password&&res.dep==json.dep){
+        super.hide(this.loadingCtrl)
+        super.showToast(this.toastController,'账号或密码错误')
+      }else if(res&&res.name==json.name&&res.dep==json.dep&&res.password==json.password){
         super.hide(this.loadingCtrl)
         this.authenticationState.next(true)
         this.navCtrl.navigateForward('tabs')
       }else{
         this.httpService.login(json).then(res=>{
           console.log(res)
+          super.hide(this.loadingCtrl)
           if(res=='success'){
-            super.hide(this.loadingCtrl)
+            
             return this.storage.set(TOKEN_KEY,json).then(
               res=>{
                 this.authenticationState.next(true)
@@ -46,13 +57,22 @@ export class AutheticationService extends Baseui  {
               }
             )
               
+          }else{
+            super.showToast(this.toastController,'账号或密码错误')
           }
+          
          
-        })
+        }).catch(async e=>{
+            const toast =await this.toastController.create({
+              message: '数据报错',
+              duration: 2000
+            })
+            toast.present()
+          });
       }
        
      }).catch(err=>{
-     
+      super.showToast(this.toastController,'账号或密码错误')
      })
    
    }

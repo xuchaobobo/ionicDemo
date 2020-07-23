@@ -11,27 +11,27 @@ const routes: Routes = [
      children: [
 	     {
 	      path: 'myInfo',
-	       loadChildren: () => import('../pages/my-info/my-info.module').then( m => m.MyInfoPageModule)
+	       loadChildren: () => import('../pages/infoView/my-info/my-info.module').then( m => m.MyInfoPageModule)
 	    },
 	    {
 	      path: 'notice',
         
-	      loadChildren: () => import('../pages/notice/notice.module').then( m => m.NoticePageModule)
+	      loadChildren: () => import('../pages/infoView/notice/notice.module').then( m => m.NoticePageModule)
       },
       {
 	      path: 'file',
         
-	      loadChildren: () => import('../pages/file/file.module').then( m => m.FilePageModule)
+	      loadChildren: () => import('../pages/infoView/file/file.module').then( m => m.FilePageModule)
       },
       {
 	      path: 'about',
         
-	      loadChildren: () => import('../pages/about/about.module').then( m => m.AboutPageModule)
+	      loadChildren: () => import('../pages/infoView/about/about.module').then( m => m.AboutPageModule)
       },
       {
 	      path: 'app-help',
         
-	      loadChildren: () => import('../pages/app-help/app-help.module').then( m => m.AppHelpPageModule)
+	      loadChildren: () => import('../pages/infoView/app-help/app-help.module').then( m => m.AppHelpPageModule)
       },
       {
         path: '',

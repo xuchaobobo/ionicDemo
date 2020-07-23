@@ -1,0 +1,22 @@
+
+
+<ion-content>
+  <div *ngFor="let item of lists" >
+    <ion-item lines="none" color='primary' class="item_title">
+   
+      <ion-label>{{item.title}}</ion-label>
+    
+    </ion-item>
+    <ion-item lines="none" class="item_contents">
+    <ion-grid>
+       <ion-row>
+         <ion-col size="3" *ngFor="let menu of item.menus" (click)='navToDetail(menu)' >
+          <div><ion-icon  class='iconfont {{menu.icon}}'></ion-icon></div>
+             
+           <ion-text style="font-size: 12px">{{menu.title}}</ion-text>
+         </ion-col>
+       </ion-row>
+    </ion-grid>
+    </ion-item>
+     </div>
+</ion-content>

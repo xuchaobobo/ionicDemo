@@ -112,6 +112,7 @@ export class AreaSelectComponent implements OnInit {
     }else{
       
       if(this.selected_node_id.length>0){
+        
         this.selected_node_id=_.filter(this.selected_node_id,function(item,i){
           return item['name']!=node.data.name&& item['name']!=node.data.area1
         })
@@ -309,7 +310,7 @@ export class AreaSelectComponent implements OnInit {
         this.selectStations.push(selectStation)
         
       }else{
-        this.selectStations=_.filter(function(iten){
+        this.selectStations=_.filter(this.selectStations,function(iten){
           return iten.stnm!=selectStation.stnm
         })
       }

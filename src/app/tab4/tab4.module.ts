@@ -17,7 +17,7 @@ import { Tab4Page } from './tab4.page';
     RouterModule.forChild([{ path: '', redirectTo: '/tabs/tab4/kurong', component: Tab4Page},{
 	      path: 'kurong',
         
-	      loadChildren: () => import('../pages/kurong/kurong.module').then( m => m.KurongPageModule)
+	      loadChildren: () => import('../pages/dataSearchView/kurong/kurong.module').then( m => m.KurongPageModule)
 	    },])
   ],
   declarations: [Tab4Page]

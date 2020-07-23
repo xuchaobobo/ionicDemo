@@ -26,19 +26,19 @@
 	<div style="height: 36%;box-sizing: border-box;padding: 10px 46px;">
 		<ion-item style='border: 1px solid rgb(37, 142, 218);margin:0 0 8px 0;'>
 			<ion-icon name="people-outline" style="font-size: 32px;"></ion-icon>
-			<ion-select [(ngModel)]='dem' value='{{dem}}' placeholder="部门" style="width: 100%;max-width: 100%;padding-left: 10px;" okText='确定' cancelText='取消'>
+			<ion-select [(ngModel)]='dep' value='{{dep}}' selectedText='{{dep}}' placeholder="部门" style="width: 100%;max-width: 100%;padding-left: 10px;" okText='确定' cancelText='取消'>
 				<ion-select-option *ngFor='let item of depList' value="{{item}}">{{item}}</ion-select-option>
 			  </ion-select>
 		</ion-item>	
 		<ion-item style='border: 1px solid rgb(37, 142, 218);'>
 			<ion-icon class="iconfont icon-config-account"></ion-icon>
 			<ion-label fixed></ion-label>
-			<ion-input type="text" style="height: 48px;line-height: 48px" [(ngModel)]='name' placeholder="手机账号" ></ion-input>
+			<ion-input type="text" style="height: 40px;line-height: 40px" [(ngModel)]='name' placeholder="手机账号" ></ion-input>
 		</ion-item>	
 		<ion-item  style='border: 1px solid rgb(37, 142, 218);margin: 8px 0;'>
 			<ion-icon class="iconfont icon-mima"></ion-icon>
 			<ion-label fixed></ion-label>
-			<ion-input type="password" style="height: 48px;line-height: 48px" [(ngModel)]='password' placeholder="登录密码"></ion-input>
+			<ion-input type="password" style="height: 40px;line-height: 40px" [(ngModel)]='password' placeholder="登录密码"></ion-input>
 		</ion-item>	
 		<!-- <ion-item lines="none" style="float: right">
 			<a  color="primary" style="text-decoration: none" href="#">忘记密码</a>
@@ -46,17 +46,21 @@
 		</ion-item> -->
 	
 		<div style="text-align: center;">
-			<ion-button expand="block" style="height: 48px;
+			<ion-button expand="block" style="height: 40px;
 		font-size: 18px;" color="primary" (click)='logIn()'>
 				登录
 			</ion-button>
 		</div>
+	
+		<ion-button color='light' [routerLink]="['/register']" expand="block">
+			创建账号
+	 	</ion-button>
+	
+	
 	</div>
 	<div style="height: 20%;background-color: rgb(37, 142, 218);">
 		<img src="assets/image/applog.gif" style="height: 100%;width: 100%;" alt="">
 	</div>
-	<!-- <div style="text-align: center;margin-left: 30px;margin-right: 30px; margin-top: 70px;">
-		<a  color="primary" style="text-decoration: none" href="#">创建账号</a>
-	</div> -->
+
 
 </ion-content>

@@ -23,9 +23,9 @@ const TOKEN_KEY = 'auth-token'
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage  implements OnInit {
-  name='原松'
-  password:any='Q_2345_Q';
-  dem='长江委水文局'
+  name='王伟'
+  password:any='123456';
+  dep='长江委水文局'
   depList=[]
   authenticationState = new BehaviorSubject(false)
   constructor(
@@ -41,7 +41,7 @@ export class LoginPage  implements OnInit {
   
     //  window.localStorage.setItem('token',userInfo)
      var json={
-        dep:this.dem,
+        dep:this.dep,
         name:this.name,
         password:this.password
      }
@@ -55,8 +55,11 @@ export class LoginPage  implements OnInit {
   }
   getDep(){
     this.http.depData().then(res=>{
-      this.depList=JSON.parse(res)
-      this.dem=this.depList[1]
+      // alert('res'+res)
+      this.depList=JSON.parse(res).data
+      this.dep=this.depList[2]
+    }).catch(error=>{
+      // alert('error'+error)
     })
   }
   getGps(){

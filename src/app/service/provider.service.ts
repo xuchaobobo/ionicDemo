@@ -10,6 +10,7 @@ import { Injectable } from '@angular/core';
 import {Http, Response, Headers, RequestOptions,ResponseContentType} from '@angular/http';
 import * as $ from 'jquery'
 import { AppConfig } from '../api.config';
+import { environment } from '../../environments/environment'
 import 'rxjs'
 
 @Injectable({
@@ -18,7 +19,7 @@ import 'rxjs'
 export class ProviderService {
 
   public config:any={
-    domain:'http://localhost:8088/swns/'
+    domain:'http://10.6.204.6:5010/'
   }
   loader: any;
   constructor(private http: Http) {
@@ -32,16 +33,23 @@ export class ProviderService {
  static formOptions = new RequestOptions({headers: ProviderService.formHeaders});
  static uploadOptions = new RequestOptions({headers: ProviderService.uploadHeasers});
  static downOptions = new RequestOptions({withCredentials: true,headers:ProviderService.downHeaders,responseType: ResponseContentType.Blob})
-public get(url: string, paramObj?: any) {
-  let headers = new Headers(
-    {
-      'Content-Type': 'application/x-www-form-urlencoded',
-      'Authorization': AppConfig.token,
+public get(url: string, paramObj?: any,options=ProviderService.defaultOptions) {
+  
+    let httpurl
+    console.log(environment.production)
+    if(environment.production){
+      httpurl=environment.baseUrl+'/'+url
+    }else{
+      httpurl=url
     }
-    );
-   return this.http.get(url + this.toQueryString(paramObj))
+    // // 
+    // alert(httpurl + this.toQueryString(paramObj))
+   return this.http.get(httpurl + this.toQueryString(paramObj),options)
     .toPromise()
-    .then(res => this.handleSuccess(res))
+    .then(res =>{
+      // alert('httpRes:'+res)
+      return this.handleSuccess(res.text())
+    } )
     .catch(error => this.handleError(error));
   }
   public downget(url: string, paramObj?: any,options=ProviderService.downOptions) {
@@ -51,7 +59,13 @@ public get(url: string, paramObj?: any) {
         'Authorization': AppConfig.token,
       }
       );
-     return this.http.get(url + this.toQueryString(paramObj),options)
+      let httpurl
+      if(environment.production){
+        httpurl=environment.baseUrl+'/'+url
+      }else{
+        httpurl=url
+      }
+     return this.http.get(httpurl + this.toQueryString(paramObj),options)
       .toPromise()
       .then(res => this.downhandleSuccess(res))
       .catch(error => this.handleError(error));
@@ -78,22 +92,24 @@ let headers = new Headers(
     'Authorization': AppConfig.token,
   }
   );
-return this.http.post(url, paramObj,options)
+  let httpurl
+      if(environment.production){
+        httpurl=environment.baseUrl+'/'+url
+      }else{
+        httpurl=url
+      }
+return this.http.post(httpurl, paramObj,options)
  .toPromise()
  .then(res => {
   // console.log('Http-Response=='+JSON.stringify(res.json()))
   // res.json()
-  //  this.handleSuccess(res)
+   this.handleSuccess(res.text())
   })
  .catch(error => this.handleError(error));
 }
 
-private handleSuccess(res) {//请求成功的回调
-  // console.log('Http-Response=='+JSON.stringify(res.json()))
-
-  let cookie = res.headers['Cookie'];
-  let result=res.text()
- 
+private handleSuccess(result) {//请求成功的回调
+  // alert('handleSuccess'+result)
 if (result && result.resultCode != "0000") {
  let params = {
       title: "错误！",
@@ -104,7 +120,7 @@ return result;
 }
 public downpost(url: string, paramObj: any,options: RequestOptions = ProviderService.downOptions) {
   //x-www-form-urlencoded
-
+  // let httpurl=this.config.domain+url
   return this.http.post(url, paramObj,options)
    .toPromise()
    .then(res => {
@@ -181,7 +197,7 @@ return key + '=' + encodeURIComponent(value === null ? '' : String(value));
     return this.get('swns/base/user/dologin.gaeaway',json)
   }
   depData(){
-    return this.get("swns/base/user/selectDep.gaeaway")
+    return this.get("swns/base/user/selectDepNew.gaeaway")
   }
   getAllAreas(){
     return this.get('/swns/base/basin/area.gaeaway','')
@@ -408,29 +424,18 @@ return key + '=' + encodeURIComponent(value === null ? '' : String(value));
   getklTable(param){
     return this.get('swns/stsc/kl/selectDdbByStcdAndTime.gaeaway',param)
   }
-  getDirTree(){
-    return this.get('swns/file/directories.gaeaway')
+  getDirTree(parse){
+    return this.get('swns/file/directories.gaeaway',parse)
   }
-  getDirChildTree(dir){
-    let param={
-      page: 1,
-      limit: 10,
-      directory: dir
-    }
+  getDirChildTree(param){
+    
     return this.get('swns/file/listFiles.gaeaway',param)
   }
-  creatDir(directory,name){
-    let param={
-      directory: directory, 
-      name: name 
-    }
+  creatDir(param){
     return this.get('swns/file/createDir.gaeaway',param)
   }
-  deleteDir(directory){
-    let param={
-      files: JSON.stringify(directory)
-    }
-    return this.get('swns/file/deleteFiles.gaeaway',param)
+  deleteDir(parse){
+    return this.get('swns/file/deleteFiles.gaeaway',parse)
   }
   upLoadFile(paramObj){
     return this.post('swns/file/upFiles.gaeaway', paramObj, ProviderService.uploadOptions)
@@ -480,5 +485,23 @@ return key + '=' + encodeURIComponent(value === null ? '' : String(value));
 			wt:value
 		};
     return this.get('swns/sect/xsmsrs/getSixs.gaeaway',pamasix)
+  }
+  getSearchKey(key){
+    var pama = {
+			keyword: key,
+		};
+    return this.get('swns/search.gaeaway',pama)
+  }
+  getObservictionData(param){
+    
+    return this.get('swns/special/getWaterByStcdAndTime.gaeaway',param)
+  }
+  getDmAndMsno(param){
+    
+    return this.get('swns/special/getDmAndMsno.gaeaway',param)
+  }
+  queryDmxChart(param){
+    
+    return this.get('swns/sect/msxsrs/queryDmxssChart.gaeaway',param)
   }
 }

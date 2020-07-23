@@ -8,8 +8,7 @@ export abstract class Baseui {
             message:message,
             backdropDismiss:true
         })
-        await loader.present()
-        return loader
+        return  loader.present()
 
     }
     protected async showToast(toastCtrl:ToastController,message:string){
@@ -18,8 +17,7 @@ export abstract class Baseui {
             duration:3000,
             position:'bottom'
         })
-        toast.present();
-        return toast;
+        return   toast.present();
     }
     //loading加载
   async show(loadingCtrl: LoadingController) {
@@ -40,7 +38,7 @@ export abstract class Baseui {
   async hide(loadingCtrl: LoadingController) {
     if (this.loadingIsOpen == true) {
       this.loadingIsOpen = false;
-      return await loadingCtrl.dismiss();
+       await loadingCtrl.dismiss();
     }
   }
 

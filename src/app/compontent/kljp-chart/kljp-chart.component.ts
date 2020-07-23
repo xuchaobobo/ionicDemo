@@ -75,10 +75,9 @@ export class KljpChartComponent implements OnInit {
             xAxisData.push(dsnmData[i].pd)
             seriesData.push([dsnmData[i].pd, dsnmData[i].p])
         }
-        console.log(xAxisData, seriesData)
-        var avpd='平均粒径:' + ntdata.avpd+'mm';
-        var mxpd='最大粒径:' + ntdata.mxpd+'mm Dmax';
-        var mdpd = '中值粒径:' + ntdata.mdpd+'mm D50'
+        var avpd= ntdata.avpd+'mm';
+        var mxpd=ntdata.mxpd+'mm Dmax';
+        var mdpd =  ntdata.mdpd+'mm D50'
         let ids='cx'+val
           
             let option={
