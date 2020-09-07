@@ -504,4 +504,9 @@ return key + '=' + encodeURIComponent(value === null ? '' : String(value));
     
     return this.get('swns/sect/msxsrs/queryDmxssChart.gaeaway',param)
   }
+  queryGrainCompositionChart(url){
+    
+    return this.get('swns/special/'+url+'.gaeaway')
+  }
+  
 }

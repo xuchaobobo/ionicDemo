@@ -89,13 +89,16 @@ export class PrototypeChartPage implements OnInit {
                     name: '围堰蓄水期',
                     xAxis: '2003-06-14 00:00:00',
                     itemStyle:{
-                      color:'#c60c30'
+                      color:'rgba(106,189,254,0.5)'
                     }
                   }, {
                     xAxis: '2006-09-20 00:00:00'
                   }], [{
                     name: '初期蓄水期',
                     xAxis: '2006-09-20 00:00:00',
+                    itemStyle:{
+                      color:'rgba(35,158,250,0.5)'
+                    }
                     // label:{
                     //   position:'inside'
                     // }
@@ -105,7 +108,7 @@ export class PrototypeChartPage implements OnInit {
                     name: '试验性蓄水期',
                     xAxis: '2008-10-10 00:00:00',
                     itemStyle:{
-                      color:'#25C50E'
+                      color:'rgba(4,103,176,0.5)'
                     }
                   }, {
                     xAxis: '2018-12-31 00:00:00'

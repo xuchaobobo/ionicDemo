@@ -33,7 +33,8 @@ export class RealTablePage implements OnInit {
   }
   rows = [
   ];
-  
+  area=['三峡库区']
+  river='长江'
   cols=[]
   types=['q']
   station=[{
@@ -110,7 +111,9 @@ typeObj={
 			rvnm: "长江",
 			obitmcd: null
 		}]
-		this.stationName = "朱沱(三),寸滩"
+    this.stationName = "朱沱(三),寸滩"
+    this.area=['三峡库区']
+    this.river='长江'
     this.startTime = moment(new Date(Date.now() - 24 * 365*7 * 60 * 60 * 1000)).format('YYYY');
 
     this.endTime = moment(new Date(Date.now() - 24 * 365*2 * 60 * 60 * 1000)).format('YYYY');
@@ -143,7 +146,8 @@ typeObj={
 			cssClass: 'station_elect',
 			componentProps: {
 				types: this.types,
-				
+				defaultArea:this.area,
+        defaultRiver:this.river,
 				defaultStation: this.station
 			}
 		})
@@ -151,6 +155,8 @@ typeObj={
 		const { data } = await modal.onDidDismiss();
 		this.station = data.selectStations
     this.riverMod=data.riverMod
+    this.area=data.selectarea,
+    this.river=data.selectriver,
 		this.stationName = _.map(data.selectStations, 'stnm').join(',')
 		console.log(data);
   }

@@ -60,6 +60,8 @@ export class ProcessLinePage implements OnInit {
 	stcds:any
 	stationName;
 	dateType = 'day'
+	area='三峡库区'
+  	river='长江'
 	startDay;//声明日期
 	endDay;
 	forYear = 'YYYY'
@@ -111,13 +113,16 @@ export class ProcessLinePage implements OnInit {
 			componentProps: {
 				types: this.types,
 				typeLen: this.types.length,
+				defaultArea:this.area,
+				defaultRiver:this.river,
 				defaultStation: this.station
 			}
 		})
 		await modal.present();
 		const { data } = await modal.onDidDismiss();
 		this.station = data.selectStation
-
+		this.area=data.selectarea
+		this.river=data.selectriver
 		this.stationName = _.map(data.selectStation, 'stnm').join(',')
 		console.log(data);
 	}

@@ -21,7 +21,7 @@ export class TabsPage {
       },
       {
         root: 'tab3',
-        tabTitle: '专题分析',
+        tabTitle: '成果分析',
         tabIcon: 'layers'
       },
       // {

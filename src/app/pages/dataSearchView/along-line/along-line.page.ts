@@ -30,6 +30,8 @@ export class AlongLinePage implements OnInit {
   }
   types: any='z';
   times:any='2018'
+  area='三峡库区'
+  river='长江'
   stationName
   station
   years=['2018','2017']
@@ -138,7 +140,9 @@ export class AlongLinePage implements OnInit {
 			cssClass: 'station_elect',
 			componentProps: {
 				types: this.types,
-				typeLen: this.types.length,
+        typeLen: 1,
+        defaultArea:this.area,
+				defaultRiver:this.river,
 				defaultStation: this.station
 			}
 		})
@@ -146,6 +150,8 @@ export class AlongLinePage implements OnInit {
 		const { data } = await modal.onDidDismiss();
 		this.station = data.selectStation
   let datas=data.selectStation
+  this.area=data.selectarea,
+		this.river=data.selectriver
   let len=data.selectStation.length-1
     this.stationName = _.map(datas,'stnm')[0]+'~'+_.map(datas,'stnm')[len]
 	

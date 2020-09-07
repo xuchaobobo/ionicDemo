@@ -1,3 +1,4 @@
+import * as _ from 'lodash';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { ProviderService } from '../../../service/provider.service'
@@ -10,6 +11,8 @@ import { ProviderService } from '../../../service/provider.service'
 export class WaterAndSedChangePage implements OnInit {
   titleName:string;
   chart:any
+  dataUrl:string
+  dataUrl1:string
   constructor(
     public httpService:ProviderService,
     public activeRoute: ActivatedRoute,
@@ -18,6 +21,8 @@ export class WaterAndSedChangePage implements OnInit {
       if (params['object']) {
         let chartInfo = JSON.parse(params['object'])
         this.titleName=chartInfo.titleName
+        this.dataUrl=chartInfo.dataUrl
+        this.dataUrl1=chartInfo.dataUrl1
       }
     })
    }
@@ -27,7 +32,7 @@ export class WaterAndSedChangePage implements OnInit {
   }
   serarData(){
     let waterOption={
-        color: ['#003366', '#006699', '#4cabce', '#e5323e'],
+        // color: ['#003366', '#006699', '#4cabce', '#e5323e'],
         tooltip: {
             trigger: 'axis',
             axisPointer: {
@@ -86,9 +91,27 @@ export class WaterAndSedChangePage implements OnInit {
         ]
     
     }
-    this.initEchart(waterOption,'waterchart')
+    this.httpService.queryGrainCompositionChart(this.dataUrl).then(res=>{
+        let json=JSON.parse(res)
+        waterOption.xAxis[0].data=json.stationNames
+        let legendData=Object.keys(json.data)
+        let series=[]
+        waterOption.legend.data=legendData
+
+        _.forEach(json.data,function(value,index){
+            console.log(value,index)
+            series.push({
+                name: index,
+                type: 'bar',
+                data: value
+            })
+        })
+        waterOption.series=series
+        this.initEchart(waterOption,'waterchart')
+    })
+    
     let sandOption={
-      color: ['#003366', '#006699', '#4cabce', '#e5323e'],
+    //   color: ['#003366', '#006699', '#4cabce', '#e5323e'],
       tooltip: {
           trigger: 'axis',
           axisPointer: {
@@ -147,12 +170,30 @@ export class WaterAndSedChangePage implements OnInit {
       ]
     }
     this.initEchart(sandOption,'sandchart')
+    this.httpService.queryGrainCompositionChart(this.dataUrl1).then(res=>{
+        let json=JSON.parse(res)
+        sandOption.xAxis[0].data=json.stationNames
+        let legendData=Object.keys(json.data)
+        let series=[]
+        sandOption.legend.data=legendData
+
+        _.forEach(json.data,function(value,index){
+            console.log(value,index)
+            series.push({
+                name: index,
+                type: 'bar',
+                data: value
+            })
+        })
+        sandOption.series=series
+        this.initEchart(sandOption,'sandchart')
+    })
   }
   
   initEchart(option,id) {
     let ec = echarts as any;
     let container = document.getElementById(id);
-    let chart = ec.init(container);
+    let chart = ec.init(container,'shine');
    
     if(option.series.length>0){
       chart.setOption(option);

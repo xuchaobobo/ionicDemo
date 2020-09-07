@@ -37,6 +37,8 @@ export class AnnAvgLinePage implements OnInit {
   stationName
   startTime
   endTime
+  area='三峡库区'
+  	river='长江'
   types = ['Z']
   selectYear = ['2018']
   years = []
@@ -96,13 +98,16 @@ export class AnnAvgLinePage implements OnInit {
       componentProps: {
         types: this.types,
         typeLen: this.types.length,
+        defaultArea:this.area,
+				defaultRiver:this.river,
         defaultStation: this.station
       }
     })
     await modal.present();
     const { data } = await modal.onDidDismiss();
     this.station = data.selectStation
-
+    this.area=data.selectarea,
+		this.river=data.selectriver,
     this.stationName = _.map(data.selectStation, 'stnm').join(',')
   }
   searchData() {

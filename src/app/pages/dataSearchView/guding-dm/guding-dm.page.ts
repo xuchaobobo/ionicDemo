@@ -463,7 +463,7 @@ export class GudingDmPage implements OnInit {
                   if (_.findIndex(dmlineArr, dmData[0].dsan[i].dsnm)==-1) {
                     dmlineArr.push(dmData[0].dsan[i].dsnm)
                     var h = dmData[0].dsan[i].h
-                    if (dmData[0].dsan[i].dsnm == '9999') {
+                    if (dmData[0].dsan[i].dsnm == '9999'||dmData[0].dsan[i].dsnm == '断面平均') {
   
                       var inptds = dmData[0].dsan[i].inptds
                       zXaixArr.push([inptds, h])
@@ -476,10 +476,20 @@ export class GudingDmPage implements OnInit {
                   }
                 }
                 this.pjmodalFlag=true
-                this.pjmodalData=_.filter(dmData[0].dsan,{'dsnm':"9999"})
+                let dmFlag=_.findIndex(dmData[0].dsan, {'dsnm': '9999'})
+                let dmFlagavg=_.findIndex(dmData[0].dsan, {'dsnm': '断面平均'})
+									
+									var dmindex={'dsnm':"9999"};
+										if(dmFlag!=-1){
+											dmindex={'dsnm':"9999"}
+										}
+										if(dmFlagavg!=-1){
+											dmindex={'dsnm':'断面平均'}
+										}
+                this.pjmodalData=_.filter(dmData[0].dsan,dmindex)
                 this.cxmodalFlag=true
                 this.cxmodalData=_.filter(dmData[0].dsan,function(item){
-                  return item.dsnm!='9999'
+                  return item.dsnm!=dmindex['dsnm']
                 })
               }else{
                 this.pjmodalFlag=false
@@ -496,7 +506,7 @@ export class GudingDmPage implements OnInit {
                     var inptds = dmData[0].dsannt[i].inptds
                     var dsnm=dmData[0].dsannt[i].dsnm
                     var dbd=dmData[0].dsannt[i].dbd
-                    if (dmData[0].dsannt[i].dsnm == '9999') {
+                    if (dmData[0].dsannt[i].dsnm == '9999'||dmData[0].dsan[i].dsnm == '断面平均') {
                       
                       zDANNTXaixArr.push([inptds, h,dsnm,dbd])
                     } else {

@@ -21,6 +21,8 @@ export class KljpLinePage implements OnInit {
 
   titles: any = '颗粒级配';
   nowDay: any;
+  area='三峡库区'
+  river='长江'
   seleceList = [{
     'name': '悬移质',
     'value': '',
@@ -89,14 +91,17 @@ export class KljpLinePage implements OnInit {
       cssClass: 'station_elect',
       componentProps: {
         types: this.types,
-        typeLen: this.types.length,
+		typeLen: this.types.length,
+		defaultArea:this.area,
+		defaultRiver:this.river,
         defaultStation: this.station
       }
     })
     await modal.present();
     const { data } = await modal.onDidDismiss();
     this.station = data.selectStation
-
+	this.area=data.selectarea
+	this.river=data.selectriver
     this.stationName = _.map(data.selectStation, 'stnm').join(',')
   }
   initYears() {

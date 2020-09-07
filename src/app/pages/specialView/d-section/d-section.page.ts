@@ -63,9 +63,6 @@ export class DSectionPage implements OnInit {
     let selectObj=_.filter(this.areaJson[this.area],function(item){
       return item.yr== e.detail.value
     })[0]
-    console.log(_.filter(this.areaJson[this.area],function(item){
-      return item.yr== e.detail.value
-    }))
     this.param={
       xscds:selectObj.xscd,
       msno:selectObj.msno
@@ -77,7 +74,7 @@ export class DSectionPage implements OnInit {
       let json=JSON.parse(res)
       that.chartDiV=json
       for(let i=0;i<json.length;i++){
-        let titleText = '断面:' + json[i].xscd;
+        let titleText = '断面:' + json[i].xsnm;
         let map ={}
         for (let j = 0; j < json[i].series.length; j++) {
           var key = Object.keys(json[i].series[j])[0];

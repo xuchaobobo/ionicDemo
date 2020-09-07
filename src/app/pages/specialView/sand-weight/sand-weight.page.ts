@@ -9,6 +9,8 @@ import { ProviderService } from '../../../service/provider.service'
 })
 export class SandWeightPage implements OnInit {
   titleName: any
+  dataUrl:string
+
   constructor(
     public httpService: ProviderService,
     public activeRoute: ActivatedRoute,
@@ -17,6 +19,7 @@ export class SandWeightPage implements OnInit {
       if (params['object']) {
         let chartInfo = JSON.parse(params['object'])
         this.titleName = chartInfo.titleName
+        this.dataUrl=chartInfo.dataUrl
       }
     })
   }
@@ -25,6 +28,7 @@ export class SandWeightPage implements OnInit {
     this.searchData()
   }
   searchData() {
+
     var labelOption = {
       show: true,
 
@@ -60,6 +64,7 @@ export class SandWeightPage implements OnInit {
       xAxis: {
         type: 'value',
         position: 'bottom',
+        max:100,
         splitLine: {
           lineStyle: {
             type: 'dashed'
@@ -68,14 +73,14 @@ export class SandWeightPage implements OnInit {
       },
       yAxis: [{
         type: 'category',
-        data: ['宜昌', '黄陵庙', '万县']
+        data: ['宜昌', '黄陵庙', '万县','清溪场', '武隆', '寸滩', '北碚', '朱沱']
     },{
         yAxisIndex:1,
         type: 'category',
         axisTick:{
           show:false
       },
-        data: ['2018', '2013-2017','三峡蓄水前' ,'2018', '2013-2017','三峡蓄水前' ,'2018', '2013-2017','三峡蓄水前' ]
+        data: ['2018', '2013-2017','三峡蓄水前' ,'2018', '2013-2017','三峡蓄水前' ,'2018', '2013-2017','三峡蓄水前' ,'2018', '2013-2017','三峡蓄水前' ,'2018', '2013-2017','三峡蓄水前' ,'2018', '2013-2017','三峡蓄水前' ,'2018', '2013-2017','三峡蓄水前' ,'2018', '2013-2017','三峡蓄水前' ]
     }],
       series: [
         {
@@ -86,7 +91,7 @@ export class SandWeightPage implements OnInit {
           itemStyle: {
             normal: { color: "#3FBB49" },
           },
-          data: [0.4, 0.6, 0.4]
+          data: [0.4, 0.6, 0.4,0.4, 0.6, 0.4, 0.6, 0.4]
         },
         {
           name: '>0.125',
@@ -96,7 +101,7 @@ export class SandWeightPage implements OnInit {
           itemStyle: {
             normal: { color: "#006699" },
           },
-          data: [0.3, 0.2, 0.3]
+          data: [0.3, 0.2, 0.3,0.3, 0.2, 0.3,0.2, 0.3]
         },
         {
           name: '0.031<0.125',
@@ -106,7 +111,7 @@ export class SandWeightPage implements OnInit {
           itemStyle: {
             normal: { color: "#4cabce" },
           },
-          data: [0.3, 0.2, 0.3]
+          data: [0.3, 0.2, 0.3,0.3, 0.2, 0.3, 0.2, 0.3]
         },
         {
           name: '<0.031',
@@ -116,7 +121,7 @@ export class SandWeightPage implements OnInit {
           itemStyle: {
             normal: { color: "#3FBB49" },
           },
-          data: [0.2, 0.3, 0.2]
+          data: [0.2, 0.3, 0.2,0.2, 0.3, 0.2, 0.3, 0.2]
         },
         {
           name: '>0.125',
@@ -126,7 +131,7 @@ export class SandWeightPage implements OnInit {
           itemStyle: {
             normal: { color: "#006699" },
           },
-          data: [0.4, 0.5, 0.5]
+          data: [0.4, 0.5, 0.5,0.4, 0.5, 0.5, 0.5, 0.5]
         },
         {
           name: '0.031<0.125',
@@ -136,7 +141,7 @@ export class SandWeightPage implements OnInit {
           itemStyle: {
             normal: { color: "#4cabce" },
           },
-          data: [0.4, 0.2, 0.3]
+          data: [0.4, 0.2, 0.3,0.4, 0.2, 0.3, 0.2, 0.3]
         }, {
           name: '<0.031',
           type: 'bar',
@@ -145,7 +150,7 @@ export class SandWeightPage implements OnInit {
             normal: { color: "#3FBB49" },
           },
           label: labelOption,
-          data: [0.7, 0.4, 0.2]
+          data: [0.7, 0.4, 0.2,0.7, 0.4, 0.2, 0.4, 0.2]
         }
         , {
           name: '>0.125',
@@ -155,7 +160,7 @@ export class SandWeightPage implements OnInit {
             normal: { color: "#006699" },
           },
           label: labelOption,
-          data: [0.2, 0.3, 0.6]
+          data: [0.2, 0.3, 0.6,0.2, 0.3, 0.6, 0.3, 0.6]
         }, {
           name: '0.031<0.125',
           type: 'bar',
@@ -164,11 +169,20 @@ export class SandWeightPage implements OnInit {
           itemStyle: {
             normal: { color: "#4cabce" },
           },
-          data: [0.1, 0.3, 0.2]
+          data: [0.1, 0.3, 0.2,0.1, 0.3, 0.2, 0.3, 0.2]
         }
       ]
     }
-    this.initEchart(option, 'sandWeightChart')
+    this.httpService.queryGrainCompositionChart(this.dataUrl).then(res=>{
+      let json=JSON.parse(res)
+      console.log(json)
+      option.yAxis[0].data=json.names
+      option.yAxis[1].data=json.yearList
+      option.series=json.series
+      console.log(option)
+      this.initEchart(option, 'sandWeightChart')
+    })
+    
   }
   initEchart(option, id) {
     let ec = echarts as any;

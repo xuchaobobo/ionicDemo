@@ -27,16 +27,18 @@ import * as _ from 'lodash';
 export class AreaSelectComponent implements OnInit {
  
   @Input() types:any
+  @Input() defaultArea:any
+  @Input() defaultRiver:any
   @Input() defaultStation:any
 
   selectStations=this.defaultStation
+  selectArea
+  selectriver
   // selectStations=[]
-  stations=[]
+  // stations=[]
   nodes 
   state: ITreeState;
   defaultChecked
-  
-  selectArea=[]
   // fenqu
   // options:{
   //   useTriState: false,
@@ -119,10 +121,24 @@ export class AreaSelectComponent implements OnInit {
       }
      
     }
-    this.getRivers(this.selected_node_id)
+    
     if (node.children) {
       node.children.forEach((child) => this.updateChildNodeCheckbox(child, checked));
     }
+    let arrs=[]
+    if(this.selected_node_id.length>0){
+      let arr=this.selected_node_id
+      for(let i=0;i<arr.length;i++){
+        if(arr[i]['area2']==null){
+          arrs.push(arr[i]['area1'])
+        }else{
+          arrs.push(arr[i]['area2'])
+        }
+      }
+    }
+
+    this.selectArea=_.uniqWith(arrs,_.isEqual)
+    this.getRivers(this.selected_node_id)
   }
  
   public updateParentNodeCheckbox(node) {
@@ -203,9 +219,9 @@ export class AreaSelectComponent implements OnInit {
     this.modal.dismiss()
   }
   initAreaData(){
+    let that=this
     this.httpService.getAllAreas().then(async res=>{
       var areaArr=[];	
-      let that=this
 			res = JSON.parse(res)
 			  _.forEach(res,function(val,i){
           if(val.length>0){
@@ -221,19 +237,17 @@ export class AreaSelectComponent implements OnInit {
               val[i]['id']=val[i].area2
               val[i]['pid']=val[i].area1
             }
-            if(val[i].area1=='三峡库区'){
-              val[i]['checked']=true
-              that.selected_node_id.push(val[i])
+            for(let j=0;j<that.defaultArea.length;j++){
+              if(val[i].area1==that.defaultArea[j]){
+                val[i]['checked']=true
+                that.selected_node_id.push(val[i])
+              }
             }
+            
             areaArr.push(val[i])
           }
-           
           }
-
 			  })
-		
-	
-			 
         this.nodes=this.treeinit(areaArr,this.defaultChecked)
         this.getRivers(this.selected_node_id)
 		  })
@@ -250,60 +264,63 @@ export class AreaSelectComponent implements OnInit {
       }
       
     }
+    
     this.riverMod=JSON.stringify(arr)
-    this.httpService.getAllRivers(JSON.stringify(arr)).then(res=>{
-      let data=JSON.parse(res)
-      let arrRiver=[]
-      _.forEach(data.name,function(item){
-        arrRiver.push({name:item,children:[]})
+    
+      this.httpService.getAllRivers(JSON.stringify(arr)).then(res=>{
+        
+        let data=JSON.parse(res)
+        let arrRiver=[]
+        _.forEach(data.name,function(item){
+          arrRiver.push({name:item,children:[]})
+        })
+        this.rivers=arrRiver
+        this.selectRiver=_.filter(arrRiver,{name:this.defaultRiver})[0]?_.filter(arrRiver,{name:this.defaultRiver})[0]:arrRiver[0]
+        this.riverSelect(this.selectRiver)
       })
-      this.rivers=arrRiver
-      this.selectRiver=data.name[0]
-      this.riverSelect(arrRiver[0])
-      this.selectStations=this.defaultStation
-    })
   }
   riverSelect(river){
-    
-    let typeStr=_.toString(this.types).toUpperCase()
-    let param = Object()
-    if (river.name == '长江' ||river.name == '金沙江') {
-      param.riverMod = this.riverMod
-    } else {
-      param.rivers = river.name
-    }
-    param.type=typeStr
-    
-  
-    let stnm=this.defaultStation
-    let arr=[]
-    this.httpService.getStationByRiver(param).then(res=>{
-      let data=JSON.parse(res)
-     
-        data.forEach(function(iten){
-
-          
-          if(_.findIndex(stnm,{'stcd':iten.stcd})!=-1){
-            iten.flag=true
-            arr.push(iten)
-          }else{
-            iten.flag=false
-          }
-       
-      })
+    if(river){
+      this.selectRiver=river.name
+      let typeStr=_.toString(this.types).toUpperCase()
+      let param = Object()
+      if (river.name == '长江' ||river.name == '金沙江') {
+        param.riverMod = this.riverMod
+      } else {
+        param.rivers = river.name
+      }
+      param.type=typeStr
       
-      this.stations=_.concat(this.stations,arr)
-      this.stations=_.uniqWith(this.stations,_.isEqual)
-      this.rivers.forEach(function(item){
+    
+      let stnm=this.defaultStation
+      let arr=[]
+      this.httpService.getStationByRiver(param).then(res=>{
+        let data=JSON.parse(res)
+          data.forEach(function(iten){
+            
+              if(_.findIndex(stnm,{'stcd':iten.stcd})!=-1){
+                iten.flag=true
+                arr.push(iten)
+              }else{
+                iten.flag=false
+              }
+        })
+        this.rivers.forEach(function(item){
+          if(item.name==river.name){
+            item.children=_.filter(data,{'rvnm':river.name})
+          }
+        })
         
-        if(item.name==river.name){
-          item.children=data
-        }
       })
-    })
+    }
+    else{
+      this.selectStations=[]
+    }
+    
   }
+
   async changeSelect(selectStation){
-    this.selectStations=this.defaultStation
+    // this.selectStations=[]
       selectStation.flag=!selectStation.flag
     
       if(selectStation.flag){
@@ -318,9 +335,13 @@ export class AreaSelectComponent implements OnInit {
    
   }
   selestData(){
+    
     this.selectStations=_.uniqWith(this.selectStations,_.isEqual)
+    console.log(this.selectStations)
     this.modal.dismiss({
       selectStations:this.selectStations,
+      selectarea:this.selectArea,
+      selectriver:this.selectriver,
       // riverMod:this.riverMod
     })
   }

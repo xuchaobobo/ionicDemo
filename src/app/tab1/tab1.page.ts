@@ -86,10 +86,11 @@ export class Tab1Page {
 		[6,8],//15BLayerShuiwenzhan1;
 		[9,this.maxZoom],//16BLayerShuiwenzhan;
 		[11,this.maxZoom],//17BLayerShuiweizhan;
-		[10,this.maxZoom],//18LayerHeliu;
-		[this.minZoom,this.maxZoom],//19BLayerLiuyubianjie2;
-		[this.minZoom,this.maxZoom],//20BLayerGuoL;
-		[11,this.maxZoom],//21LayerELVZhoutan
+		[11,this.maxZoom],//18BLayerShuikuzhanP;
+		[10,this.maxZoom],//19LayerHeliu;
+		[this.minZoom,this.maxZoom],//20BLayerLiuyubianjie2;
+		[this.minZoom,this.maxZoom],//21BLayerGuoL;
+		[11,this.maxZoom],//LayerELVZhoutan
 		[11,this.maxZoom],//22LayerELV1
 		[11,this.maxZoom],//23LayerELV2
 		[11,this.maxZoom],//24LayerELV3
@@ -281,25 +282,25 @@ SetBLayerSwitchAccLayerMng(element,layermngname){
 			this.BLayerSwitch[7]=chekcedFlag//.setVisible(chekcedFlag);
 			this.BLayerSwitch[8]=chekcedFlag//.setVisible(chekcedFlag);
 			this.BLayerSwitch[9]=chekcedFlag//.setVisible(chekcedFlag);
-			this.BLayerSwitch[20]=chekcedFlag//.setVisible(chekcedFlag);
-			this.BLayerSwitch[28]=chekcedFlag//.setVisible(chekcedFlag);
+			this.BLayerSwitch[21]=chekcedFlag//.setVisible(chekcedFlag);
 			this.BLayerSwitch[29]=chekcedFlag//.setVisible(chekcedFlag);
 			this.BLayerSwitch[30]=chekcedFlag//.setVisible(chekcedFlag);
+			this.BLayerSwitch[31]=chekcedFlag//.setVisible(chekcedFlag);
 			this.SetLayerVisable();
 			break;
 		case "水系":
 			this.BLayerSwitch[0]=chekcedFlag//.setVisible(chekcedFlag);
 			this.BLayerSwitch[1]=chekcedFlag//.setVisible(chekcedFlag);
-			this.BLayerSwitch[18]=chekcedFlag//.setVisible(chekcedFlag);
 			this.BLayerSwitch[19]=chekcedFlag//.setVisible(chekcedFlag);
-			this.BLayerSwitch[21]=chekcedFlag//.setVisible(chekcedFlag);
+			this.BLayerSwitch[20]=chekcedFlag//.setVisible(chekcedFlag);
 			this.BLayerSwitch[22]=chekcedFlag//.setVisible(chekcedFlag);
 			this.BLayerSwitch[23]=chekcedFlag//.setVisible(chekcedFlag);
 			this.BLayerSwitch[24]=chekcedFlag//.setVisible(chekcedFlag);
 			this.BLayerSwitch[25]=chekcedFlag//.setVisible(chekcedFlag);
 			this.BLayerSwitch[26]=chekcedFlag//.setVisible(chekcedFlag);
 			this.BLayerSwitch[27]=chekcedFlag//.setVisible(chekcedFlag);
-			this.BLayerSwitch[31]=chekcedFlag//.setVisible(chekcedFlag);
+			this.BLayerSwitch[28]=chekcedFlag//.setVisible(chekcedFlag);
+			this.BLayerSwitch[32]=chekcedFlag//.setVisible(chekcedFlag);
 			this.SetLayerVisable();
 			break;
 		case "测站":
@@ -307,6 +308,7 @@ SetBLayerSwitchAccLayerMng(element,layermngname){
 			this.BLayerSwitch[15]=chekcedFlag//.setVisible(chekcedFlag);
 			this.BLayerSwitch[16]=chekcedFlag//.setVisible(chekcedFlag);
 			this.BLayerSwitch[17]=chekcedFlag//.setVisible(chekcedFlag);
+			this.BLayerSwitch[18]=chekcedFlag//.setVisible(chekcedFlag);
 			if(chekcedFlag){
 				this.BLayerSwitch[10]=false//.setVisible(element.checked);
 				this.BLayerSwitch[11]=false//.setVisible(element.checked);
@@ -329,6 +331,7 @@ SetBLayerSwitchAccLayerMng(element,layermngname){
 				this.BLayerSwitch[15]=false//.setVisible(element.checked);
 				this.BLayerSwitch[16]=false//.setVisible(element.checked);
 				this.BLayerSwitch[17]=false//.setVisible(element.checked);
+				this.BLayerSwitch[18]=false//.setVisible(element.checked);
 				this.LayerMngName[2].checked=false;
 				this.cd.detectChanges();
 			}
@@ -344,7 +347,7 @@ SetBLayerSwitchAccLayerMng(element,layermngname){
 			this.SetLayerVisable();
 			break;
 		case "我的位置":
-			this.BLayerSwitch[32]=chekcedFlag//.setVisible(chekcedFlag);
+			this.BLayerSwitch[33]=chekcedFlag//.setVisible(chekcedFlag);
 			this.SetLayerVisable();
 			if(chekcedFlag){
 				
@@ -356,7 +359,7 @@ SetBLayerSwitchAccLayerMng(element,layermngname){
 			}
 			break;
 		case "第三方地图":
-			this.BLayerSwitch[33]=chekcedFlag//.setVisible(chekcedFlag);
+			this.BLayerSwitch[34]=chekcedFlag//.setVisible(chekcedFlag);
 			this.SetLayerVisable();
 			break;
 		default:alert("图层错误");
@@ -366,7 +369,7 @@ SetBLayerSwitchAccLayerMng(element,layermngname){
   SetLayerVisable(){
 	  
 	var mapZoom=this.map.getView().getZoom();
-	for(var i=0;i<34;i++){
+	for(var i=0;i<35;i++){
 		if ( mapZoom>= this.LayerZoom[i][0] && mapZoom <= this.LayerZoom[i][1] && this.BLayerSwitch[i]==true ){
 			this.LayAll[i].setVisible(true);
 		}else{
@@ -399,8 +402,8 @@ SetBLayerSwitchAccLayerMng(element,layermngname){
   initmap(){
 	var BLayerSwitch =new Array(34);
 	
-	for(var i=0;i<34;i++){
-		if(i==3||i==15||i==16||i==17||i==32||i==33){
+	for(var i=0;i<35;i++){
+		if(i==3||i==15||i==16||i==17||i==18||i==33||i==34){
 			BLayerSwitch[i] =false;
 		}else{
 			BLayerSwitch[i] =true;
@@ -650,6 +653,19 @@ var LayerShuiweizhanP = new ImageLayer({
 		visible:false
 	});
 	LayerShuiweizhanP.setZIndex(99);
+	var LayerShuikuzhanP = new ImageLayer({
+		source: new ImageWMS({
+			ratio: 1,
+			url: url,
+			params: {
+				'FORMAT': format,
+				'VERSION': '1.1.1',
+				STYLES: '',
+				LAYERS: 'DiTu:ShuiweizhanP',//水库站全
+			}
+		}),
+		visible:false
+	});
 	var LayerShishishuikuzhan1P = new ImageLayer({
 		source: new ImageWMS({
 			ratio: 1,
@@ -965,6 +981,7 @@ var LayerDuanmianOldL = new ImageLayer({
 			LayerShuiwenzhan1P,
 			LayerShuiwenzhanP,
 			LayerShuiweizhanP,
+			LayerShuikuzhanP,
 			LayerHeliuL,
 			LayerLiuyubianjie2L,
 			LayerGuoL,
@@ -982,8 +999,8 @@ var LayerDuanmianOldL = new ImageLayer({
 			this.LayerVectorLocation,
 			LayerOSM
 		];
-for(var i=0;i<34;i++){
-	if(i==3||i==15||i==16||i==17||i==32||i==33){
+for(var i=0;i<35;i++){
+	if(i==3||i==15||i==16||i==17||i==18||i==33||i==34){
 		this.BLayerSwitch[i] =false;
 	}else{
 		this.BLayerSwitch[i] =true;
@@ -1040,6 +1057,7 @@ var control = new ScaleLine({
 			LayerShuiwenzhan1P,
 			LayerShuiwenzhanP,
 			LayerShuiweizhanP,
+			LayerShuikuzhanP,
 			this.LayerVectorLocation,
 		  ],
 		  view: this.view

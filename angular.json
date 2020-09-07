@@ -41,7 +41,10 @@
                 "input": "node_modules/ol/ol.css"
               }
             ],
-            "scripts": ["node_modules/echarts/dist/echarts.js"]
+            "scripts": [
+              "node_modules/echarts/dist/echarts.js",
+              "node_modules/echarts/theme/shine.js"
+            ]
           },
           "configurations": {
             "production": {

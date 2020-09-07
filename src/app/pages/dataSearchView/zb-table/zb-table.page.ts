@@ -34,7 +34,8 @@ export class ZbTablePage implements OnInit {
   }
   rows = [
   ];
-  
+  area=['三峡库区']
+  river='长江'
   cols=[]
   types=['z']
   station=[{
@@ -111,7 +112,9 @@ export class ZbTablePage implements OnInit {
 			rvnm: "长江",
 			obitmcd: null
 		}]
-		this.stationName = "朱沱(三),寸滩"
+    this.stationName = "朱沱(三),寸滩"
+    this.area=['三峡库区']
+    this.river='长江'
     this.zbstartTime = moment(new Date(Date.now() - 24 * 365 * 7 * 60 * 60 * 1000)).format('YYYY');
 
     this.zbendTime = moment(new Date(Date.now() - 24 * 365 * 2 * 60 * 60 * 1000)).format('YYYY');
@@ -144,13 +147,16 @@ export class ZbTablePage implements OnInit {
 			cssClass: 'station_elect',
 			componentProps: {
 				types: this.types,
-				
+        defaultArea:this.area,
+        defaultRiver:this.river,
 				defaultStation: this.station
 			}
 		})
 		await modal.present();
 		const { data } = await modal.onDidDismiss();
-		this.station = data.selectStations
+    this.station =data.selectStations
+    this.area=data.selectarea,
+    this.river=data.selectriver,
     // this.riverMod=data.riverMod
 		this.stationName = _.map(data.selectStations, 'stnm').join(',')
 		
@@ -264,7 +270,7 @@ export class ZbTablePage implements OnInit {
                   if(_.find(data,{dt:date,stcd:stationList[j]})!=undefined){
                     val=_.find(data,{dt:date,stcd:stationList[j]})[this.typeObj[typeList]]
                   }else{
-                    val=''
+                    val='-'
                   }
                   
                   obj[stationList[j]]=val
@@ -375,7 +381,14 @@ export class ZbTablePage implements OnInit {
         obj.id=num
         obj.type='year'
         for(let j=0;j<stationList.length;j++){
-          let val=_.find(data,{yr:num,stcd:stationList[j]})[this.typeObj[typeList]]
+         
+          let val
+            if(_.find(data,{yr:num,stcd:stationList[j]})!=undefined){
+              val=_.find(data,{yr:num,stcd:stationList[j]})[this.typeObj[typeList]]
+            }else{
+              val='-'
+            }
+          // let val=_.find(data,{yr:num,stcd:stationList[j]})[this.typeObj[typeList]]
           obj[stationList[j]]=val
         }
         num++

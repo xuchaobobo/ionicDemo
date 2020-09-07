@@ -36,6 +36,8 @@ station
   selectedList = '悬移质'
   selectYear = ['2018']
   selectedMonth = ['1']
+  area='三峡库区'
+  river='长江'
   years = []
   momths = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12']
   constructor(
@@ -76,13 +78,16 @@ station
       componentProps: {
         types: this.types,
         typeLen: 2,
+        defaultArea:this.area,
+				defaultRiver:this.river,
         defaultStation: this.station
       }
     })
     await modal.present();
     const { data } = await modal.onDidDismiss();
     this.station = data.selectStation
-
+    this.area=data.selectarea
+		this.river=data.selectriver
     this.stationName = _.map(data.selectStation, 'stnm').join(',')
   }
   initYears() {

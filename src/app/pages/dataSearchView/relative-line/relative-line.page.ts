@@ -21,6 +21,8 @@ import * as moment from 'moment';
 export class RelativeLinePage implements OnInit {
 
   titles:any='关系线';
+  area='三峡库区'
+  	river='长江'
   seleceList:any=[
     {
       'name':'水位流量',
@@ -85,14 +87,17 @@ dataType='2'
 			cssClass: 'station_elect',
 			componentProps: {
 				types: this.types,
-				typeLen: 2,
+        typeLen: 2,
+        defaultArea:this.area,
+				defaultRiver:this.river,
 				defaultStation: this.station
 			}
 		})
 		await modal.present();
 		const { data } = await modal.onDidDismiss();
 		this.station = data.selectStation
-   
+    this.area=data.selectarea
+		this.river=data.selectriver
 		this.stationName = _.map(data.selectStation, 'stnm').join(',')
   }
   initYears(){
