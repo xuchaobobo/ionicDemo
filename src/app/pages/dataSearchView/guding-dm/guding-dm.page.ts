@@ -460,7 +460,8 @@ export class GudingDmPage implements OnInit {
                 zDANNTXaixArr = [];
               if (dmData[0].dsan) {
                 for (var i = 0; i < dmData[0].dsan.length; i++) {
-                  if (_.findIndex(dmlineArr, dmData[0].dsan[i].dsnm)==-1) {
+                  console.log(_.includes(dmlineArr, {'dsnm':dmData[0].dsan[i].dsnm}))
+                  if (!_.includes(dmlineArr, dmData[0].dsan[i].dsnm)) {
                     dmlineArr.push(dmData[0].dsan[i].dsnm)
                     var h = dmData[0].dsan[i].h
                     if (dmData[0].dsan[i].dsnm == '9999'||dmData[0].dsan[i].dsnm == '断面平均') {
@@ -500,7 +501,7 @@ export class GudingDmPage implements OnInit {
               if(dmData[0].dsannt) {
                 
                 for (var i = 0; i < dmData[0].dsannt.length; i++) {
-                  if (_.findIndex(dmsanntlineArr, dmData[0].dsannt[i].dsnm)==-1) {
+                  if (!_.includes(dmsanntlineArr,dmData[0].dsan[i].dsnm)) {
                     dmsanntlineArr.push(dmData[0].dsannt[i].dsnm)
                     var h = dmData[0].dsannt[i].h;
                     var inptds = dmData[0].dsannt[i].inptds

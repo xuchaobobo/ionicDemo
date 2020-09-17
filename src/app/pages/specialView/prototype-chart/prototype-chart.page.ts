@@ -23,13 +23,13 @@ export class PrototypeChartPage implements OnInit {
     ) {
     
     this.activeRoute.queryParams.subscribe((params: Params) => {
-      if(params['object']){
-        let chartInfo=JSON.parse(params['object'])
-        this.titleName=chartInfo.titleName
-        this.param=chartInfo.param
+      if(params['titleName']){
+        let titleName=params['titleName']
+        this.titleName=titleName
+        this.param=JSON.parse(params['param'])
         // console.log(chartInfo.option)
         let that=this
-        this.httpService.getObservictionData(that.param).then(res=>{
+        this.httpService.getObservictionData(this.param).then(res=>{
           let json=JSON.parse(res).data
           let option={
             title: {
@@ -125,7 +125,7 @@ export class PrototypeChartPage implements OnInit {
           that.initEchart(option)
          
         }).catch(err=>{
-          // alert(err)
+          // alert(JSON.stringify(err))
         })
         
       }
@@ -173,14 +173,10 @@ export class PrototypeChartPage implements OnInit {
       this.chart.setOption(option);
       setTimeout(() => {
         this.chart.resize()
-      }, 3000);
+      }, 300);
       
       
     }
-    
-    // 
-
-    // detect orientation changes
    
   }
 }

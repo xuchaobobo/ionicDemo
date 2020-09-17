@@ -18,11 +18,10 @@ export class WaterAndSedChangePage implements OnInit {
     public activeRoute: ActivatedRoute,
   ) {
     this.activeRoute.queryParams.subscribe((params: Params) => {
-      if (params['object']) {
-        let chartInfo = JSON.parse(params['object'])
-        this.titleName=chartInfo.titleName
-        this.dataUrl=chartInfo.dataUrl
-        this.dataUrl1=chartInfo.dataUrl1
+      if (params['titleName']) {
+        this.titleName=params['titleName']
+        this.dataUrl=params['dataUrl']
+        this.dataUrl1=params['dataUrl1']
       }
     })
    }

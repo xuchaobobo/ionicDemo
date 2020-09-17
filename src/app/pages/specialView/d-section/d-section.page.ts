@@ -26,12 +26,13 @@ export class DSectionPage implements OnInit {
     public unitsService:UnitsService
   ) { 
     this.activeRoute.queryParams.subscribe((params: Params) => {
-      if(params['object']){
-        let chartInfo=JSON.parse(params['object'])
-        this.titleName=chartInfo.titleName
+      if(params['titleName']){
+        let titleName=params['titleName']
+        this.titleName=titleName
+        this.param=params['param']
         // console.log(chartInfo.option)
         let that=this
-        this.httpService.getDmAndMsno(chartInfo.param).then(res=>{
+        this.httpService.getDmAndMsno(this.param).then(res=>{
           let json=JSON.parse(res)
           that.areaJson=json
           that.areas=_.keys(json)

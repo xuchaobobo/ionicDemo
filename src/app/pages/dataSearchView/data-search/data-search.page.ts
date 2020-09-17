@@ -49,7 +49,7 @@ export class DataSearchPage implements OnInit {
 			  url:'/tabs/tab2/relative-line'
 			},{
 			  icon:'icon-shachen',
-			  title:'颗粒集配',
+			  title:'颗粒级配',
 			  url:'/tabs/tab2/kljp-line'
 			},{
 			  icon:'icon-table',

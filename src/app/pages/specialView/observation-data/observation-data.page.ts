@@ -97,33 +97,34 @@ export class ObservationDataPage implements OnInit {
   navToDetail(menu){
 	  let obj;
 	if(menu.url=='/tabs/tab3/prototype-chart'){
-		obj={
-			titleName:menu.name,
-			param:{
-				stcd:menu.stcd,
-				startDate:menu.startDate,
-				endDate:menu.endDate
+	
+		this.router.navigate([menu.url], {
+			queryParams: {
+				titleName: menu.name,
+				param:JSON.stringify({
+					stcd:menu.stcd,
+					startDate:menu.startDate,
+					endDate:menu.endDate
+				})
 			}
-		}
+		  })
 	}else if(menu.url=='/tabs/tab3/d-section'){
-		obj={
-			titleName:menu.name,
-			param:{
-				xscds:menu.xscds,
-				msno:menu.msno,
-				endDate:menu.endDate
+		
+		this.router.navigate([menu.url], {
+			queryParams: {
+				titleName: menu.name,
+				param:{
+					xscds:menu.xscds,
+					msno:menu.msno,
+					endDate:menu.endDate
+				}
 			}
-		}
+		  })
 	}else if(menu.url=='/tabs/tab3/water-and-sed-change'){
 		obj={
-			titleName:menu.name,
 			dataUrl:'',
 			dataUrl1:'',
-			param:{
-				xscds:menu.xscds,
-				msno:menu.msno,
-				endDate:menu.endDate
-			}
+			
 		}
 		if(menu.name=='坝下游水沙变化'){
 			obj.dataUrl='yearFlowContrastChart'
@@ -132,28 +133,29 @@ export class ObservationDataPage implements OnInit {
 			obj.dataUrl='upstreamFlowContrastChart'
 			obj.dataUrl1='upstreamSandContrastChart'
 		}
-	}else if(menu.url=='/tabs/tab3/sand-weight'){
-		obj={
-			titleName:menu.name,
-			dataUrl:'',
-			param:{
-				xscds:menu.xscds,
-				msno:menu.msno,
-				endDate:menu.endDate
+		this.router.navigate([menu.url], {
+			queryParams: {
+				titleName: menu.name,
+				dataUrl:obj.dataUrl,
+				dataUrl1:obj.dataUrl1
 			}
-		}
-		if(menu.name=='三峡库区颗粒级配'){
-			obj.dataUrl='getGrainComposition'
-		}else{
-			obj.dataUrl='getGrainCompositionZX'
-		}
+		  })
+	}else if(menu.url=='/tabs/tab3/sand-weight'){
 		
+		let dataUrl=''
+		if(menu.name=='三峡库区颗粒级配'){
+			dataUrl='getGrainComposition'
+		}else{
+			dataUrl='getGrainCompositionZX'
+		}
+		this.router.navigate([menu.url], {
+			queryParams: {
+				titleName: menu.name,
+				dataUrl:dataUrl,
+			}
+		  })
 	}
-	this.router.navigate([menu.url], {
-        queryParams: {
-          object: JSON.stringify(obj)
-        }
-      })
+	
 	
 	
   }

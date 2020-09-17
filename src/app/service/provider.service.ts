@@ -493,7 +493,6 @@ return key + '=' + encodeURIComponent(value === null ? '' : String(value));
     return this.get('swns/search.gaeaway',pama)
   }
   getObservictionData(param){
-    
     return this.get('swns/special/getWaterByStcdAndTime.gaeaway',param)
   }
   getDmAndMsno(param){

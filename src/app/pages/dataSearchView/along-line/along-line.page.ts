@@ -178,7 +178,7 @@ export class AlongLinePage implements OnInit {
     }else if(this.types=='qs'){
       processTypeName='输沙率(kg/s)'
     }else if(this.types=='tz'){
-      processTypeName='颗粒集配(mm)'
+      processTypeName='颗粒级配(mm)'
     }
     
     if(this.dateType=='month'){

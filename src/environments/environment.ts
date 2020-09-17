@@ -5,9 +5,12 @@
 export const environment = {
   production: true,
   // baseUrl: 'http://10.6.204.6:5011',
+  // geoServer:'http://10.6.204.6:5011'
   baseUrl: 'http://219.140.196.73:5011',
   geoServer:'http://219.140.196.73:5011'
-  // geoServer:'http://10.6.204.6:5011'
+  // baseUrl: 'http://10.6.13.210:8900',
+  // geoServer:'http://10.6.13.247:5011'
+  
 };
 
 /*

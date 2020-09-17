@@ -1081,7 +1081,7 @@ var control = new ScaleLine({
 			.then(function (json) {
 				if(json.features.length>0){
 					let dmInfo=json.features[0].properties
-					that.router.navigate(['/tabs/tab3/guding-dm'], {
+					that.router.navigate(['/tabs/tab2/guding-dm'], {
 						queryParams: {
 						  object: JSON.stringify(dmInfo)
 						}
