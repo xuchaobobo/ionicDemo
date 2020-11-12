@@ -11,6 +11,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs'
 import {Storage} from '@ionic/storage'
 import { ProviderService } from '../service/provider.service'
+import { AppConfig } from './../api.config';
 import { Baseui } from '../common/baseui'
 const TOKEN_KEY = 'auth-token'
 
@@ -43,7 +44,11 @@ export class AutheticationService extends Baseui  {
         super.showToast(this.toastController,'账号或密码错误')
       }else if(res&&res.name==json.name&&res.dep==json.dep&&res.password==json.password){
         super.hide(this.loadingCtrl)
+        
         json.time=new Date().getTime()
+        AppConfig.userName=res.name
+        AppConfig.userId=res.id
+        AppConfig.password=res.password
         this.storage.set(TOKEN_KEY,json)
         this.tokenFlag=true
         this.authenticationState.next(true)
@@ -51,10 +56,17 @@ export class AutheticationService extends Baseui  {
       }else{
         this.httpService.login(json).then(res=>{
           
+          res=JSON.parse(res)
+          console.log(res)
           super.hide(this.loadingCtrl)
-          if(res=='success'){
+          if(res.code=='200'){
+            let user=res.user
+            AppConfig.userName=user.name
+            AppConfig.userId=user.id
+            AppConfig.password=user.password
+            
             json.time=new Date().getTime()
-            return this.storage.set(TOKEN_KEY,json).then(
+            return this.storage.set(TOKEN_KEY,user).then(
               res=>{
                 this.authenticationState.next(true)
                 this.navCtrl.navigateForward('tabs')

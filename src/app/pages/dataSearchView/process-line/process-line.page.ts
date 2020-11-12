@@ -60,7 +60,7 @@ export class ProcessLinePage implements OnInit {
 	stcds:any
 	stationName;
 	dateType = 'day'
-	area='三峡库区'
+	area='金沙江下游'
   	river='长江'
 	startDay;//声明日期
 	endDay;

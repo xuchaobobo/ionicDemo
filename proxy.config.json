@@ -1,6 +1,6 @@
 {
     "/swns": {
-        "target": "http://10.6.13.247:5010/swns",
+        "target": "http://10.6.13.247:8111/swns",
         
         "secure": false,
         "logLevel": "debug",

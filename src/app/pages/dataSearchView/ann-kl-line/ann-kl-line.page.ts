@@ -36,7 +36,7 @@ station
   selectedList = '悬移质'
   selectYear = ['2018']
   selectedMonth = ['1']
-  area='三峡库区'
+  area='金沙江下游'
   river='长江'
   years = []
   momths = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12']

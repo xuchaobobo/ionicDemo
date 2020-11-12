@@ -33,7 +33,7 @@ export class RealTablePage implements OnInit {
   }
   rows = [
   ];
-  area=['三峡库区']
+  area=['金沙江下游']
   river='长江'
   cols=[]
   types=['q']
@@ -112,7 +112,7 @@ typeObj={
 			obitmcd: null
 		}]
     this.stationName = "朱沱(三),寸滩"
-    this.area=['三峡库区']
+    this.area=['金沙江下游']
     this.river='长江'
     this.startTime = moment(new Date(Date.now() - 24 * 365*7 * 60 * 60 * 1000)).format('YYYY');
 

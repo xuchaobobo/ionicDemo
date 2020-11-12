@@ -23,9 +23,9 @@ const TOKEN_KEY = 'auth-token'
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage  implements OnInit {
-  name='王伟'
+  name=''
   password:any='';
-  dep='长江委水文局'
+  dep=''
   depList=[]
   authenticationState = new BehaviorSubject(false)
   constructor(
@@ -57,7 +57,7 @@ export class LoginPage  implements OnInit {
     this.http.depData().then(res=>{
       // alert('res'+res)
       this.depList=JSON.parse(res).data
-      this.dep=this.depList[2]
+      // this.dep=this.depList[2]
     }).catch(error=>{
       // alert('error'+error)
     })

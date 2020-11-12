@@ -80,7 +80,14 @@ export class MyInfoPage implements OnInit {
   	 		'url':'/tabs/tab5/about',
   	 		'badgeFlag':false,
   	 		'badge':0
-  	 	},
+		},
+		{
+			'icon':'information-circle',
+			'text':'修改密码',
+			'url':'/tabs/tab5/edit-pwd',
+			'badgeFlag':false,
+			'badge':0
+		},
   	 	{
   	 		'icon':'arrow-undo',
   	 		'text':'退出登录',

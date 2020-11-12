@@ -24,6 +24,10 @@ const routes: Routes = [
     path: 'register',
     loadChildren: () => import('./pages/register/register.module').then( m => m.RegisterPageModule)
   },
+  {
+    path: 'edit-pwd',
+    loadChildren: () => import('./pages/infoView/edit-pwd/edit-pwd.module').then( m => m.EditPwdPageModule)
+  },
   
  
  

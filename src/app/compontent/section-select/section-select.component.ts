@@ -181,7 +181,7 @@ export class SectionSelectComponent implements OnInit {
 								val[i]['title']=val[i].area1;
                 val[i]['id']=val[i].area1
                 val[i]['pid']=1
-                if(val[i].area1=='三峡库区'){
+                if(val[i].area1=='金沙江下游'){
                   val[i]['active']=true
                 }else{
                   val[i]['active']=false

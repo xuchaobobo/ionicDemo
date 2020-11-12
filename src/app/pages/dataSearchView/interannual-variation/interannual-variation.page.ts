@@ -33,7 +33,7 @@ export class InterannualVariationPage implements OnInit {
   stationName
   startTime
   endTime
-  area='三峡库区'
+  area='金沙江下游'
   	river='长江'
   startContraTime
   endContraTime

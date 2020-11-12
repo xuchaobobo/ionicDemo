@@ -21,7 +21,7 @@ import * as moment from 'moment';
 export class RelativeLinePage implements OnInit {
 
   titles:any='关系线';
-  area='三峡库区'
+  area='金沙江下游'
   	river='长江'
   seleceList:any=[
     {

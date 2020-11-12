@@ -21,7 +21,7 @@ export class KljpLinePage implements OnInit {
 
   titles: any = '颗粒级配';
   nowDay: any;
-  area='三峡库区'
+  area='金沙江下游'
   river='长江'
   seleceList = [{
     'name': '悬移质',

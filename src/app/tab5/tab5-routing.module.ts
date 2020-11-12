@@ -39,6 +39,12 @@ const routes: Routes = [
         canActivate:[LoginGuardGuard]
       },
       {
+	      path: 'edit-pwd',
+        
+	      loadChildren: () => import('../pages/infoView/edit-pwd/edit-pwd.module').then( m => m.EditPwdPageModule),
+        canActivate:[LoginGuardGuard]
+      },
+      {
         path: '',
         redirectTo: '/tabs/tab5/myInfo',
         component: Tab5Page,

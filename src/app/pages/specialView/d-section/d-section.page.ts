@@ -14,7 +14,7 @@ export class DSectionPage implements OnInit {
   public chart: any;
   titleName:any
   areaJson
-  area:string='三峡库区'
+  area:string='金沙江下游'
   areas
   year;
   years

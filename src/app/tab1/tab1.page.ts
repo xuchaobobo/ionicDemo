@@ -35,7 +35,7 @@ import { AppConfig } from './../api.config';
 })
 export class Tab1Page {
 	selectStation:any={
-		stationName:'三峡',
+		stationName:'向家坝水库',
 		waterLev:'12m',
 		rflow:'300m³/s',
 		cflow:'300m³/s'
@@ -79,7 +79,7 @@ export class Tab1Page {
 		[11,this.maxZoom],//08BLayerXiangP;
 		[13,this.maxZoom],//09BLayerCunP;
 		[6,8],//10BLayerShishishuiwenzhan1P;
-		[6,8],//11BLayerShishishuikuzhan1P;
+		[5,8],//11BLayerShishishuikuzhan1P;
 		[9,this.maxZoom],//12BLayerShishishuiwenzhanP;
 		[11,this.maxZoom],//13BLayerShishishuiweizhanP;
 		[9,this.maxZoom],//14BLayerShishishuikuzhanP;
@@ -155,7 +155,7 @@ export class Tab1Page {
   }
   getStationInfo(){
 	let pama = {
-		stcd: '60106980',
+		stcd: '60103385',
 		startDate: moment(new Date(Date.now()- 3 * 60 * 60 * 1000)).format('YYYY-MM-DD HH:mm:ss'),
 		endDate: moment(new Date(Date.now() - 24 * 0 * 60 * 60 * 1000)).format('YYYY-MM-DD HH:mm:ss')
 	  }

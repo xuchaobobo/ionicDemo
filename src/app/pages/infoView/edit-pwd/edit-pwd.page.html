@@ -1,0 +1,36 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start" (click)="goBack()">
+      <!-- <ion-icon name="chevron-back-outline" size="large"></ion-icon> -->
+    <!-- <ion-back-button></ion-back-button> -->
+    <ion-back-button defaultHref="/"></ion-back-button>
+    </ion-buttons>
+    <ion-title>修改密码</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+	<div style="box-sizing: border-box;padding: 10px 46px;">
+    <input type="hidden" name="" [(ngModel)]='id' >
+		<ion-item style='border: 1px solid rgb(37, 142, 218);'>
+			<ion-icon class="iconfont icon-config-account"></ion-icon>
+			<ion-label fixed></ion-label>
+			<ion-input type="text" style="height: 40px;line-height: 40px" [(ngModel)]='name' placeholder="账号" ></ion-input>
+		</ion-item>	
+		<ion-item  style='border: 1px solid rgb(37, 142, 218);margin: 8px 0;'>
+			<ion-icon class="iconfont icon-mima"></ion-icon>
+			<ion-label fixed></ion-label>
+			<ion-input type="password" style="height: 40px;line-height: 40px" [(ngModel)]='password' placeholder="旧密码"></ion-input>
+    </ion-item>	
+    <ion-item  style='border: 1px solid rgb(37, 142, 218);margin: 8px 0;'>
+			<ion-icon class="iconfont icon-mima"></ion-icon>
+			<ion-label fixed></ion-label>
+			<ion-input type="password" style="height: 40px;line-height: 40px" [(ngModel)]='newpassword' placeholder="新密码"></ion-input>
+    </ion-item>
+    <ion-button expand="block" style="height: 40px;
+		font-size: 18px;" color="primary" (click)='editPwd()'>
+				提交
+			</ion-button>
+  </div>
+
+</ion-content>

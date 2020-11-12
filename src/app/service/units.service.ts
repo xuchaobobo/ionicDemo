@@ -1420,7 +1420,7 @@ export class UnitsService {
 							val[i]['text'] = val[i].area1;
 							val[i]['value'] = val[i].area1
 							val[i]['pid'] = 1
-							if (val[i].area1 == '三峡库区') {
+							if (val[i].area1 == '金沙江下游') {
 								val[i]['checked'] = true
 							} else {
 								val[i]['checked'] = false
@@ -1470,7 +1470,7 @@ export class UnitsService {
 							val[i]['text'] = val[i].area1;
 							val[i]['value'] = val[i].area1
 							val[i]['pid'] = 1
-							if (val[i].area1 == '三峡库区') {
+							if (val[i].area1 == '金沙江下游') {
 								val[i]['checked'] = true
 							} else {
 								val[i]['checked'] = false

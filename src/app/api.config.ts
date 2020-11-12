@@ -12,6 +12,8 @@ export class AppConfig{
     public static currentDirectory:string=''
     public static dep:string=''
     public static userName:string=''
+    public static userId:string=''
+    public static password:string=''
     public static platform:string=''
     public static uuid:string=''
   }

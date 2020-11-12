@@ -30,7 +30,7 @@ export class AlongLinePage implements OnInit {
   }
   types: any='z';
   times:any='2018'
-  area='三峡库区'
+  area='金沙江下游'
   river='长江'
   stationName
   station

@@ -507,5 +507,9 @@ return key + '=' + encodeURIComponent(value === null ? '' : String(value));
     
     return this.get('swns/special/'+url+'.gaeaway')
   }
+  updatePsd(params){
+    
+    return this.get('swns/base/user/updatePsd.gaeaway',params)
+  }
   
 }
