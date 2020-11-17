@@ -38,16 +38,21 @@
 	<ion-grid>
 	 <ion-row style="padding:0 8px">
     <ion-col>
-     <ion-button expand="full" size='small' color="light" disabled={{btnFlag}} (click)="preDm()">上一个</ion-button>
+     <ion-button expand="full" size='small' color="light"  (click)="preDm()">上一个</ion-button>
     </ion-col>
+  
     <ion-col>
-      <ion-button  expand="full" size='small' color="primary" (click)='searchData()'>查询</ion-button>
-    </ion-col>
-    <ion-col>
-      <ion-button expand="full" size='small' color="light" disabled={{btnFlag}} (click)='nextDm()'>下一个</ion-button>
+      <ion-button expand="full" size='small' color="light" (click)='nextDm()'>下一个</ion-button>
     </ion-col>
   </ion-row>
   </ion-grid>
+  <ion-grid>
+    <ion-row style="padding:0 8px">
+     <ion-col *ngFor="let item of allPdf let i=index">
+       <ion-button  expand="full" size='small' color="{{item.flag?'primary':'light'}}"  (click)='pdfchange(item)'>{{i+1}}</ion-button>
+     </ion-col>
+   </ion-row>
+   </ion-grid>
   <pdf-viewer [src]="pdfsrc" 
   [show-all]="true"
     [original-size]="false"
@@ -57,4 +62,5 @@
 
   style="display: block;"
 ></pdf-viewer>
+
 </ion-content>
