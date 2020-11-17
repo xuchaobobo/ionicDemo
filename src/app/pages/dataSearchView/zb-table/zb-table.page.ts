@@ -12,6 +12,7 @@ import { AreaSelectComponent } from '../../../compontent/area-select/area-select
 import { KljpTableComponent } from '../../../compontent/kljp-table/kljp-table.component'
 import { ProviderService } from '../../../service/provider.service'
 import { UnitsService } from '../../../service/units.service'
+import { AppConfig } from '../../../api.config'
 import * as _ from 'lodash';
 import * as moment from 'moment';
 
@@ -80,7 +81,9 @@ export class ZbTablePage implements OnInit {
   zbendTime: any;
   riverMod='[{"startdist":2656492,"endist":1861000},{"startdist":2656492,"endist":2504802},{"startdist":2504802,"endist":2386081},{"startdist":2386081,"endist":2187648},{"startdist":2187648,"endist":2066259},{"startdist":2066259,"endist":1899600}]'
   selectedList='z'
-  unit
+  unit;
+  min;
+  max;
   typeObj={
     'z':'avz',
     'q':'avq',
@@ -115,6 +118,9 @@ export class ZbTablePage implements OnInit {
     this.stationName = "朱沱(三),寸滩"
     this.area=['金沙江下游']
     this.river='长江'
+    let year=parseInt(AppConfig.year)
+    this.min=moment(new Date(Date.now() - 24 * 365 * 60 * 60 * 1000 * year)).format('YYYY')
+		this.max=moment(new Date(Date.now())).format('YYYY')
     this.zbstartTime = moment(new Date(Date.now() - 24 * 365 * 7 * 60 * 60 * 1000)).format('YYYY');
 
     this.zbendTime = moment(new Date(Date.now() - 24 * 365 * 2 * 60 * 60 * 1000)).format('YYYY');

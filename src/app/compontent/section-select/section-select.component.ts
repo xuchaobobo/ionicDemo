@@ -4,6 +4,7 @@ import {ModalController} from "@ionic/angular"
 import { ToastController } from '@ionic/angular'
 import { ProviderService } from './../../service/provider.service'
 import * as _ from 'lodash';
+import { AppConfig } from 'src/app/api.config';
 
 @Component({
   selector: 'app-section-select',
@@ -158,7 +159,8 @@ export class SectionSelectComponent implements OnInit {
     })
   }
   initdata(){
-    this.httpService.getAllAreas().then(res=>{
+    let id=AppConfig.userId
+    this.httpService.getAllAreas(id).then(res=>{
       console.log(res)
       res = JSON.parse(res)
       var areaArr=[];

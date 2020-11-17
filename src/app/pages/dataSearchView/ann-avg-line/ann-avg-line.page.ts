@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ModalController, ToastController } from '@ionic/angular'
 import { StationSelectComponent } from '../../../compontent/station-select/station-select.component'
 import { ProviderService } from '../../../service/provider.service'
+import { AppConfig } from '../../../api.config'
 import * as _ from 'lodash';
 import * as moment from 'moment'
 @Component({
@@ -42,6 +43,8 @@ export class AnnAvgLinePage implements OnInit {
   types = ['Z']
   selectYear = ['2018']
   years = []
+  min;
+  max;
   constructor(
     public modalController: ModalController,
     public toastController: ToastController,
@@ -56,6 +59,9 @@ export class AnnAvgLinePage implements OnInit {
       rvnm: "长江",
       obitmcd: null
     }]
+    let yearData=parseInt(AppConfig.year)
+    this.min=moment(new Date(Date.now() - 24 * 365 * 60 * 60 * 1000 * yearData)).format('YYYY')
+		this.max=moment(new Date(Date.now())).format('YYYY')
     this.stationName = "朱沱(三)"
     this.startTime = moment(new Date(Date.now() - 24 * 365 * 5 * 60 * 60 * 1000)).format('YYYY');
     this.endTime = moment(new Date(Date.now() - 24 * 365 * 3 * 60 * 60 * 1000)).format('YYYY');
@@ -66,8 +72,9 @@ export class AnnAvgLinePage implements OnInit {
     this.searchData()
   }
   initYears() {
+    let yearData=parseInt(AppConfig.year)
     let nowYear = new Date().getFullYear() - 1
-    for (var i = 0; i < 50; i++) {
+    for (var i = 0; i < yearData; i++) {
       this.years.push({ "name": nowYear, "value": nowYear })
 
       nowYear--

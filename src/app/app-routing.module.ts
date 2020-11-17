@@ -27,7 +27,11 @@ const routes: Routes = [
   {
     path: 'edit-pwd',
     loadChildren: () => import('./pages/infoView/edit-pwd/edit-pwd.module').then( m => m.EditPwdPageModule)
+  },  {
+    path: 'cyhd',
+    loadChildren: () => import('./pages/specialView/cyhd/cyhd.module').then( m => m.CyhdPageModule)
   },
+
   
  
  

@@ -66,7 +66,7 @@ export class AutheticationService extends Baseui  {
             AppConfig.password=user.password
             
             json.time=new Date().getTime()
-            return this.storage.set(TOKEN_KEY,user).then(
+            return this.storage.set(TOKEN_KEY,JSON.stringify(user)).then(
               res=>{
                 this.authenticationState.next(true)
                 this.navCtrl.navigateForward('tabs')

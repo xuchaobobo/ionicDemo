@@ -10,6 +10,7 @@ import { Component, OnInit } from '@angular/core';
 import { ModalController, ToastController } from '@ionic/angular'
 import { StationSelectComponent } from '../../../compontent/station-select/station-select.component'
 import { ProviderService } from '../../../service/provider.service'
+import { AppConfig } from '../../../api.config'
 import * as _ from 'lodash';
 import * as moment from 'moment';
 
@@ -101,8 +102,9 @@ dataType='2'
 		this.stationName = _.map(data.selectStation, 'stnm').join(',')
   }
   initYears(){
+    let year=parseInt(AppConfig.year)
     let nowYear=new Date().getFullYear()-1
-    for(var i=0;i<50;i++){
+    for(var i=0;i<year;i++){
 			this.years.push({"name":nowYear,"value":nowYear})
 		
 			nowYear--

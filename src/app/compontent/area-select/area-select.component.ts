@@ -12,6 +12,7 @@ import { ToastController } from '@ionic/angular'
 import { ProviderService } from './../../service/provider.service'
 import { TREE_ACTIONS, KEYS, ITreeState, ITreeOptions} from 'angular-tree-component';
 import { UnitsService } from './../../service/units.service'
+import { AppConfig } from '../../api.config';
 
 import { toJS } from 'mobx'; 
 import * as _ from 'lodash';
@@ -220,7 +221,9 @@ export class AreaSelectComponent implements OnInit {
   }
   initAreaData(){
     let that=this
-    this.httpService.getAllAreas().then(async res=>{
+    
+    let id=AppConfig.userId
+    this.httpService.getAllAreas(id).then(async res=>{
       var areaArr=[];	
 			res = JSON.parse(res)
 			  _.forEach(res,function(val,i){

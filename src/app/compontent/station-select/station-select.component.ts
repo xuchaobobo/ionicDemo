@@ -11,6 +11,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { ModalController } from "@ionic/angular"
 import { ToastController } from '@ionic/angular'
 import { ProviderService } from './../../service/provider.service'
+import { AppConfig } from '../../api.config';
 import * as _ from 'lodash';
 
 @Component({
@@ -178,8 +179,8 @@ export class StationSelectComponent implements OnInit {
   }
   initdata() {
     let that = this
-
-    this.httpService.getAllAreas().then(res => {
+    let id=AppConfig.userId
+    this.httpService.getAllAreas(id).then(res => {
       res = JSON.parse(res)
       var areaArr = [];
       let valArr = []

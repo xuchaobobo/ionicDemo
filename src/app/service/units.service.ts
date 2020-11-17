@@ -19,6 +19,7 @@ import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-nati
 import { File } from '@ionic-native/file/ngx';
 import { FileOpener } from '@ionic-native/file-opener/ngx';
 import { AndroidPermissions } from '@ionic-native/android-permissions/ngx';
+import { AppConfig } from './../api.config';
 import { FileChooser } from '@ionic-native/file-chooser/ngx';
 import { FilePath } from '@ionic-native/file-path/ngx'
 
@@ -1397,7 +1398,8 @@ export class UnitsService {
 		return dataist
 	}
 	async initAreaData() {
-		let arrdata = await this.httpService.getAllAreas().then(res => {
+		let id=AppConfig.userId
+		let arrdata = await this.httpService.getAllAreas(id).then(res => {
 			var areaArr = [];
 			res = JSON.parse(res)
 
@@ -1447,7 +1449,8 @@ export class UnitsService {
 
 
 		let vegetableCategory: any;
-		this.httpService.getAllAreas().then(async res => {
+		let id=AppConfig.userId
+		this.httpService.getAllAreas(id).then(async res => {
 			var areaArr = [];
 			res = JSON.parse(res)
 

@@ -31,7 +31,7 @@
       <ion-row>
         <ion-col>
           <ion-datetime  value="2012-12-15" [displayFormat]="dayTimeDisTime" cancel-text='取消' doneText='确定' [pickerFormat]="dayTimePicTime"
-            [(ngModel)]="dayTime" placeholder='时间选择' (ionChange)="timeChange($event)"></ion-datetime>
+            [(ngModel)]="dayTime" placeholder='时间选择' [min]="min" [max]="max" (ionChange)="timeChange($event)"></ion-datetime>
            
         </ion-col>
         <ion-col>

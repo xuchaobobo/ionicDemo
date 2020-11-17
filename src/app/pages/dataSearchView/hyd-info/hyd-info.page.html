@@ -52,7 +52,7 @@
         <ion-col size="6">
            <ion-item lines="none">
           <ion-datetime name="startTime" slot="start"  style="padding: 0; margin-right: 10px;" display-format="YYYY/MM/DD HH:mm" cancel-text='取消' doneText='确定' picker-format="YYYY MM DD H:mm"
-            [(ngModel)]="startTime" placeholder='起始时间'  (ionChange)='startTimeChange($event)' ></ion-datetime>
+            [(ngModel)]="startTime" placeholder='起始时间' [min]="min" [max]="max"  (ionChange)='startTimeChange($event)' ></ion-datetime>
         <ion-label  position="fixed" >
               <ion-icon name="chevron-forward-outline"></ion-icon>
             </ion-label>
@@ -63,7 +63,7 @@
             <ion-item lines="none">
 
             <ion-datetime name="endTime" slot="start"  style="padding: 0; margin-right: 10px;" display-format="YYYY/MM/DD HH:mm" cancel-text='取消' doneText='确定'  picker-format="YYYY MM DD H:mm"
-              [(ngModel)]="endTime" placeholder='截止时间'  (ionChange)='endTimeChange($event)'></ion-datetime>
+              [(ngModel)]="endTime" placeholder='截止时间' [min]="min" [max]="max"  (ionChange)='endTimeChange($event)'></ion-datetime>
               <ion-label  position="fixed" >
               <ion-icon name="chevron-forward-outline"></ion-icon>
             </ion-label>
