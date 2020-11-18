@@ -1,0 +1,66 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/"></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{titleName}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+      <div style="padding: 0 16px;">
+        <ion-button expand="block"  size='small' color="primary" (click)='logIn()'>
+          位置定位
+        </ion-button>
+      </div>
+ 
+ 
+  <ion-item >
+    <ion-label>
+      
+    </ion-label>
+		<ion-select  value="brown" [(ngModel)]="selectedRiver" interface="action-sheet" placeholder='选择河段' (ionChange)='riverChange($event)'  okText="确定" cancelText="取消">
+      <ion-select-option value="{{item.rinm}}" *ngFor="let item of rivers">{{item.rinm}}</ion-select-option>
+        
+      </ion-select>
+	
+	</ion-item>
+	<ion-item>
+		 <ion-label>
+      
+    </ion-label>
+		    <ion-select  value="brown" [(ngModel)]="selectedMsno" interface="action-sheet" placeholder='选择测次' (ionChange)='msnoChange($event)'  okText="确定" cancelText="取消">
+		    <ion-select-option value="{{item}}" *ngFor="let item of msnos">{{item}}</ion-select-option>
+		      
+		    </ion-select>
+	</ion-item>
+	
+	<ion-grid>
+	 <ion-row style="padding:0 8px">
+    <ion-col>
+     <ion-button expand="full" size='small' color="light"  (click)="preDm()">上一个</ion-button>
+    </ion-col>
+  
+    <ion-col>
+      <ion-button expand="full" size='small' color="light" (click)='nextDm()'>下一个</ion-button>
+    </ion-col>
+  </ion-row>
+  </ion-grid>
+  <ion-grid>
+    <ion-row style="padding:0 8px">
+     <ion-col *ngFor="let item of allPdf let i=index">
+       <ion-button  expand="full" size='small' color="{{item.flag?'primary':'light'}}"  (click)='pdfchange(item)'>{{i+1}}</ion-button>
+     </ion-col>
+   </ion-row>
+   </ion-grid>
+  <pdf-viewer [src]="pdfsrc" 
+  [show-all]="true"
+    [original-size]="false"
+    [zoom]=1
+    [render-text]="false"
+    [autoresize]="true"
+
+  style="display: block;"
+></pdf-viewer>
+
+</ion-content>

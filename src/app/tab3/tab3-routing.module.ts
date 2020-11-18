@@ -42,6 +42,11 @@ const routes: Routes = [
         loadChildren: () => import('../pages/specialView/sand-weight/sand-weight.module').then( m => m.SandWeightPageModule),
         canActivate:[LoginGuardGuard]
       },
+      {
+        path: 'cyhd',
+        loadChildren: () => import('../pages/specialView/cyhd/cyhd.module').then( m => m.CyhdPageModule),
+        canActivate:[LoginGuardGuard]
+      },
        {
         path: '',
         redirectTo: '/tabs/tab3/observation-data',

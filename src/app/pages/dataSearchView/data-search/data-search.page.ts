@@ -7,6 +7,8 @@
  * @FilePath: \app\src\app\pages\data-search\data-search.page.ts
  */
 import { Component, OnInit } from '@angular/core';
+import { AppConfig } from 'src/app/api.config';
+import { ProviderService } from '../../../service/provider.service'
 
 @Component({
   selector: 'app-data-search',
@@ -16,7 +18,7 @@ import { Component, OnInit } from '@angular/core';
 export class DataSearchPage implements OnInit {
 
   public lists:any;
-  constructor() {
+  constructor( public httpService: ProviderService,) {
 	this.lists=[
 		{
 		  title:'实时数据查询',
@@ -112,8 +114,19 @@ export class DataSearchPage implements OnInit {
 		]
   }
   ngOnInit(){
-
+	this.getyearData()
   }
+  getyearData(){
+	let id=AppConfig.userId
+	this.httpService.getyearByid(id).then(res=>{
+		let json=JSON.parse(res)[0]
+		AppConfig.year=json.year
+		AppConfig.systemCode=json.systemCode
+		AppConfig.type=json.type
+	
+	})
+  }
+
   goToDetail(url){
   	console.log(url)
   }

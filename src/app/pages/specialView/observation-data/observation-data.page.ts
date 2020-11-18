@@ -84,6 +84,21 @@ export class ObservationDataPage implements OnInit {
 			}
 		]
 	}
+	,
+	{
+		title:'冲淤厚度图',
+		menus:[
+			{
+				icon:'icon-shuiku',
+				title:'冲淤厚度图',
+				url:'/tabs/tab3/cyhd',
+				name:'冲淤厚度图',
+				msno:'2018-1,2018-2',
+				endDate:'2006-09-20,2008-10-09,2018-12-31',
+				xscds:'LFA03003011,LFA03003021',
+			}
+		]
+	}
   ];
   constructor(
 	public router: Router,
@@ -152,6 +167,15 @@ export class ObservationDataPage implements OnInit {
 			queryParams: {
 				titleName: menu.name,
 				dataUrl:dataUrl,
+			}
+		  })
+	}else if(menu.url=='/tabs/tab3/cyhd'){
+		
+	
+		this.router.navigate([menu.url], {
+			queryParams: {
+				titleName: menu.name,
+				
 			}
 		  })
 	}

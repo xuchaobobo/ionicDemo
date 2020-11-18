@@ -1,6 +1,6 @@
 {
     "/swns": {
-        "target": "http://10.6.13.247:8111/swns",
+        "target": "http://219.140.196.73:5011/swns",
         
         "secure": false,
         "logLevel": "debug",
@@ -10,7 +10,7 @@
         }
     },
     "/geoserver": {
-        "target": "http://10.6.13.247:5010/geoserver/",
+        "target": "http://219.140.196.73:5011/geoserver/",
         "secure": false,
         "logLevel": "debug",
         "changeOrigin": true,

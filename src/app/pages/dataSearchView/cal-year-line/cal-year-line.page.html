@@ -29,7 +29,7 @@
           <ion-label   style="width: 70px; min-width: 70px;">
             开始时间
           </ion-label>
-        <ion-datetime  value="2012" display-format="YYYY" cancel-text='取消' doneText='确定' picker-format="YYYY"
+        <ion-datetime  value="2012" display-format="YYYY" [min]="min" [max]="max" cancel-text='取消' doneText='确定' picker-format="YYYY"
           [(ngModel)]="startTime" placeholder='起始年份' (ionChange)="startTimeChange($event)"></ion-datetime>
      
        </ion-item>
@@ -40,7 +40,7 @@
             <ion-label   style="width: 70px; min-width: 70px;" >
               截至时间
             </ion-label>
-          <ion-datetime  value="2012" display-format="YYYY" cancel-text='取消' doneText='确定' picker-format="YYYY"
+          <ion-datetime  value="2012" display-format="YYYY" [min]="min" [max]="max" cancel-text='取消' doneText='确定' picker-format="YYYY"
             [(ngModel)]="endTime" placeholder='截止年份' (ionChange)="endTimeChange($event)"></ion-datetime>
            
        </ion-item>

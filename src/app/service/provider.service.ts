@@ -199,8 +199,12 @@ return key + '=' + encodeURIComponent(value === null ? '' : String(value));
   depData(){
     return this.get("swns/base/user/selectDepNew.gaeaway")
   }
-  getAllAreas(){
-    return this.get('/swns/base/basin/area.gaeaway','')
+  getAllAreas(id){
+    return this.get('/swns/base/basin/area.gaeaway?id='+id,'')
+  }
+  //根据用户id获取对应数据的年份
+  getyearByid(id){
+    return this.get('/swns/roleData/data.gaeaway?id='+id)
   }
   /**
    * @description: 获取所有测站站点接口
@@ -511,5 +515,16 @@ return key + '=' + encodeURIComponent(value === null ? '' : String(value));
     
     return this.get('swns/base/user/updatePsd.gaeaway',params)
   }
-  
+//获取河段名称
+  getCyhtRiver(){
+    
+    return this.get('swns/scouringRiver/riverName.gaeaway')
+  }
+  //获取冲淤厚度图测次
+  getCyhtDataByRirver(key){
+    var pama = {
+			riverName: key,
+		};
+    return this.get('swns/scouringRiver/data.gaeaway',pama)
+  }
 }

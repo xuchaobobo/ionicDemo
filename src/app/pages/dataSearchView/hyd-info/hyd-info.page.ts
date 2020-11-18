@@ -13,6 +13,7 @@ import { ProviderService } from '../../../service/provider.service'
 import { IonicSelectableComponent } from 'ionic-selectable';
 import { Baseui } from '../../../common/baseui'
 import { ActivatedRoute, Params } from '@angular/router';
+import { AppConfig } from '../../../api.config'
 
 import * as moment from 'moment';
 import * as _ from 'lodash';
@@ -38,6 +39,8 @@ export class HydInfoPage extends Baseui implements OnInit {
   lstype: any = 'z';
   dzType: any = 'z';
   selectTab: any = 'tab1'
+  min;
+	max;
   groupFlag:any=false;
   selectedPorts=[];
   constructor(
@@ -48,6 +51,10 @@ export class HydInfoPage extends Baseui implements OnInit {
 		public activeRoute: ActivatedRoute
     ) {
     super()
+    
+    let yearData=parseInt(AppConfig.year)
+    this.min=moment(new Date(Date.now() - 24 * 365 * 60 * 60 * 1000 * yearData)).format('YYYY-MM-DD')
+		this.max=moment(new Date(Date.now())).format('YYYY-MM-DD')
     this.startTime = moment(new Date(Date.now() - 24 * 4 * 60 * 60 * 1000)).format('YYYY-MM-DD HH:mm:ss');
 
     this.endTime = moment(new Date(Date.now())).format('YYYY-MM-DD HH:mm:ss');
@@ -126,8 +133,10 @@ export class HydInfoPage extends Baseui implements OnInit {
       this.startTime = moment(new Date(Date.now() - 24 * 30 * 60 * 60 * 1000)).format('YYYY-MM-DD hh:mm:ss');
 
       this.endTime = moment(new Date(Date.now() - 24 * 1 * 60 * 60 * 1000)).format('YYYY-MM-DD hh:mm:ss');
+      let yearData=parseInt(AppConfig.year)
       this.httpService.getHisYears(this.station.stcd).then(res => {
-        this.years = JSON.parse(res)
+        this.years = JSON.parse(res).slice(0,yearData)
+        console.log(this.years)
       })
     }else{
       this.startTime = moment(new Date(Date.now() - 24 * 4 * 60 * 60 * 1000)).format('YYYY-MM-DD hh:mm:ss');

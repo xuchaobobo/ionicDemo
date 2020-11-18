@@ -3,6 +3,7 @@ import { ModalController, ToastController } from '@ionic/angular'
 import { StationSelectComponent } from '../../../compontent/station-select/station-select.component'
 import { ProviderService } from '../../../service/provider.service'
 import { UnitsService } from '../../../service/units.service'
+import { AppConfig } from '../../../api.config'
 import { ActivatedRoute, Params } from '@angular/router';
 import * as _ from 'lodash';
 import * as moment from 'moment';
@@ -64,6 +65,8 @@ export class ProcessLinePage implements OnInit {
   	river='长江'
 	startDay;//声明日期
 	endDay;
+	min;
+	max;
 	forYear = 'YYYY'
 	disMonth = 'YYYY-MM'
 	picMonth = 'YYYY MM'
@@ -82,8 +85,12 @@ export class ProcessLinePage implements OnInit {
 		public unitService: UnitsService,
 		public activeRoute: ActivatedRoute
 	) {
-		this.startDay = moment(new Date(Date.now() - 24 * 710 * 60 * 60 * 1000)).format('YYYY-MM-DD');
+		let year=parseInt(AppConfig.year)
+		this.startDay = moment(new Date(Date.now() - 24 * 365 * 60 * 60 * 1000 * year)).format('YYYY-MM-DD');
 		this.endDay = moment(new Date(Date.now() - 24 * 365 * 60 * 60 * 1000)).format('YYYY-MM-DD');
+		
+		this.min=moment(new Date(Date.now() - 24 * 365 * 60 * 60 * 1000 * year)).format('YYYY-MM-DD')
+		this.max=moment(new Date(Date.now())).format('YYYY-MM-DD')
 		this.station = [{
 			stcd: "60104800",
 			stnm: "朱沱(三)",
