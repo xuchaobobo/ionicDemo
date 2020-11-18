@@ -28,7 +28,12 @@ export class CyhdPage implements OnInit {
 		
 			alert(resp.coords.latitude+'-'+resp.coords.longitude)
 		
-		
+      this.httpService.getcyhdByMod(resp.coords.longitude,resp.coords.latitude).then(res=>{
+        let json=JSON.parse(res)
+        this.rivers=json
+        this.selectedRiver=json[0].rinm
+        this.getMsno()
+      })
 			// resp.coords.latitude
 			// resp.coords.longitude
 		   }).catch((error) => {
