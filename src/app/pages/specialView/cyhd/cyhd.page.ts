@@ -27,13 +27,8 @@ export class CyhdPage implements OnInit {
     this.geolocation.getCurrentPosition().then((resp) => {
 		
 			alert(resp.coords.latitude+'-'+resp.coords.longitude)
-		
-      this.httpService.getcyhdByMod(resp.coords.longitude,resp.coords.latitude).then(res=>{
-        let json=JSON.parse(res)
-        this.rivers=json
-        this.selectedRiver=json[0].rinm
-        this.getMsno()
-      })
+      this.getRiverByGps(resp.coords.longitude,resp.coords.latitude)
+    
 			// resp.coords.latitude
 			// resp.coords.longitude
 		   }).catch((error) => {
@@ -48,6 +43,14 @@ export class CyhdPage implements OnInit {
 			// data.coords.latitude
 			// data.coords.longitude
 		   });
+  }
+  getRiverByGps(longitude,latitude){
+    this.httpService.getcyhdByMod(longitude,latitude).then(res=>{
+      let json=[{'rinm':res}]
+      this.rivers=json
+      this.selectedRiver=json[0].rinm
+      this.getMsno()
+    })
   }
   getRiver(){
     this.httpService.getCyhtRiver().then(res=>{
