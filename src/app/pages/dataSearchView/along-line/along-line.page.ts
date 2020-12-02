@@ -56,10 +56,13 @@ export class AlongLinePage implements OnInit {
     public unitService: UnitsService
   ) {
     let year=parseInt(AppConfig.year)
-    this.dayTime = moment(new Date(Date.now() - 24 * 710 * 60 * 60 * 1000)).format(this.forYear);
-    this.times='2018'
-    this.min=moment(new Date(Date.now() - 24 * 365 * 60 * 60 * 1000 * year)).format(this.forYear)
-		this.max=moment(new Date(Date.now())).format(this.forYear)
+    let lastYear=AppConfig.lastYear
+		let dataStart=(parseInt(lastYear)-year+1).toString()
+		let nowYear=moment(new Date(Date.now())).format('YYYY')
+    this.dayTime = lastYear;
+    this.times=lastYear
+    this.min=moment(new Date(Date.now())).format(this.forYear).replace(nowYear,dataStart);
+		this.max=moment(new Date(Date.now())).format(this.forYear).replace(nowYear,lastYear);
   }
   ngOnInit() {
     // this.setYears(_.map(this.station,'stcd'))
@@ -104,26 +107,23 @@ export class AlongLinePage implements OnInit {
   dateTypeChange(e){
     this.times=''
     let year=parseInt(AppConfig.year)
-  
+    let lastYear=AppConfig.lastYear
+		let dataStart=(parseInt(lastYear)-year).toString()
+    let nowYear=moment(new Date(Date.now())).format('YYYY')
+    
     if (this.dateType == 'year') {
-			this.dayTime=moment(new Date(Date.now() - 24 * 365*2 * 60 * 60 * 1000)).format(this.forYear)
+			this.dayTime=lastYear
 			this.timeFor=this.forYear
       this.dayTimeDisTime = this.forYear
 	
       this.dayTimePicTime = this.forYear
-      this.min=moment(new Date(Date.now() - 24 * 365 * 60 * 60 * 1000 * year)).format(this.forYear)
-      this.max=moment(new Date(Date.now())).format(this.forYear)
 		} else if (this.dateType == 'month') {
-			this.dayTime=moment(new Date(Date.now() - 24 * 30*24 * 60 * 60 * 1000)).format(this.disMonth)
-			this.min=moment(new Date(Date.now() - 24 * 365 * 60 * 60 * 1000 * year)).format(this.disMonth)
-      this.max=moment(new Date(Date.now())).format(this.disMonth)
+			this.dayTime=moment(new Date(Date.now())).format(this.disMonth).replace(nowYear,lastYear);
       this.dayTimeDisTime = this.disMonth
       this.timeFor=this.disMonth
 			this.dayTimePicTime = this.picMonth
 		} else {
-      this.dayTime=moment(new Date(Date.now() - 24 * 720 * 60 * 60 * 1000)).format(this.disDay)
-      this.min=moment(new Date(Date.now() - 24 * 365 * 60 * 60 * 1000 * year)).format(this.disDay)
-      this.max=moment(new Date(Date.now())).format(this.disDay)
+      this.dayTime=moment(new Date(Date.now())).format(this.disDay).replace(nowYear,lastYear)
       this.dayTimeDisTime = this.disDay
       this.timeFor=this.disDay
 			this.dayTimePicTime = this.picDay

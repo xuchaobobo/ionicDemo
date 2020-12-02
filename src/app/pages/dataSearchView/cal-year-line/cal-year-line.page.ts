@@ -53,11 +53,13 @@ constructor(
     obitmcd: null
   }]
   let yearData=parseInt(AppConfig.year)
-    this.min=moment(new Date(Date.now() - 24 * 365 * 60 * 60 * 1000 * yearData)).format('YYYY')
-		this.max=moment(new Date(Date.now())).format('YYYY')
+  let lastYear=AppConfig.lastYear
+  let dataStart=(parseInt(AppConfig.lastYear)-yearData+1).toString()
+    this.min=dataStart
+		this.max=lastYear
   this.stationName = "朱沱(三)"
-  this.startTime = moment(new Date(Date.now() - 24 * 365 * 13 * 60 * 60 * 1000)).format('YYYY');
-  this.endTime = moment(new Date(Date.now() - 24 * 365 * 3 * 60 * 60 * 1000)).format('YYYY');
+  this.startTime = dataStart;
+  this.endTime = lastYear;
  
 }
 ngOnInit() {

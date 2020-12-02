@@ -85,12 +85,16 @@ export class ProcessLinePage implements OnInit {
 		public unitService: UnitsService,
 		public activeRoute: ActivatedRoute
 	) {
-		let year=parseInt(AppConfig.year)
-		this.startDay = moment(new Date(Date.now() - 24 * 365 * 60 * 60 * 1000 * year)).format('YYYY-MM-DD');
-		this.endDay = moment(new Date(Date.now() - 24 * 365 * 60 * 60 * 1000)).format('YYYY-MM-DD');
 		
-		this.min=moment(new Date(Date.now() - 24 * 365 * 60 * 60 * 1000 * year)).format('YYYY-MM-DD')
-		this.max=moment(new Date(Date.now())).format('YYYY-MM-DD')
+		let year=parseInt(AppConfig.year)
+		let lastYear=AppConfig.lastYear
+		let dataStart=(parseInt(AppConfig.lastYear)-year+1).toString()
+		let nowYear=moment(new Date(Date.now())).format('YYYY')
+		this.startDay = moment().startOf('year').format('YYYY-MM-DD').toString().replace(nowYear,lastYear);
+		this.endDay = moment(new Date(Date.now())).format('YYYY-MM-DD').replace(nowYear,lastYear);
+		
+		this.min=moment(new Date(Date.now())).format('YYYY-MM-DD').replace(nowYear,dataStart);
+		this.max=this.endDay
 		this.station = [{
 			stcd: "60104800",
 			stnm: "朱沱(三)",
@@ -1391,26 +1395,29 @@ export class ProcessLinePage implements OnInit {
 		}
 	}
 	dateTypeChange(e) {
-		console.log(this.dateType)
+		let lastYear=AppConfig.lastYear
+		let year=parseInt(AppConfig.year)
+		let nowYear=moment(new Date(Date.now())).format('YYYY')
 		if (this.dateType == 'year') {
-			this.startDay=moment(new Date(Date.now() - 24 * 365*10 * 60 * 60 * 1000)).format(this.forYear)
-			this.endDay=moment(new Date(Date.now() - 24 * 356* 60 * 60 * 1000)).format(this.forYear)
+			let startyear=(parseInt(AppConfig.lastYear)-year).toString()
+			this.startDay = moment().startOf('year').format(this.forYear).toString().replace(nowYear,startyear);
+			this.endDay = moment(new Date(Date.now())).format(this.forYear).replace(nowYear,lastYear);
 			this.startDisTime = this.forYear
 			this.endDisTime = this.forYear
 			this.startPicTime = this.forYear
 			this.endPicTime = this.forYear
 			this.maxAndMinList=[]
 		} else if (this.dateType == 'month') {
-			this.startDay=moment(new Date(Date.now() - 24 * 30*24 * 60 * 60 * 1000)).format(this.disMonth)
-			this.endDay=moment(new Date(Date.now() - 24 * 30 *12* 60 * 60 * 1000)).format(this.disMonth)
+			this.startDay = moment().startOf('year').format(this.disMonth).toString().replace(nowYear,lastYear);;
+			this.endDay = moment(new Date(Date.now())).format(this.disMonth).replace(nowYear,lastYear);
 			this.startDisTime = this.disMonth
 			this.endDisTime = this.disMonth
 			this.startPicTime = this.picMonth
 			this.endPicTime = this.picMonth
 			this.maxAndMinList=[]
 		} else {
-			this.startDay=moment(new Date(Date.now() - 24 * 720 * 60 * 60 * 1000)).format(this.disDay)
-			this.endDay=moment(new Date(Date.now() - 24 * 710 * 60 * 60 * 1000)).format(this.disDay)
+			this.startDay = moment().startOf('year').format(this.disMonth).toString().replace(nowYear,lastYear);
+			this.endDay = moment(new Date(Date.now())).format(this.disDay).replace(nowYear,lastYear);
 			this.startDisTime = this.disDay
 			this.endDisTime = this.disDay
 			this.startPicTime = this.picDay

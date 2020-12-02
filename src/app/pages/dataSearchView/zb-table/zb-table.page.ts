@@ -119,11 +119,13 @@ export class ZbTablePage implements OnInit {
     this.area=['金沙江下游']
     this.river='长江'
     let year=parseInt(AppConfig.year)
-    this.min=moment(new Date(Date.now() - 24 * 365 * 60 * 60 * 1000 * year)).format('YYYY')
-		this.max=moment(new Date(Date.now())).format('YYYY')
-    this.zbstartTime = moment(new Date(Date.now() - 24 * 365 * 7 * 60 * 60 * 1000)).format('YYYY');
+    let lastYear=AppConfig.lastYear
+		let dataStart=(parseInt(AppConfig.lastYear)-year+1).toString()
+    this.min=dataStart
+		this.max=lastYear
+    this.zbstartTime = dataStart;
 
-    this.zbendTime = moment(new Date(Date.now() - 24 * 365 * 2 * 60 * 60 * 1000)).format('YYYY');
+    this.zbendTime = lastYear;
    }
 
   ngOnInit() {

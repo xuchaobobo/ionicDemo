@@ -16,6 +16,8 @@ export class AppConfig{
     public static password:string=''
     public static platform:string=''
     public static year:string=''
+    public static lastYear:string=''
+    public static defaultStcd:string=''
     public static systemCode:string=''
     public static type:string=''
     public static uuid:string=''
