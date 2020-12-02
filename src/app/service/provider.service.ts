@@ -527,4 +527,11 @@ return key + '=' + encodeURIComponent(value === null ? '' : String(value));
 		};
     return this.get('swns/scouringRiver/data.gaeaway',pama)
   }
+  getcyhdByMod(lon,lat){
+    var mod=lon+','+lat
+    var pama={
+      mod:mod
+    }
+    return this.get('swns//scouringRiver/mod.gaeaway',pama)
+  }
 }
