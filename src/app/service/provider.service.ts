@@ -532,6 +532,11 @@ return key + '=' + encodeURIComponent(value === null ? '' : String(value));
     var pama={
       mod:mod
     }
-    return this.get('swns//scouringRiver/mod.gaeaway',pama)
+    return this.get('swns/scouringRiver/mod.gaeaway',pama)
+  }
+  //获取最新年份时间
+  getLastYear(){
+    
+    return this.get('swns/base/section/presentTime.gaeaway')
   }
 }

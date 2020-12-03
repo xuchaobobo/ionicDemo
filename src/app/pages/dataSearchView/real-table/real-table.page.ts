@@ -118,11 +118,13 @@ typeObj={
     this.area=['金沙江下游']
     this.river='长江'
     let year=parseInt(AppConfig.year)
-    this.min=moment(new Date(Date.now() - 24 * 365 * 60 * 60 * 1000 * year)).format('YYYY')
-		this.max=moment(new Date(Date.now())).format('YYYY')
-    this.startTime = moment(new Date(Date.now() - 24 * 365*7 * 60 * 60 * 1000)).format('YYYY');
+    let lastYear=AppConfig.lastYear
+		let dataStart=(parseInt(AppConfig.lastYear)-year+1).toString()
+    this.min=dataStart
+		this.max=lastYear
+    this.startTime = dataStart;
 
-    this.endTime = moment(new Date(Date.now() - 24 * 365*2 * 60 * 60 * 1000)).format('YYYY');
+    this.endTime = lastYear;
    }
 
   ngOnInit() {

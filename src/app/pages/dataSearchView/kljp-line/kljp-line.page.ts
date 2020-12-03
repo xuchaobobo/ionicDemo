@@ -66,7 +66,8 @@ export class KljpLinePage implements OnInit {
       hnnm: null,
       rvnm: "长江",
       obitmcd: null
-    }]
+	}]
+	this.selectYear[0]= AppConfig.lastYear
     this.stationName = "朱沱(三)"
   }
 
@@ -107,7 +108,7 @@ export class KljpLinePage implements OnInit {
   }
   initYears() {
 	let year=parseInt(AppConfig.year)
-    let nowYear = new Date().getFullYear() - 1
+    let nowYear=parseInt(AppConfig.lastYear)
     for (var i = 0; i < year; i++) {
       this.years.push({ "name": nowYear, "value": nowYear })
 

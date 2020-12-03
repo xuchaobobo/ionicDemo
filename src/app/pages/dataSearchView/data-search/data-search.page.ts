@@ -115,6 +115,7 @@ export class DataSearchPage implements OnInit {
   }
   ngOnInit(){
 	this.getyearData()
+	this.getdataYear()
   }
   getyearData(){
 	let id=AppConfig.userId
@@ -126,7 +127,15 @@ export class DataSearchPage implements OnInit {
 	
 	})
   }
-
+  getdataYear(){
+	this.httpService.getLastYear().then(res=>{
+		let json=JSON.parse(res)
+		AppConfig.lastYear=json.year
+		AppConfig.defaultStcd=json.defaultStcd
+		// AppConfig.type=json.type
+	
+	})
+  }
   goToDetail(url){
   	console.log(url)
   }

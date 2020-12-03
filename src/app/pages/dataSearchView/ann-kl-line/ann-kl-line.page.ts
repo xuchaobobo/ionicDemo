@@ -55,6 +55,7 @@ station
       rvnm: "长江",
       obitmcd: null
     }]
+    this.selectYear[0]=AppConfig.lastYear
     this.stationName = "朱沱(三)"
   }
   ngOnInit() {
@@ -93,7 +94,7 @@ station
   }
   initYears() {
     let yearData=parseInt(AppConfig.year)
-    let nowYear = new Date().getFullYear() - 1
+    let nowYear = parseInt(AppConfig.lastYear)
     for (var i = 0; i < yearData; i++) {
       this.years.push({ "name": nowYear, "value": nowYear })
 

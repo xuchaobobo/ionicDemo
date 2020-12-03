@@ -60,11 +60,13 @@ export class AnnAvgLinePage implements OnInit {
       obitmcd: null
     }]
     let yearData=parseInt(AppConfig.year)
-    this.min=moment(new Date(Date.now() - 24 * 365 * 60 * 60 * 1000 * yearData)).format('YYYY')
-		this.max=moment(new Date(Date.now())).format('YYYY')
+    let lastYear=AppConfig.lastYear
+		let dataStart=(parseInt(AppConfig.lastYear)-yearData+1).toString()
+    this.min=dataStart
+		this.max=lastYear
     this.stationName = "朱沱(三)"
-    this.startTime = moment(new Date(Date.now() - 24 * 365 * 5 * 60 * 60 * 1000)).format('YYYY');
-    this.endTime = moment(new Date(Date.now() - 24 * 365 * 3 * 60 * 60 * 1000)).format('YYYY');
+    this.startTime = dataStart;
+    this.endTime = lastYear;
 
   }
   ngOnInit() {
@@ -73,7 +75,7 @@ export class AnnAvgLinePage implements OnInit {
   }
   initYears() {
     let yearData=parseInt(AppConfig.year)
-    let nowYear = new Date().getFullYear() - 1
+    let nowYear = parseInt(AppConfig.lastYear) 
     for (var i = 0; i < yearData; i++) {
       this.years.push({ "name": nowYear, "value": nowYear })
 
