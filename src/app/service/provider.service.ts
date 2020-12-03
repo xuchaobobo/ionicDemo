@@ -19,7 +19,7 @@ import 'rxjs'
 export class ProviderService {
 
   public config:any={
-    domain:'http://10.6.204.6:5010/'
+    domain:'http://10.6.204.6:5011/'
   }
   loader: any;
   constructor(private http: Http) {
