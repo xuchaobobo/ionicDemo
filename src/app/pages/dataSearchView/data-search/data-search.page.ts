@@ -22,7 +22,7 @@ export class DataSearchPage implements OnInit {
 	this.lists=[
 		{
 		  title:'实时数据查询',
-		  menus:[
+		  children:[
 			{
 			  icon:'icon-shuiwenzhuanti',
 			  title:'水文信息',
@@ -36,7 +36,7 @@ export class DataSearchPage implements OnInit {
 		},
 		{
 		  title:'整编数据查询',
-		  menus:[
+		  children:[
 			{
 			  icon:'icon-guochengfenxi',
 			  title:'过程线',
@@ -66,7 +66,7 @@ export class DataSearchPage implements OnInit {
 		},
 		{
 		  title:'年际变化分析',
-		  menus:[
+		  children:[
 			{
 			  icon:'icon-nianbianhua',
 			  title:'年际变化',
@@ -88,7 +88,7 @@ export class DataSearchPage implements OnInit {
 		},
 		{
 		  title:'断面分析',
-		  menus:[
+		  children:[
 			{
 			  icon:'icon-biaozhunhengduanmian',
 			  title:'固断分析',
@@ -114,8 +114,16 @@ export class DataSearchPage implements OnInit {
 		]
   }
   ngOnInit(){
+	  this.getResource()
 	this.getyearData()
 	this.getdataYear()
+  }
+  getResource(){
+	this.httpService.getResource().then(res=>{
+		console.log(res)
+		let json=JSON.parse(res)
+		this.lists=json[0].children
+	})
   }
   getyearData(){
 	let id=AppConfig.userId

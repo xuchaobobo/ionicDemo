@@ -91,7 +91,7 @@ export class ProcessLinePage implements OnInit {
 		let dataStart=(parseInt(AppConfig.lastYear)-year+1).toString()
 		let nowYear=moment(new Date(Date.now())).format('YYYY')
 		this.startDay = moment().startOf('year').format('YYYY-MM-DD').toString().replace(nowYear,lastYear);
-		this.endDay = moment(new Date(Date.now())).format('YYYY-MM-DD').replace(nowYear,lastYear);
+		this.endDay = lastYear+'-12-31';
 		
 		this.min=moment(new Date(Date.now())).format('YYYY-MM-DD').replace(nowYear,dataStart);
 		this.max=this.endDay
@@ -1409,7 +1409,7 @@ export class ProcessLinePage implements OnInit {
 			this.maxAndMinList=[]
 		} else if (this.dateType == 'month') {
 			this.startDay = moment().startOf('year').format(this.disMonth).toString().replace(nowYear,lastYear);;
-			this.endDay = moment(new Date(Date.now())).format(this.disMonth).replace(nowYear,lastYear);
+			this.endDay =  lastYear+'-12';;
 			this.startDisTime = this.disMonth
 			this.endDisTime = this.disMonth
 			this.startPicTime = this.picMonth
@@ -1417,7 +1417,7 @@ export class ProcessLinePage implements OnInit {
 			this.maxAndMinList=[]
 		} else {
 			this.startDay = moment().startOf('year').format(this.disMonth).toString().replace(nowYear,lastYear);
-			this.endDay = moment(new Date(Date.now())).format(this.disDay).replace(nowYear,lastYear);
+			this.endDay =  lastYear+'-12-31';;
 			this.startDisTime = this.disDay
 			this.endDisTime = this.disDay
 			this.startPicTime = this.picDay

@@ -26,7 +26,7 @@ export class CyhdPage implements OnInit {
   getGps(){
     this.geolocation.getCurrentPosition().then((resp) => {
 		
-			alert(resp.coords.latitude+'-'+resp.coords.longitude)
+			//alert(resp.coords.latitude+'-'+resp.coords.longitude)
       this.getRiverByGps(resp.coords.longitude,resp.coords.latitude)
     
 			// resp.coords.latitude

@@ -60,13 +60,13 @@ export class AutheticationService extends Baseui  {
           console.log(res)
           super.hide(this.loadingCtrl)
           if(res.code=='200'){
-            let user=res.user
-            AppConfig.userName=user.name
-            AppConfig.userId=user.id
-            AppConfig.password=user.password
+            
+            AppConfig.userName=json.name
+            AppConfig.userId=res.id
+            AppConfig.token=res.id
             
             json.time=new Date().getTime()
-            return this.storage.set(TOKEN_KEY,JSON.stringify(user)).then(
+            return this.storage.set(TOKEN_KEY,res.id).then(
               res=>{
                 this.authenticationState.next(true)
                 this.navCtrl.navigateForward('tabs')

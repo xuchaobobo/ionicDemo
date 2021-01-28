@@ -40,6 +40,7 @@ export class Tab1Page {
 		rflow:'300m³/s',
 		cflow:'300m³/s'
 	};
+	stcd:any
 	isShow=false;
 	searchList=[]
 	map:any;
@@ -111,12 +112,24 @@ export class Tab1Page {
 	   private cd: ChangeDetectorRef,
 	   public router: Router
 	   ) {
-	
+		var systemCode=AppConfig.systemCode
+		if(systemCode=='A'){
+			this.selectStation={
+				stationName:'向家坝水库',
+			waterLev:'12m',
+			rflow:'300m³/s',
+			cflow:'300m³/s'
+		}
+		this.stcd='60103385'
+		}else{
+			this.selectStation.stationName='三峡水库'
+			this.stcd='60106980'
+		}
   }
   ngOnInit() {
     // this.getDep()
   //  this.getGps()
-	this.getStationInfo()
+	this.getStationInfo(this.stcd)
 	this.loadLayersControl(this.map, "layerTree");
 	document.all["down"].style.display='none'
 	document.all["layerTree"].style.display='none'
@@ -153,7 +166,7 @@ export class Tab1Page {
 	// this.SetLayerVisable()
 	this.isShow=false
   }
-  getStationInfo(){
+  getStationInfo(stcd){
 	let pama = {
 		stcd: '60103385',
 		startDate: moment(new Date(Date.now()- 3 * 60 * 60 * 1000)).format('YYYY-MM-DD HH:mm:ss'),

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-
+import { ProviderService } from '../../../service/provider.service'
+import * as _ from 'lodash';
 
 @Component({
   selector: 'app-observation-data',
@@ -11,7 +12,7 @@ export class ObservationDataPage implements OnInit {
   public lists:any=[
     {
 		title:'三峡水库运行与水文泥沙原型观测',
-		menus:[
+		children:[
 		{
 			icon:'icon-shuiwenzhuanti',
 			title:'水文泥沙原型',
@@ -25,7 +26,7 @@ export class ObservationDataPage implements OnInit {
 	},
 	{
 		title:'三峡水库上游来水来沙变化',
-		menus:[
+		children:[
 			{
 				icon:'icon-shuiku',
 				title:'三峡水库上游来水来沙变化',
@@ -47,7 +48,7 @@ export class ObservationDataPage implements OnInit {
 	},
 	{
 		title:'典型断面',
-		menus:[
+		children:[
 			{
 			icon:'icon-shuiwenzhuanti',
 			title:'典型断面',
@@ -63,7 +64,7 @@ export class ObservationDataPage implements OnInit {
 	,
 	{
 		title:'坝下游河道水沙变化及河床冲刷',
-		menus:[
+		children:[
 			{
 				icon:'icon-shuiku',
 				title:'坝下游水沙变化',
@@ -87,7 +88,7 @@ export class ObservationDataPage implements OnInit {
 	,
 	{
 		title:'冲淤厚度图',
-		menus:[
+		children:[
 			{
 				icon:'icon-shuiku',
 				title:'冲淤厚度图',
@@ -102,12 +103,33 @@ export class ObservationDataPage implements OnInit {
   ];
   constructor(
 	public router: Router,
-	
+	public httpService: ProviderService,
   ) {
 
    }
 
   ngOnInit() {
+	this.getResource()
+  }
+  getResource(){
+	this.httpService.getResource().then(res=>{
+		console.log(res)
+		let json=JSON.parse(res)[1].children
+		var nowList=this.lists
+		for(var i=0;i<json.length;i++){
+			var nowItem=_.filter(nowList,{title:json[i].title}).length>0?_.filter(nowList,{title:json[i].title})[0]:null
+			for(var j=0;j<json[i].children.length;j++){
+				if(nowItem){
+					var nowChildren=_.filter(nowItem.children,{title:json[i].children[j].title})
+					if(nowChildren.length>0){
+						json[i].children[j]=nowChildren[0]
+					}
+				}
+			}
+		}
+		console.log(json)
+		this.lists=json
+	})
   }
   navToDetail(menu){
 	  let obj;

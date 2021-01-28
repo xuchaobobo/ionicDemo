@@ -28,7 +28,7 @@
     <ion-item lines="none" class="item_contents">
     <ion-grid>
        <ion-row>
-         <ion-col size="3" *ngFor="let menu of item.menus" [routerLink]="[menu.url]" >
+         <ion-col size="3" *ngFor="let menu of item.children" [routerLink]="[menu.url]" >
           <div><ion-icon  class='iconfont {{menu.icon}}'></ion-icon></div>
              
            <ion-text style="font-size: 12px">{{menu.title}}</ion-text>

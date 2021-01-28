@@ -73,16 +73,11 @@ export class FilePage implements OnInit {
   }
 
   ngOnInit() {
-    this.storage.get(TOKEN_KEY).then(res=>{
-      let json =res
-      console.log(json)
-		  this.userJson={
-        dep:json.dep,
-        name:json.name
-      }
-      this.gitDir()
-	  })
-    
+    this.userJson={
+      dep:AppConfig.dep,
+      name:AppConfig.userName
+    }
+    this.gitDir()
     const searchbar = document.querySelector('ion-searchbar');
     searchbar.addEventListener('ionInput', this.handleInput);
   }

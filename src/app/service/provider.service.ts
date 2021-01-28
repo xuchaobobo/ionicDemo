@@ -8,7 +8,6 @@
  */
 import { Injectable } from '@angular/core';
 import {Http, Response, Headers, RequestOptions,ResponseContentType} from '@angular/http';
-import * as $ from 'jquery'
 import { AppConfig } from '../api.config';
 import { environment } from '../../environments/environment'
 import 'rxjs'
@@ -24,14 +23,17 @@ export class ProviderService {
   loader: any;
   constructor(private http: Http) {
  }
- static defaultHeaders = new Headers({'Content-Type': 'application/json', 'Accept': 'application/json','Authorization': AppConfig.token,});
+ static firstHeaders = new Headers({'Content-Type': 'application/json', 'Accept': 'application/json'});
+ static defaultHeaders = new Headers({'Content-Type': 'application/json', 'Accept': 'application/json','Authorization': AppConfig.token});
  static formHeaders = new Headers({'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8', 'Accept': 'application/json','Authorization': AppConfig.token});
  static uploadHeasers = new Headers({'Content-Type': 'multipart/form-data; boundary=----WebKitFormBoundaryZpsWTsOiRHI0TBW7','Authorization': AppConfig.token});
  static downHeaders = new Headers({'Content-Type': 'application/x-www-form-urlencoded;','Authorization': AppConfig.token})
  //
+ static firstOptions = new RequestOptions({headers: ProviderService.firstHeaders});
  static defaultOptions = new RequestOptions({headers: ProviderService.defaultHeaders});
  static formOptions = new RequestOptions({headers: ProviderService.formHeaders});
  static uploadOptions = new RequestOptions({headers: ProviderService.uploadHeasers});
+
  static downOptions = new RequestOptions({withCredentials: true,headers:ProviderService.downHeaders,responseType: ResponseContentType.Blob})
 public get(url: string, paramObj?: any,options=ProviderService.defaultOptions) {
   
@@ -194,17 +196,34 @@ return key + '=' + encodeURIComponent(value === null ? '' : String(value));
  
   
   login(json){
-    return this.get('swns/base/user/dologin.gaeaway',json)
+    return this.get('swns/base/user/dologin.gaeaway',json,ProviderService.firstOptions)
+  }
+  
+  getResource(){
+    var defaultHeaders = new Headers({'Content-Type': 'application/json', 'Accept': 'application/json','Authorization': AppConfig.token});
+    var defaultOptions = new RequestOptions({headers: defaultHeaders});
+    return this.get('swns/base/user/getResource.gaeaway',{},defaultOptions)
   }
   depData(){
     return this.get("swns/base/user/selectDepNew.gaeaway")
   }
   getAllAreas(id){
-    return this.get('/swns/base/basin/area.gaeaway?id='+id,'')
+    var param={
+      id:id
+    }
+    console.log(AppConfig.token)
+    var defaultHeaders = new Headers({'Content-Type': 'application/json', 'Accept': 'application/json','Authorization': AppConfig.token});
+    var defaultOptions = new RequestOptions({headers: defaultHeaders});
+    return this.get('/swns/base/basin/area.gaeaway',param,defaultOptions)
   }
   //根据用户id获取对应数据的年份
   getyearByid(id){
-    return this.get('/swns/roleData/data.gaeaway?id='+id)
+    var defaultHeaders = new Headers({'Content-Type': 'application/json', 'Accept': 'application/json','Authorization': AppConfig.token});
+    var defaultOptions = new RequestOptions({headers: defaultHeaders});
+    var param={
+      id:id
+    }
+    return this.get('/swns/roleData/data.gaeaway',param,defaultOptions)
   }
   /**
    * @description: 获取所有测站站点接口
@@ -212,7 +231,9 @@ return key + '=' + encodeURIComponent(value === null ? '' : String(value));
    * @return: 
    */  
   getStaion(){
-    return this.get('swns/stsc/allStations.gaeaway','')
+    var defaultHeaders = new Headers({'Content-Type': 'application/json', 'Accept': 'application/json','Authorization': AppConfig.token});
+    var defaultOptions = new RequestOptions({headers: defaultHeaders});
+    return this.get('swns/stsc/allStations.gaeaway',{},defaultOptions)
   }
   /**
    * @description: 获取水文站点信息
@@ -220,7 +241,9 @@ return key + '=' + encodeURIComponent(value === null ? '' : String(value));
    * @return:
    */  
   getRealStaion(json){
-    return this.get('swns/real/realStBprpB.gaeaway',json)
+    var defaultHeaders = new Headers({'Content-Type': 'application/json', 'Accept': 'application/json','Authorization': AppConfig.token});
+    var defaultOptions = new RequestOptions({headers: defaultHeaders});
+    return this.get('swns/real/realStBprpB.gaeaway',json,defaultOptions)
   }
   /**
    * @description: 获取水文实时水位流量信息
@@ -228,7 +251,9 @@ return key + '=' + encodeURIComponent(value === null ? '' : String(value));
    * @return: 
    */  
   getRealStaionSearch(json){
-    return this.get('swns/real/realStRiverR.gaeaway',json)
+    var defaultHeaders = new Headers({'Content-Type': 'application/json', 'Accept': 'application/json','Authorization': AppConfig.token});
+    var defaultOptions = new RequestOptions({headers: defaultHeaders});
+    return this.get('swns/real/realStRiverR.gaeaway',json,defaultOptions)
   }
   
   /**
@@ -237,7 +262,9 @@ return key + '=' + encodeURIComponent(value === null ? '' : String(value));
    * @return: 
    */  
   getHisYears(stcd){
-    return this.get('swns/real/realHisYr.gaeaway',{stcd:stcd})
+    var defaultHeaders = new Headers({'Content-Type': 'application/json', 'Accept': 'application/json','Authorization': AppConfig.token});
+    var defaultOptions = new RequestOptions({headers: defaultHeaders});
+    return this.get('swns/real/realHisYr.gaeaway',{stcd:stcd},defaultOptions)
   }
   /**
    * @description: 获取水文站点历史同期数据
@@ -245,7 +272,9 @@ return key + '=' + encodeURIComponent(value === null ? '' : String(value));
    * @return: 
    */  
   getHisSearchData(url,json){
-    return this.get(url,json)
+    var defaultHeaders = new Headers({'Content-Type': 'application/json', 'Accept': 'application/json','Authorization': AppConfig.token});
+    var defaultOptions = new RequestOptions({headers: defaultHeaders});
+    return this.get(url,json,defaultOptions)
   }
   /**
    * @description: 获取水库站点数据
@@ -253,7 +282,9 @@ return key + '=' + encodeURIComponent(value === null ? '' : String(value));
    * @return: 
    */
   async getRealWaterData(url,json){
-    return await this.get(url,json)
+    var defaultHeaders = new Headers({'Content-Type': 'application/json', 'Accept': 'application/json','Authorization': AppConfig.token});
+    var defaultOptions = new RequestOptions({headers: defaultHeaders});
+    return await this.get(url,json,defaultOptions)
   /**
    * @description: 根据分区获取河流
    * @param {type} 
@@ -261,7 +292,9 @@ return key + '=' + encodeURIComponent(value === null ? '' : String(value));
    */  
   }
   getAllRirver(json){
-    return this.get('swns/base/river/mod.gaeaway',json)
+    var defaultHeaders = new Headers({'Content-Type': 'application/json', 'Accept': 'application/json','Authorization': AppConfig.token});
+    var defaultOptions = new RequestOptions({headers: defaultHeaders});
+    return this.get('swns/base/river/mod.gaeaway',json,defaultOptions)
   }
   /**
    * @description: 通过河流获取站点
@@ -269,7 +302,9 @@ return key + '=' + encodeURIComponent(value === null ? '' : String(value));
    * @return: 
    */
   getStationByRiver(json){
-    return this.get('swns/base/section/survey.gaeaway',json)
+    var defaultHeaders = new Headers({'Content-Type': 'application/json', 'Accept': 'application/json','Authorization': AppConfig.token});
+    var defaultOptions = new RequestOptions({headers: defaultHeaders});
+    return this.get('swns/base/section/survey.gaeaway',json,defaultOptions)
   }
   /**
    * @description: 通过河流获取断面
@@ -277,7 +312,9 @@ return key + '=' + encodeURIComponent(value === null ? '' : String(value));
    * @return: 
    */
   getSectionByRiver(url,json){
-    return this.get(url,json)
+    var defaultHeaders = new Headers({'Content-Type': 'application/json', 'Accept': 'application/json','Authorization': AppConfig.token});
+    var defaultOptions = new RequestOptions({headers: defaultHeaders});
+    return this.get(url,json,defaultOptions)
   }
   /**
    * @description: 获取echart图例接口数据
@@ -293,7 +330,9 @@ return key + '=' + encodeURIComponent(value === null ? '' : String(value));
 				'stationNames':stationNames,
 				"type" : type
     }
-    return await this.get(url,param)
+    var defaultHeaders = new Headers({'Content-Type': 'application/json', 'Accept': 'application/json','Authorization': AppConfig.token});
+    var defaultOptions = new RequestOptions({headers: defaultHeaders});
+    return await this.get(url,param,defaultOptions)
   }
   /**
    * @description: 获取沿程线数据
@@ -301,7 +340,9 @@ return key + '=' + encodeURIComponent(value === null ? '' : String(value));
    * @return: 
    */
   getAlongData(url,json){
-    return this.get(url,json)
+    var defaultHeaders = new Headers({'Content-Type': 'application/json', 'Accept': 'application/json','Authorization': AppConfig.token});
+    var defaultOptions = new RequestOptions({headers: defaultHeaders});
+    return this.get(url,json,defaultOptions)
   }
   /**
    * @description: 获取关系线数据
@@ -309,7 +350,9 @@ return key + '=' + encodeURIComponent(value === null ? '' : String(value));
    * @return: 
    */
   getRelativeData(url,json){
-    return this.get(url,json)
+    var defaultHeaders = new Headers({'Content-Type': 'application/json', 'Accept': 'application/json','Authorization': AppConfig.token});
+    var defaultOptions = new RequestOptions({headers: defaultHeaders});
+    return this.get(url,json,defaultOptions)
   }
   /**
    * @description: 获取颗粒级配数据
@@ -317,7 +360,9 @@ return key + '=' + encodeURIComponent(value === null ? '' : String(value));
    * @return: 
    */
   getKlJPData(json){
-    return this.get('swns/stsc/kl/lineChart.gaeaway',json)
+    var defaultHeaders = new Headers({'Content-Type': 'application/json', 'Accept': 'application/json','Authorization': AppConfig.token});
+    var defaultOptions = new RequestOptions({headers: defaultHeaders});
+    return this.get('swns/stsc/kl/lineChart.gaeaway',json,defaultOptions)
   }
   /**
    * @description: 获取年际变化数据
@@ -325,7 +370,9 @@ return key + '=' + encodeURIComponent(value === null ? '' : String(value));
    * @return: 
    */
   getIntTab1PData(url,json){
-    return this.get(url,json)
+    var defaultHeaders = new Headers({'Content-Type': 'application/json', 'Accept': 'application/json','Authorization': AppConfig.token});
+    var defaultOptions = new RequestOptions({headers: defaultHeaders});
+    return this.get(url,json,defaultOptions)
   }
   /**
    * @description: 获取历年变化数据
@@ -333,7 +380,9 @@ return key + '=' + encodeURIComponent(value === null ? '' : String(value));
    * @return: 
    */
   getIntTab2PData(url,json){
-    return this.get(url,json)
+    var defaultHeaders = new Headers({'Content-Type': 'application/json', 'Accept': 'application/json','Authorization': AppConfig.token});
+    var defaultOptions = new RequestOptions({headers: defaultHeaders});
+    return this.get(url,json,defaultOptions)
   }
   /**
    * @description: 获取多年平均年内数据
@@ -341,7 +390,9 @@ return key + '=' + encodeURIComponent(value === null ? '' : String(value));
    * @return: 
    */
   getIntTab3PData(url,json){
-    return this.get(url,json)
+    var defaultHeaders = new Headers({'Content-Type': 'application/json', 'Accept': 'application/json','Authorization': AppConfig.token});
+    var defaultOptions = new RequestOptions({headers: defaultHeaders});
+    return this.get(url,json,defaultOptions)
   }
   /**
    * @description: 获取多年颗数据
@@ -349,7 +400,9 @@ return key + '=' + encodeURIComponent(value === null ? '' : String(value));
    * @return: 
    */
   getIntTab4PData(json){
-    return this.get('swns/stsc/kl/averageLineChart.gaeaway',json)
+    var defaultHeaders = new Headers({'Content-Type': 'application/json', 'Accept': 'application/json','Authorization': AppConfig.token});
+    var defaultOptions = new RequestOptions({headers: defaultHeaders});
+    return this.get('swns/stsc/kl/averageLineChart.gaeaway',json,defaultOptions)
   }
   /**
    * @description: 获取实时库容站点
@@ -357,7 +410,9 @@ return key + '=' + encodeURIComponent(value === null ? '' : String(value));
    * @return: 
    */
   getRealStaions(){
-    return this.get('swns/capacity/queryCapacity.gaeaway')
+    var defaultHeaders = new Headers({'Content-Type': 'application/json', 'Accept': 'application/json','Authorization': AppConfig.token});
+    var defaultOptions = new RequestOptions({headers: defaultHeaders});
+    return this.get('swns/capacity/queryCapacity.gaeaway',defaultOptions)
   }
   /**
    * @description: 获取实时库容数据
@@ -365,7 +420,9 @@ return key + '=' + encodeURIComponent(value === null ? '' : String(value));
    * @return: 
    */
   getRealKRData(param){
-    return this.get('swns/capacity/getCapacityForData.gaeaway',param)
+    var defaultHeaders = new Headers({'Content-Type': 'application/json', 'Accept': 'application/json','Authorization': AppConfig.token});
+    var defaultOptions = new RequestOptions({headers: defaultHeaders});
+    return this.get('swns/capacity/getCapacityForData.gaeaway',param,defaultOptions)
   }
    /**
    * @description:根据断面码获取测次
@@ -373,9 +430,11 @@ return key + '=' + encodeURIComponent(value === null ? '' : String(value));
    * @return: 
    */
   getXscdByMsno(xscd){
+    var defaultHeaders = new Headers({'Content-Type': 'application/json', 'Accept': 'application/json','Authorization': AppConfig.token});
+    var defaultOptions = new RequestOptions({headers: defaultHeaders});
     return this.get('swns/sect/xshd/queryDmxCcAndKljp.gaeaway',{
 			xscd: xscd,
-		})
+		},defaultOptions)
   }
   /**
    * @description:获取断面数据
@@ -383,7 +442,9 @@ return key + '=' + encodeURIComponent(value === null ? '' : String(value));
    * @return: 
    */
   getSectionData(param){
-    return this.get('swns/sect/msxsrs/queryDmxChart.gaeaway',param)
+    var defaultHeaders = new Headers({'Content-Type': 'application/json', 'Accept': 'application/json','Authorization': AppConfig.token});
+    var defaultOptions = new RequestOptions({headers: defaultHeaders});
+    return this.get('swns/sect/msxsrs/queryDmxChart.gaeaway',param,defaultOptions)
   }
   /**
    * @description:获取断面数据
@@ -391,12 +452,14 @@ return key + '=' + encodeURIComponent(value === null ? '' : String(value));
    * @return: 
    */
   getSixData(xscd,msno,value){
+    var defaultHeaders = new Headers({'Content-Type': 'application/json', 'Accept': 'application/json','Authorization': AppConfig.token});
+    var defaultOptions = new RequestOptions({headers: defaultHeaders});
     var pamasix = {
 			xscd: xscd,
 			msno: msno,
 			wt:value
 		};
-    return this.get('swns/sect/msxsrs/getSix.gaeaway',pamasix)
+    return this.get('swns/sect/msxsrs/getSix.gaeaway',pamasix,defaultOptions)
   }
    /**
    * @description:获取断面数据
@@ -404,12 +467,14 @@ return key + '=' + encodeURIComponent(value === null ? '' : String(value));
    * @return: 
    */
   getSixsData(xscd,msno,value){
+    var defaultHeaders = new Headers({'Content-Type': 'application/json', 'Accept': 'application/json','Authorization': AppConfig.token});
+    var defaultOptions = new RequestOptions({headers: defaultHeaders});
     var pamasix = {
 			xscd: xscd,
 			msno: msno,
 			wt:value
 		};
-    return this.get('swns/sect/msxsrs/getSixs.gaeaway',pamasix)
+    return this.get('swns/sect/msxsrs/getSixs.gaeaway',pamasix,defaultOptions)
   }
   /**
    * @description: 根据距河口里程获取河流
@@ -417,65 +482,93 @@ return key + '=' + encodeURIComponent(value === null ? '' : String(value));
    * @return: 
    */
   getAllRivers(data){
+    var defaultHeaders = new Headers({'Content-Type': 'application/json', 'Accept': 'application/json','Authorization': AppConfig.token});
+    var defaultOptions = new RequestOptions({headers: defaultHeaders});
     var pama = {
 			riverMod: data
 		};
-    return this.get('swns/base/river/mod.gaeaway',pama)
+    return this.get('swns/base/river/mod.gaeaway',pama,defaultOptions)
   }
   getZbTable(url,param){
-    return this.get(url,param)
+    var defaultHeaders = new Headers({'Content-Type': 'application/json', 'Accept': 'application/json','Authorization': AppConfig.token});
+    var defaultOptions = new RequestOptions({headers: defaultHeaders});
+    return this.get(url,param,defaultOptions)
   }
   getklTable(param){
-    return this.get('swns/stsc/kl/selectDdbByStcdAndTime.gaeaway',param)
+    var defaultHeaders = new Headers({'Content-Type': 'application/json', 'Accept': 'application/json','Authorization': AppConfig.token});
+    var defaultOptions = new RequestOptions({headers: defaultHeaders});
+    return this.get('swns/stsc/kl/selectDdbByStcdAndTime.gaeaway',param,defaultOptions)
   }
   getDirTree(parse){
-    return this.get('swns/file/directories.gaeaway',parse)
+    var defaultHeaders = new Headers({'Content-Type': 'application/json', 'Accept': 'application/json','Authorization': AppConfig.token});
+    var defaultOptions = new RequestOptions({headers: defaultHeaders});
+    return this.get('swns/file/directories.gaeaway',parse,defaultOptions)
   }
   getDirChildTree(param){
-    
-    return this.get('swns/file/listFiles.gaeaway',param)
+    var defaultHeaders = new Headers({'Content-Type': 'application/json', 'Accept': 'application/json','Authorization': AppConfig.token});
+    var defaultOptions = new RequestOptions({headers: defaultHeaders});
+    return this.get('swns/file/listFiles.gaeaway',param,defaultOptions)
   }
   creatDir(param){
-    return this.get('swns/file/createDir.gaeaway',param)
+    var defaultHeaders = new Headers({'Content-Type': 'application/json', 'Accept': 'application/json','Authorization': AppConfig.token});
+    var defaultOptions = new RequestOptions({headers: defaultHeaders});
+    return this.get('swns/file/createDir.gaeaway',param,defaultOptions)
   }
   deleteDir(parse){
-    return this.get('swns/file/deleteFiles.gaeaway',parse)
+    var defaultHeaders = new Headers({'Content-Type': 'application/json', 'Accept': 'application/json','Authorization': AppConfig.token});
+    var defaultOptions = new RequestOptions({headers: defaultHeaders});
+    return this.get('swns/file/deleteFiles.gaeaway',parse,defaultOptions)
   }
   upLoadFile(paramObj){
+    var defaultHeaders = new Headers({'Content-Type': 'application/json', 'Accept': 'application/json','Authorization': AppConfig.token});
+    var defaultOptions = new RequestOptions({headers: defaultHeaders});
     return this.post('swns/file/upFiles.gaeaway', paramObj, ProviderService.uploadOptions)
   }
   getDownFile(parmobj){
-    
-    return this.downget('swns/file/download.gaeaway', parmobj)
+    var defaultHeaders = new Headers({'Content-Type': 'application/json', 'Accept': 'application/json','Authorization': AppConfig.token});
+    var defaultOptions = new RequestOptions({headers: defaultHeaders});
+    return this.downget('swns/file/download.gaeaway', parmobj,defaultOptions)
   }
   getRealDetailTable(url,parmObj){
-    return this.get(url, parmObj)
+    var defaultHeaders = new Headers({'Content-Type': 'application/json', 'Accept': 'application/json','Authorization': AppConfig.token});
+    var defaultOptions = new RequestOptions({headers: defaultHeaders});
+    return this.get(url, parmObj,defaultOptions)
   }
   getDsannt(parmObj){
-    return this.get('swns/sect/segracou/getDsannt.gaeaway', parmObj)
+    var defaultHeaders = new Headers({'Content-Type': 'application/json', 'Accept': 'application/json','Authorization': AppConfig.token});
+    var defaultOptions = new RequestOptions({headers: defaultHeaders});
+    return this.get('swns/sect/segracou/getDsannt.gaeaway', parmObj,defaultOptions)
   }
   getDaXscdByMsno(stcd){
+    var defaultHeaders = new Headers({'Content-Type': 'application/json', 'Accept': 'application/json','Authorization': AppConfig.token});
+    var defaultOptions = new RequestOptions({headers: defaultHeaders});
     let parmObj={
       stcd:stcd
     }
-    return this.get('swns/stsc/getBigSectTime.gaeaway', parmObj)
+    return this.get('swns/stsc/getBigSectTime.gaeaway', parmObj,defaultOptions)
   }
   dmxChart(parmObj){
-    return this.get('swns/sect/xsmsrs/chart.gaeaway', parmObj)
+    var defaultHeaders = new Headers({'Content-Type': 'application/json', 'Accept': 'application/json','Authorization': AppConfig.token});
+    var defaultOptions = new RequestOptions({headers: defaultHeaders});
+    return this.get('swns/sect/xsmsrs/chart.gaeaway', parmObj,defaultOptions)
   }
   getAllDxscd(){
+    var defaultHeaders = new Headers({'Content-Type': 'application/json', 'Accept': 'application/json','Authorization': AppConfig.token});
+    var defaultOptions = new RequestOptions({headers: defaultHeaders});
     let parmObj={
       ndnm:""
     }
-    return this.get('swns/stsc/allBdmStcd.gaeaway', parmObj)
+    return this.get('swns/stsc/allBdmStcd.gaeaway', parmObj,defaultOptions)
   }
   getdSixData(xscd,msno,value){
+    var defaultHeaders = new Headers({'Content-Type': 'application/json', 'Accept': 'application/json','Authorization': AppConfig.token});
+    var defaultOptions = new RequestOptions({headers: defaultHeaders});
     var pamasix = {
 			xscd: xscd,
 			msno: msno,
 			wt:value
 		};
-    return this.get('swns/sect/xsmsrs/getSix.gaeaway',pamasix)
+    return this.get('swns/sect/xsmsrs/getSix.gaeaway',pamasix,defaultOptions)
   }
    /**
    * @description:获取断面数据
@@ -483,60 +576,76 @@ return key + '=' + encodeURIComponent(value === null ? '' : String(value));
    * @return: 
    */
   getdSixsData(xscd,msno,value){
+    var defaultHeaders = new Headers({'Content-Type': 'application/json', 'Accept': 'application/json','Authorization': AppConfig.token});
+    var defaultOptions = new RequestOptions({headers: defaultHeaders});
     var pamasix = {
 			xscd: xscd,
 			msno: msno,
 			wt:value
 		};
-    return this.get('swns/sect/xsmsrs/getSixs.gaeaway',pamasix)
+    return this.get('swns/sect/xsmsrs/getSixs.gaeaway',pamasix,defaultOptions)
   }
   getSearchKey(key){
+    var defaultHeaders = new Headers({'Content-Type': 'application/json', 'Accept': 'application/json','Authorization': AppConfig.token});
+    var defaultOptions = new RequestOptions({headers: defaultHeaders});
     var pama = {
 			keyword: key,
 		};
-    return this.get('swns/search.gaeaway',pama)
+    return this.get('swns/search.gaeaway',pama,defaultOptions)
   }
   getObservictionData(param){
-    return this.get('swns/special/getWaterByStcdAndTime.gaeaway',param)
+    var defaultHeaders = new Headers({'Content-Type': 'application/json', 'Accept': 'application/json','Authorization': AppConfig.token});
+    var defaultOptions = new RequestOptions({headers: defaultHeaders});
+    return this.get('swns/special/getWaterByStcdAndTime.gaeaway',param,defaultOptions)
   }
   getDmAndMsno(param){
-    
-    return this.get('swns/special/getDmAndMsno.gaeaway',param)
+    var defaultHeaders = new Headers({'Content-Type': 'application/json', 'Accept': 'application/json','Authorization': AppConfig.token});
+    var defaultOptions = new RequestOptions({headers: defaultHeaders});
+    return this.get('swns/special/getDmAndMsno.gaeaway',param,defaultOptions)
   }
   queryDmxChart(param){
-    
-    return this.get('swns/sect/msxsrs/queryDmxssChart.gaeaway',param)
+    var defaultHeaders = new Headers({'Content-Type': 'application/json', 'Accept': 'application/json','Authorization': AppConfig.token});
+    var defaultOptions = new RequestOptions({headers: defaultHeaders});
+    return this.get('swns/sect/msxsrs/queryDmxssChart.gaeaway',param,defaultOptions)
   }
   queryGrainCompositionChart(url){
-    
-    return this.get('swns/special/'+url+'.gaeaway')
+    var defaultHeaders = new Headers({'Content-Type': 'application/json', 'Accept': 'application/json','Authorization': AppConfig.token});
+    var defaultOptions = new RequestOptions({headers: defaultHeaders});
+    return this.get('swns/special/'+url+'.gaeaway',{},defaultOptions)
   }
   updatePsd(params){
-    
-    return this.get('swns/base/user/updatePsd.gaeaway',params)
+    var defaultHeaders = new Headers({'Content-Type': 'application/json', 'Accept': 'application/json','Authorization': AppConfig.token});
+    var defaultOptions = new RequestOptions({headers: defaultHeaders});
+    return this.get('swns/base/user/updatePsd.gaeaway',params,defaultOptions)
   }
 //获取河段名称
   getCyhtRiver(){
-    
-    return this.get('swns/scouringRiver/riverName.gaeaway')
+    var defaultHeaders = new Headers({'Content-Type': 'application/json', 'Accept': 'application/json','Authorization': AppConfig.token});
+    var defaultOptions = new RequestOptions({headers: defaultHeaders});
+    return this.get('swns/scouringRiver/riverName.gaeaway',{},defaultOptions)
   }
   //获取冲淤厚度图测次
   getCyhtDataByRirver(key){
     var pama = {
 			riverName: key,
-		};
-    return this.get('swns/scouringRiver/data.gaeaway',pama)
+    };
+    var defaultHeaders = new Headers({'Content-Type': 'application/json', 'Accept': 'application/json','Authorization': AppConfig.token});
+    var defaultOptions = new RequestOptions({headers: defaultHeaders});
+    return this.get('swns/scouringRiver/data.gaeaway',pama,defaultOptions)
   }
   getcyhdByMod(lon,lat){
     var mod=lon+','+lat
     var pama={
       mod:mod
     }
-    return this.get('swns/scouringRiver/mod.gaeaway',pama)
+    var defaultHeaders = new Headers({'Content-Type': 'application/json', 'Accept': 'application/json','Authorization': AppConfig.token});
+    var defaultOptions = new RequestOptions({headers: defaultHeaders});
+    return this.get('swns/scouringRiver/mod.gaeaway',pama,defaultOptions)
   }
   //获取最新年份时间
   getLastYear(){
-    
-    return this.get('swns/base/section/presentTime.gaeaway')
+    var defaultHeaders = new Headers({'Content-Type': 'application/json', 'Accept': 'application/json','Authorization': AppConfig.token});
+    var defaultOptions = new RequestOptions({headers: defaultHeaders});
+    return this.get('swns/base/section/presentTime.gaeaway',{},defaultOptions)
   }
 }
