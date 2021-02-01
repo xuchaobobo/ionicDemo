@@ -168,7 +168,7 @@ export class Tab1Page {
   }
   getStationInfo(stcd){
 	let pama = {
-		stcd: '60103385',
+		stcd: stcd,
 		startDate: moment(new Date(Date.now()- 3 * 60 * 60 * 1000)).format('YYYY-MM-DD HH:mm:ss'),
 		endDate: moment(new Date(Date.now() - 24 * 0 * 60 * 60 * 1000)).format('YYYY-MM-DD HH:mm:ss')
 	  }
