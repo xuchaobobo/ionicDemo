@@ -120,7 +120,7 @@ export class DataSearchPage implements OnInit {
   }
   getResource(){
 	this.httpService.getResource().then(res=>{
-		console.log(res)
+	
 		let json=JSON.parse(res)
 		this.lists=json[0].children
 	})

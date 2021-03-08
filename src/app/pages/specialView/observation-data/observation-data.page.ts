@@ -113,7 +113,6 @@ export class ObservationDataPage implements OnInit {
   }
   getResource(){
 	this.httpService.getResource().then(res=>{
-		console.log(res)
 		let json=JSON.parse(res)[1].children
 		var nowList=this.lists
 		for(var i=0;i<json.length;i++){
