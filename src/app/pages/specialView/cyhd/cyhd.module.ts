@@ -7,6 +7,8 @@ import { IonicModule } from '@ionic/angular';
 import { CyhdPageRoutingModule } from './cyhd-routing.module';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { PdfViewerModule } from 'ng2-pdf-viewer'
+import { ImgBigModule } from '../../../compontent/img-big/img-big.module'
+
 
 import { CyhdPage } from './cyhd.page';
 
@@ -16,6 +18,7 @@ import { CyhdPage } from './cyhd.page';
     FormsModule,
     PdfViewerModule,
     IonicModule,
+    ImgBigModule,
     CyhdPageRoutingModule
   ],
   declarations: [CyhdPage],

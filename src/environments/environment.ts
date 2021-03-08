@@ -1,9 +1,17 @@
+/*
+ * @Descripttion: 
+ * @version: 
+ * @Author: xcb
+ * @Date: 2021-01-29 09:10:24
+ * @LastEditors: xcb
+ * @LastEditTime: 2021-03-08 14:24:34
+ */
 // This file can be replaced during build by using the `fileReplacements` array.
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: true,
+  production: false,
   //  baseUrl: 'http://10.6.13.247:9012',
   //  geoServer:'http://10.6.13.247:9012'
   baseUrl: 'http://219.140.196.73:5011',

@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ProviderService } from '../../../service/provider.service'
 import { Geolocation } from '@ionic-native/geolocation/ngx';
+import { ModalController } from '@ionic/angular'
+import { ImgBigComponent } from '../../../compontent/img-big/img-big.component'
 import { environment } from '../../../../environments/environment'
+
 import * as _ from 'lodash';
 
 @Component({
@@ -18,7 +21,7 @@ export class CyhdPage implements OnInit {
   allData;
   allPdf=[];
   pdfsrc='./../../assets/pdf/1.pdf'
-  constructor(public httpService: ProviderService,private geolocation: Geolocation) { }
+  constructor(public httpService: ProviderService,private geolocation: Geolocation,public modalController: ModalController) { }
 
   ngOnInit() {
     this.getRiver()
@@ -129,5 +132,16 @@ export class CyhdPage implements OnInit {
       arr[0].flag=true
       this.pdfchange(src)
     })
+  }
+  async imgBig(url){
+    const modal = await this.modalController.create({
+			component: ImgBigComponent,
+			componentProps: {
+				url: url
+			}
+		})
+		await modal.present();
+		const { data } = await modal.onDidDismiss();
+    console.log(url)
   }
 }

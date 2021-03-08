@@ -1,0 +1,19 @@
+<!--
+ * @Descripttion: 
+ * @version: 
+ * @Author: xcb
+ * @Date: 2021-03-08 14:57:20
+ * @LastEditors: xcb
+ * @LastEditTime: 2021-03-08 16:34:25
+-->
+<ion-toolbar color="primary">
+  
+  <ion-buttons slot="end">
+    <ion-button color="warning"  type="button" fill="outline" (click)='dissView()'  > 关闭</ion-button>
+
+  </ion-buttons>
+  
+</ion-toolbar>
+ <ion-content>
+  <img [src]="url" id='pdfImg' (click)="imgBig(pdfsrc)"/>
+  </ion-content>

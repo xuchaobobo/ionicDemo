@@ -70,6 +70,7 @@
     "ng2-pdf-viewer": "^6.3.0",
     "ngx-treeview": "^6.0.2",
     "ol": "^6.2.1",
+    "panzoom": "^9.4.1",
     "rxjs": "~6.5.1",
     "rxjs-compat": "^6.6.0",
     "silly-datetime": "^0.1.2",
