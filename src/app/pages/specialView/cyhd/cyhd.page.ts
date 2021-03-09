@@ -109,8 +109,10 @@ export class CyhdPage implements OnInit {
       }
     });
     this.allPdf= this.allData[this.selectedMsno]
-    var baseUrl=environment.baseUrl+'/file'
-    let newsrc=src.replace(/D:\\riverFile/g,baseUrl)
+    var baseUrl=environment.baseUrl+'/file/'
+
+    let newsrcArr=src.split(/riverFile/g)[1]
+    let newsrc=baseUrl+newsrcArr
     newsrc=newsrc.replace(/\\/g,'/')
 
     this.pdfsrc=newsrc
