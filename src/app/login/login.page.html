@@ -1,8 +1,8 @@
 <!--
  * @Author: your name
  * @Date: 2020-04-03 16:56:05
- * @LastEditTime: 2020-04-13 11:59:35
- * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2021-04-06 18:57:29
+ * @LastEditors: xcb
  * @Description: In User Settings Edit
  * @FilePath: \app\src\app\login\login.page.html
  -->
@@ -17,11 +17,12 @@
 
 	</div>
 	<div style="height: 18%;text-align: center; padding: 8px 0;">
-		<img src="assets/image/login.png" style="width: 40px;">
+		<!-- <img src="assets/image/login.png" style="width: 40px;"> -->
 		<div style="font-size: 20px;
 		color: rgb(37, 142, 218);;
 		line-height: 40px;
-		font-weight: 900;">长江水文泥沙信息管理分析系统</div>
+		margin-top:40px;
+		font-weight: 900;">水文泥沙信息系统</div>
 	</div>
 	<div style="height: 46%;box-sizing: border-box;padding: 0px 46px;">
 		<ion-item style='border: 1px solid rgb(37, 142, 218);margin:0 0 8px 0;'>
@@ -44,7 +45,9 @@
 			<a  color="primary" style="text-decoration: none" href="#">忘记密码</a>
 			
 		</ion-item> -->
-	
+		<div id="gvcode" style="height: 40px;line-height: 40px">
+
+		</div>
 		<div style="text-align: center;">
 			<ion-button expand="block" style="height: 40px;
 		font-size: 18px;" color="primary" (click)='logIn()'>
@@ -52,9 +55,7 @@
 			</ion-button>
 		</div>
 	
-		<ion-button color='light' [routerLink]="['/register']" expand="block">
-			创建账号
-	 	</ion-button>
+		
 	
 	
 	</div>

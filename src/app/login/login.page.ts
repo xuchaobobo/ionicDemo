@@ -1,8 +1,8 @@
 /*
  * @Author: your name
  * @Date: 2020-04-03 16:56:05
- * @LastEditTime: 2020-04-11 16:59:38
- * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2021-04-06 18:56:09
+ * @LastEditors: xcb
  * @Description: In User Settings Edit
  * @FilePath: \app\src\app\login\login.page.ts
  */
@@ -15,6 +15,8 @@ import { AutheticationService } from './../service/authetication.service';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import {Storage} from '@ionic/storage'
 import { BehaviorSubject } from 'rxjs'
+import {Md5} from "ts-md5/dist/md5";
+import gvcode from 'gvcode'
 const TOKEN_KEY = 'auth-token'
 
 @Component({
@@ -43,14 +45,20 @@ export class LoginPage  implements OnInit {
      var json={
         dep:this.dep,
         name:this.name,
-        password:this.password
+        password:Md5.hashStr(this.password).toString()
      }
+     console.log(json)
      this.httpService.login(json)
      
     
   }
   ngOnInit() {
     this.getDep()
+    const instance = gvcode({
+      id:'gvcode',
+      wdith: 100,
+      height: 30,
+  });
   //  this.getGps()
   }
   getDep(){

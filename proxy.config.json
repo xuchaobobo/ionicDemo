@@ -1,12 +1,12 @@
 {
     "/swns": {
-        "target": "http://219.140.196.73:5011/swns",
+        "target": "http://219.140.196.73:8082/swnsServiceManager",
         
         "secure": false,
         "logLevel": "debug",
         "changeOrigin": true,
         "pathRewrite": {
-            "^/swns": ""
+            "^/swnsServiceManager": ""
         }
     },
     "/geoserver": {
