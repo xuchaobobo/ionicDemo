@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-04-03 16:56:05
- * @LastEditTime: 2021-04-06 18:57:29
+ * @LastEditTime: 2021-04-07 11:39:12
  * @LastEditors: xcb
  * @Description: In User Settings Edit
  * @FilePath: \app\src\app\login\login.page.html
@@ -45,19 +45,19 @@
 			<a  color="primary" style="text-decoration: none" href="#">忘记密码</a>
 			
 		</ion-item> -->
-		<div id="gvcode" style="height: 40px;line-height: 40px">
-
-		</div>
+		
+		<div id="verificationCode" class="codeimg" style='margin: 8px 0;position: relative;'>
+			<ion-input type="text" style="height: 40px;line-height: 40px" [(ngModel)]='yzm' placeholder="验证码" style='border: 1px solid rgb(37, 142, 218);width: 60%;
+			display: inline-block;padding-left: 20px!important'></ion-input>
+			<canvas width="100" height="40" id="verifyCanvas"></canvas>
+			<img id="code_img">
+		  </div>​
 		<div style="text-align: center;">
 			<ion-button expand="block" style="height: 40px;
 		font-size: 18px;" color="primary" (click)='logIn()'>
 				登录
 			</ion-button>
 		</div>
-	
-		
-	
-	
 	</div>
 	<div style="height: 18%;background-color: rgb(37, 142, 218);">
 		<img src="assets/image/applog.gif" style="height: 100%;width: 100%;" alt="">

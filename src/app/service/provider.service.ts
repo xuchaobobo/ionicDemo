@@ -1,8 +1,8 @@
 /*
  * @Author: your name
  * @Date: 2020-04-06 11:02:38
- * @LastEditTime: 2020-05-18 14:27:18
- * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2021-04-07 15:14:55
+ * @LastEditors: xcb
  * @Description: In User Settings Edit
  * @FilePath: \app\src\app\service\provider.service.ts
  */
@@ -205,7 +205,7 @@ return key + '=' + encodeURIComponent(value === null ? '' : String(value));
     return this.get('swns/base/user/getResource.gaeaway',{},defaultOptions)
   }
   depData(){
-    return this.get("swns/base/user/selectDepNew.gaeaway")
+    return this.get("/swnsServiceManage/service/run.gaeaway?serviceId=56&keys=d35a2d20-dec3-4cef-99b2-d80c7fdedb16")
   }
   getAllAreas(id){
     var param={

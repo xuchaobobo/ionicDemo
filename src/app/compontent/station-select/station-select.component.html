@@ -1,8 +1,8 @@
 <!--
  * @Author: your name
  * @Date: 2020-04-08 13:36:06
- * @LastEditTime: 2020-04-21 21:56:13
- * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2021-04-07 11:14:15
+ * @LastEditors: xcb
  * @Description: In User Settings Edit
  * @FilePath: \app\src\app\compontent\station-select\station-select.component.html
  -->
@@ -56,7 +56,7 @@
               <ion-label   type="button" > {{item.name}}</ion-label>
               <ion-icon slot='end' name="caret-down-outline"></ion-icon>
           </ion-item-divider>
-            <ion-list *ngIf='item.children.length>0' >
+            <ion-list *ngIf='item.children.length>0&&item.show' >
               <ion-grid>
                 <ion-row>
                   <ion-col size=4 *ngFor='let select of item.children'>

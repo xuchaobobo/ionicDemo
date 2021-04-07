@@ -1,8 +1,8 @@
 /*
  * @Author: your name
  * @Date: 2020-04-08 13:36:06
- * @LastEditTime: 2020-05-06 14:40:09
- * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2021-04-07 11:09:06
+ * @LastEditors: xcb
  * @Description: In User Settings Edit
  * @FilePath: \app\src\app\compontent\station-select\station-select.component.ts
 //  */
@@ -130,48 +130,52 @@ export class StationSelectComponent implements OnInit {
 
   }
   riverSelect(river) {
-    let typeStr = _.toString(this.types).toLocaleUpperCase()
-    let param = Object()
-    if (river.name == '长江' || river.name == '金沙江') {
-      param.riverMod = this.fenqu
-    } else {
-      param.rivers = river.name
+
+    if (river.show && river.children.length == 0) {
+      let typeStr = _.toString(this.types).toLocaleUpperCase()
+      let param = Object()
+      if (river.name == '长江' || river.name == '金沙江') {
+        param.riverMod = this.fenqu
+      } else {
+        param.rivers = river.name
+      }
+      param.type = typeStr
+
+
+      let stnm = this.defaultStation
+      let arr = []
+      this.httpService.getStationByRiver(param).then(res => {
+        let data = JSON.parse(res)
+
+        data.forEach(function (iten) {
+
+
+          if (_.findIndex(stnm, { 'stcd': iten.stcd }) != -1) {
+            iten.flag = true
+            arr.push(iten)
+          } else {
+            iten.flag = false
+          }
+
+        })
+
+        this.stations = arr
+        this.riverList.forEach(function (item) {
+
+          if (item.name == river.name) {
+            item.children = data
+          }
+        })
+      })
     }
-    param.type = typeStr
-
-
-    let stnm = this.defaultStation
-    let arr = []
-    this.httpService.getStationByRiver(param).then(res => {
-      let data = JSON.parse(res)
-
-      data.forEach(function (iten) {
-
-
-        if (_.findIndex(stnm, { 'stcd': iten.stcd }) != -1) {
-          iten.flag = true
-          arr.push(iten)
-        } else {
-          iten.flag = false
-        }
-
-      })
-
-      this.stations = arr
-      this.riverList.forEach(function (item) {
-
-        if (item.name == river.name) {
-          item.children = data
-        }
-      })
-    })
+    river.show = !river.show
   }
   initRiverAndStation(data) {
     let arrRiver = []
     this.httpService.getAllRirver({ 'riverMod': data }).then(res => {
       let data = JSON.parse(res)
       _.forEach(data.name, function (item) {
-        arrRiver.push({ name: item, children: [] })
+        arrRiver.push({ name: item, children: [], show: true })
       })
       this.riverList = arrRiver
       this.riverSelect(arrRiver[0])
@@ -179,7 +183,7 @@ export class StationSelectComponent implements OnInit {
   }
   initdata() {
     let that = this
-    let id=AppConfig.userId
+    let id = AppConfig.userId
     this.httpService.getAllAreas(id).then(res => {
       res = JSON.parse(res)
       var areaArr = [];

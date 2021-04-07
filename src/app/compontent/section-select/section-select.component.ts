@@ -103,56 +103,59 @@ export class SectionSelectComponent implements OnInit {
     
   }
   riverSelect(river){
-    
-    let param=Object()
-    if (river.name == '长江' ||river.name == '金沙江') {
-      param.riverMod = this.fenqu
-    } else {
-      param.rivers = river.name
-    }
-    let url
-    // if(this.dataType=='1'){
-      url='swns/base/section/section.gaeaway'
-    // }else{
-    //   url='swns/base/section/msnos.gaeaway'
-    //   param.xsst='N'
-    // }
-   
-    let XSNM=this.defaultSection
-    
-    let arr=[]
-    this.httpService.getSectionByRiver(url,param).then(res=>{
-      let data=JSON.parse(res)
+    if(river.show&&river.children.length==0){
+      let param=Object()
+      if (river.name == '长江' ||river.name == '金沙江') {
+        param.riverMod = this.fenqu
+      } else {
+        param.rivers = river.name
+      }
+      let url
+      // if(this.dataType=='1'){
+        url='swns/base/section/section.gaeaway'
+      // }else{
+      //   url='swns/base/section/msnos.gaeaway'
+      //   param.xsst='N'
+      // }
      
-        data.forEach(function(iten){
-
-          
-          if(_.findIndex(XSNM,{'XSNM':iten.XSNM})!=-1){
-            iten.flag=true
-            arr.push(iten)
-          }else{
-            iten.flag=false
-          }
-       
-      })
+      let XSNM=this.defaultSection
       
-      this.sections=arr
-      this.allSection=data
-      this.riverList.forEach(function(item){
+      let arr=[]
+      this.httpService.getSectionByRiver(url,param).then(res=>{
+        let data=JSON.parse(res)
+       
+          data.forEach(function(iten){
+  
+            
+            if(_.findIndex(XSNM,{'XSNM':iten.XSNM})!=-1){
+              iten.flag=true
+              arr.push(iten)
+            }else{
+              iten.flag=false
+            }
+         
+        })
         
-        if(item.name==river.name){
-          item.children=data
+        this.sections=arr
+        this.allSection=data
+        this.riverList.forEach(function(item){
           
-        }
+          if(item.name==river.name){
+            item.children=data
+            
+          }
+        })
       })
-    })
+    }
+    river.show=!river.show
+    
   }
   initRiverAndStation(data){
     let arrRiver=[]
     this.httpService.getAllRirver({'riverMod':data}).then(res=>{
       let data=JSON.parse(res)
       _.forEach(data.name,function(item){
-        arrRiver.push({name:item,children:[]})
+        arrRiver.push({name:item,children:[],show:true})
       })
       this.riverList=arrRiver
       this.riverSelect(arrRiver[0])
